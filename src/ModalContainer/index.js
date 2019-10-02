@@ -18,9 +18,11 @@ class ModalContainer extends Component {
     const { isMounted } = this.state;
     const { isAnyOpen } = this.context;
     const baseClass = 'modal-container';
+    
+    const isOpen = isMounted && isAnyOpen();
 
     return (
-      <Wrapper id={baseClass} isAnyOpen={isMounted && isAnyOpen()} />
+      <Wrapper id={baseClass} isOpen={isOpen} />
     );
   }
 }
@@ -34,9 +36,9 @@ const Wrapper = styled.div`
 	bottom: 0;
 	left: 0;
   background: rgba(black, .75);
-  opacity: ${props => props.isAnyOpen ? '1' : '0'};
-  visibility: ${props => props.isAnyOpen ? 'visible' : 'hidden'};
-  z-index: ${props => props.isAnyOpen ? '39' : '-1'};
+  opacity: ${props => props.isOpen ? '1' : '0'};
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  z-index: ${props => props.isOpen ? '39' : '-1'};
   
   & > * {
     transition: 200ms ease;
@@ -45,8 +47,8 @@ const Wrapper = styled.div`
     height: 100%;
     left: 0;
     top: 0;
-    opacity: ${props => props.isAnyOpen ? '1' : '0'};
-    visibility: ${props => props.isAnyOpen ? 'visible' : 'hidden'};
+    opacity: ${props => props.isOpen ? '1' : '0'};
+    visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
   }
 `
 
