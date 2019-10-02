@@ -5,7 +5,6 @@ import ModalContext from './context';
 
 const canUseDom = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 
-
 class ModalProvider extends Component {
   modalContextMethods = {
     closeAllModals: () => {

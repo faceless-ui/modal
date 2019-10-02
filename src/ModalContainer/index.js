@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import ModalContext from '../ModalProvider/context';
 import styled from 'styled-components';
 
-import './index.scss';
-
 class ModalContainer extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +25,7 @@ class ModalContainer extends Component {
   }
 }
 
-Wrapper = styled.div`
+const Wrapper = styled.div`
   transform: translateZ(0);
 	transition: all 200ms ease;
 	visibility: hidden;

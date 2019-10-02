@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ModalContext from '../ModalProvider/context';
 
-class ModalToggler extends Component {
-  baseClass = 'modal-toggler';
+const baseClass = 'modal-toggler';
 
+class ModalToggler extends Component {
   constructor(props) {
     super(props);
     this.state = {
