@@ -12,7 +12,8 @@ module.exports = {
     ]
   },
   output: {
-    filename: '[name].js',
-    path: __dirname + '/dist'
+    filename: 'build.js',
+    path: __dirname + '/dist',
+    libraryTarget: 'commonjs2',
   }
 };
