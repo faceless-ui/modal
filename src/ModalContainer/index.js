@@ -20,6 +20,8 @@ class ModalContainer extends Component {
     const baseClass = 'modal-container';
     
     const isOpen = isMounted && isAnyOpen();
+    
+    console.log('isOpen');
 
     return (
       <Wrapper id={baseClass} isOpen={isOpen} />
