@@ -1,0 +1,15 @@
+{
+  "name": "react-modal",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:keen-studio/react-modal.git",
+  "author": "<jacobsfletch@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "qs": "^6.9.0",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "styled-components": "^5.0.0-beta.9"
+  }
+}
