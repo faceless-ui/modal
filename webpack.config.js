@@ -1,4 +1,5 @@
 module.exports = {
+  entry: __dirname + '/src',
   module: {
     rules: [
       {
@@ -9,5 +10,9 @@ module.exports = {
         }
       }
     ]
+  },
+  output: {
+    filename: '[name].js',
+    path: __dirname + '/dist'
   }
 };
