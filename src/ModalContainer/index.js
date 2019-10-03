@@ -36,7 +36,8 @@ const Wrapper = styled.div`
 	top: 0;
 	right: 0;
 	bottom: 0;
-	left: 0;
+  left: 0;
+  position: fixed;
   background: rgba(black, .75);
   opacity: ${props => props.isOpen ? '1' : '0'};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
