@@ -1,13 +1,12 @@
 module.exports = {
+  mode: "production",
   entry: __dirname + '/src',
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: "babel-loader"
-        }
+        exclude: /node_modules/,
+        loaders: ["babel-loader"],
       }
     ]
   },
