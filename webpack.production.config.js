@@ -1,6 +1,13 @@
+const path = require("path");
+
 module.exports = {
   mode: "production",
-  entry: __dirname + '/src',
+  entry: './src/index.js',
+  output: {
+    filename: 'build.bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    libraryTarget: 'commonjs2',
+  },
   module: {
     rules: [
       {
@@ -9,10 +16,5 @@ module.exports = {
         loaders: ["babel-loader"],
       }
     ]
-  },
-  output: {
-    filename: 'build.js',
-    path: __dirname + '/dist',
-    libraryTarget: 'commonjs2',
   }
 };
