@@ -17,28 +17,15 @@ class ModalToggler extends Component {
   }
 
   render() {
-    const { slug, children, className, wrapWithDiv, ariaLabel } = this.props;
+    const { slug, children, className, ariaLabel } = this.props;
     const { isMounted } = this.state;
     const { isSlugOpen, toggleModal } = this.context;
 
     const classes = [
-      this.baseClass,
-      isMounted && isSlugOpen(slug) && 'is-open',
+      baseClass,
+      isMounted && isSlugOpen(slug) && `${baseClass}--is-open`,
       className,
     ].filter(Boolean).join(' ');
-
-    if (wrapWithDiv) {
-      return (
-        <div
-          className={classes}
-          role="button"
-          tabIndex="0"
-          onClick={() => toggleModal(slug)}
-        >
-          {children}
-        </div>
-      );
-    }
 
     return (
       <button
@@ -57,7 +44,6 @@ ModalToggler.contextType = ModalContext;
 
 ModalToggler.defaultProps = {
   className: '',
-  wrapWithDiv: false,
   ariaLabel: '',
 };
 
@@ -70,7 +56,6 @@ ModalToggler.propTypes = {
       PropTypes.node,
     ),
   ]).isRequired,
-  wrapWithDiv: PropTypes.bool,
   ariaLabel: PropTypes.string,
 };
 

@@ -1,8 +1,18 @@
 import React from 'react';
 
+import { ModalProvider, ModalContainer, ModalToggler } from '../src';
+import DemoModal from './DemoModal';
+
 const App = () => {
   return (
-    <div>App</div>
+    <ModalProvider>
+      <h1>React Modal - Demo</h1>
+      <ModalToggler slug="demo">
+        <a>Click to open the modal</a>
+      </ModalToggler>
+      <DemoModal slug="demo" />
+      <ModalContainer />
+    </ModalProvider>
   )
 }
 

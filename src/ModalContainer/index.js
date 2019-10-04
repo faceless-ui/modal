@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ModalContext from '../ModalProvider/context';
 import styled from 'styled-components';
 
+const baseClass = 'modal-container';
+
 class ModalContainer extends Component {
   constructor(props) {
     super(props);
@@ -17,11 +19,8 @@ class ModalContainer extends Component {
   render() {
     const { isMounted } = this.state;
     const { isAnyOpen } = this.context;
-    const baseClass = 'modal-container';
-    
+
     const isOpen = isMounted && isAnyOpen();
-    
-    console.log('isOpen');
 
     return (
       <Wrapper id={baseClass} isOpen={isOpen} />
@@ -38,12 +37,13 @@ const Wrapper = styled.div`
 	bottom: 0;
   left: 0;
   position: fixed;
-  background: rgba(black, .75);
+  background-color: rgba(0, 0, 0, .75);
+  color: ${props => props.isOpen ? 'white' : 'unset'};
   opacity: ${props => props.isOpen ? '1' : '0'};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
   z-index: ${props => props.isOpen ? '39' : '-1'};
-  
-  & > * {
+
+  > * {
     transition: 200ms ease;
     position: absolute;
     width: 100%;
