@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'qs';
 import ModalContext from './context';
+import defaultClassPrefix from './defaultClassPrefix';
 
 const canUseDom = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 
@@ -86,10 +87,15 @@ class ModalProvider extends Component {
   };
 
   render() {
-    const { children } = this.props;
+    const {
+      children,
+      classPrefix
+    } = this.props;
+
     const modalContext = {
       ...this.modalContextMethods,
       ...this.state,
+      classPrefix: classPrefix || defaultClassPrefix,
     };
 
     return (
@@ -100,6 +106,10 @@ class ModalProvider extends Component {
   }
 }
 
+ModalProvider.defaultProps = {
+  classPrefix: ''
+}
+
 ModalProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
@@ -107,6 +117,7 @@ ModalProvider.propTypes = {
       PropTypes.node,
     ),
   ]).isRequired,
+  classPrefix: PropTypes.string,
 };
 
 export default ModalProvider;

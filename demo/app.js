@@ -1,11 +1,10 @@
 import React from 'react';
-
-import { ModalProvider, ModalContainer, ModalToggler } from '../src';
+import { ModalProvider, ModalContainer, ModalToggler } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
 import DemoModal from './DemoModal';
 
 const App = () => {
   return (
-    <ModalProvider>
+    <ModalProvider classPrefix="custom">
       <h1>React Modal - Demo</h1>
       <ModalToggler slug="demo">
         <a>Click to open the modal</a>

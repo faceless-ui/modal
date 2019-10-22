@@ -19,13 +19,22 @@ const asModal = (ModalComponent) => {
     render() {
       const { slug } = this.props;
       const { isMounted } = this.state;
-      const { isSlugOpen, closeAllModals } = this.context;
+      const {
+        isSlugOpen,
+        closeAllModals,
+        classPrefix
+      } = this.context;
+
       const isOpen = isSlugOpen(slug);
 
       if (isMounted) {
-        const modalContainer = document.getElementById('modal-container');
+        const modalContainer = document.getElementById(`${classPrefix}__modal-container`);
         return ReactDOM.createPortal(
-          <ModalComponent {...this.props} isOpen={isOpen} closeAllModals={closeAllModals} />,
+          <ModalComponent
+            {...this.props}
+            isOpen={isOpen}
+            closeAllModals={closeAllModals}
+          />,
           modalContainer,
         );
       }

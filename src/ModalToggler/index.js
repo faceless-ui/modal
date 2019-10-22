@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ModalContext from '../ModalProvider/context';
 
-const baseClass = 'modal-toggler';
-
 class ModalToggler extends Component {
   constructor(props) {
     super(props);
@@ -17,9 +15,22 @@ class ModalToggler extends Component {
   }
 
   render() {
-    const { slug, children, className, ariaLabel } = this.props;
+    const {
+      slug,
+      children,
+      className,
+      ariaLabel
+    } = this.props;
+
     const { isMounted } = this.state;
-    const { isSlugOpen, toggleModal } = this.context;
+
+    const {
+      isSlugOpen,
+      toggleModal,
+      classPrefix
+    } = this.context;
+
+    const baseClass = `${classPrefix}__modal-toggler`;
 
     const classes = [
       baseClass,
