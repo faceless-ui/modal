@@ -1,54 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import ModalContext from '../ModalProvider/context';
+import withModalContext from '../withModalContext';
 
 const asModal = (ModalComponent) => {
-  class ModalWrap extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        isMounted: false,
-      };
+  const ModalWrap = (props) => {
+    const {
+      slug,
+      currentModal,
+      closeAllModals,
+      classPrefix,
+      containerIsMounted,
+    } = props;
+
+    if (containerIsMounted) {
+      const modalContainer = document.getElementById(`${classPrefix}__modal-container`);
+
+      return ReactDOM.createPortal(
+        <ModalComponent
+          {...props}
+          isOpen={currentModal === slug}
+          closeAllModals={closeAllModals}
+        />,
+        modalContainer,
+      );
     }
-
-    componentDidMount() {
-      this.setState({ isMounted: true });
-    }
-
-    render() {
-      const { slug } = this.props;
-      const { isMounted } = this.state;
-      const {
-        isSlugOpen,
-        closeAllModals,
-        classPrefix
-      } = this.context;
-
-      const isOpen = isSlugOpen(slug);
-
-      if (isMounted) {
-        const modalContainer = document.getElementById(`${classPrefix}__modal-container`);
-        return ReactDOM.createPortal(
-          <ModalComponent
-            {...this.props}
-            isOpen={isOpen}
-            closeAllModals={closeAllModals}
-          />,
-          modalContainer,
-        );
-      }
-      return null;
-    }
-  }
-
-  ModalWrap.contextType = ModalContext;
-
-  ModalWrap.propTypes = {
-    slug: PropTypes.string.isRequired,
+    return null;
   };
 
-  return ModalWrap;
+  return withModalContext(ModalWrap);
 };
 
 export default asModal;

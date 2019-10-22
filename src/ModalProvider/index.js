@@ -4,98 +4,110 @@ import queryString from 'qs';
 import ModalContext from './context';
 import defaultClassPrefix from './defaultClassPrefix';
 
-const canUseDom = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-
 class ModalProvider extends Component {
-  modalContextMethods = {
-    closeAllModals: () => {
-      const { updateTicker } = this.state;
-      const query = queryString.parse(
-        window.location.search,
-        { ignoreQueryPrefix: true },
-      );
-      delete query.modal;
-      const searchString = queryString.stringify(
-        query,
-        { addQueryPrefix: true },
-      );
-      window.history.pushState({}, '', `${window.location.pathname}${searchString}`);
-      this.setState({ updateTicker: updateTicker + 1 });
-    },
-    openModal: (slug) => {
-      const { updateTicker } = this.state;
-      const query = queryString.parse(
-        window.location.search,
-        { ignoreQueryPrefix: true },
-      );
-      query.modal = slug;
-      const searchString = queryString.stringify(
-        query,
-        { addQueryPrefix: true },
-      );
-      window.history.pushState({}, '', `${window.location.pathname}${searchString}`);
-      this.setState({ updateTicker: updateTicker + 1 });
-    },
-    toggleModal: (slug) => {
-      if (this.modalContextMethods.isSlugOpen(slug)) {
-        this.modalContextMethods.closeAllModals();
-      } else {
-        this.modalContextMethods.openModal(slug);
-      }
-    },
-    isAnyOpen: () => {
-      if (canUseDom) {
-        const query = queryString.parse(
-          window.location.search,
-          { ignoreQueryPrefix: true },
-        );
-        return Boolean(query.modal);
-      }
-      return null;
-    },
-    isSlugOpen: (slug) => {
-      if (canUseDom) {
-        const query = queryString.parse(
-          window.location.search,
-          { ignoreQueryPrefix: true },
-        );
-        return query.modal === slug;
-      }
-      return null;
-    },
-  };
-
   constructor() {
     super();
     this.state = {
-      updateTicker: 0,
+      containerIsMounted: false,
+      currentModal: '',
+      oneIsOpen: false,
     };
   }
 
   componentDidMount() {
     document.addEventListener('keydown', e => this.bindEsc(e), false);
+    const currentModal = this.getModalParam();
+    this.setState({
+      currentModal,
+      oneIsOpen: Boolean(currentModal),
+    });
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', e => this.bindEsc(e), false);
   }
 
+  closeAllModals = () => {
+    const searchQuery = this.getSearchQuery();
+    delete searchQuery.modal;
+
+    const queryWithoutModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
+    window.history.pushState({}, '', `${window.location.pathname}${queryWithoutModal}`);
+
+    this.setState({
+      currentModal: '',
+      oneIsOpen: false,
+    });
+  }
+
+  openModal = (slug) => {
+    const searchQuery = this.getSearchQuery();
+    searchQuery.modal = slug;
+
+    const queryWithModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
+    window.history.pushState({}, '', `${window.location.pathname}${queryWithModal}`);
+
+    this.setState({
+      currentModal: slug,
+      oneIsOpen: true,
+    });
+  }
+
+  toggleModal = (slug) => {
+    const { currentModal } = this.state;
+    if (slug === currentModal) {
+      this.closeAllModals();
+    } else {
+      this.openModal(slug);
+    }
+  }
+
+  getModalParam = () => {
+    const searchQuery = this.getSearchQuery();
+    return searchQuery.modal || '';
+  }
+
+  getSearchQuery = () => {
+    const query = queryString.parse(
+      window.location.search,
+      { ignoreQueryPrefix: true },
+    );
+    return query;
+  }
+
+  setContainerStatus = (status) => {
+    this.setState({ containerIsMounted: status });
+  }
+
   bindEsc = (e) => {
     if (e.keyCode === 27) {
-      this.modalContextMethods.closeAllModals();
+      this.closeAllModals();
     }
   };
 
   render() {
     const {
       children,
-      classPrefix
+      classPrefix,
+      minifyCSS,
     } = this.props;
 
+    const {
+      containerIsMounted,
+      oneIsOpen,
+      currentModal,
+    } = this.state;
+
     const modalContext = {
-      ...this.modalContextMethods,
-      ...this.state,
+      containerIsMounted,
+      oneIsOpen,
+      currentModal,
+      closeAllModals: this.closeAllModals,
+      openModal: this.openModal,
+      toggleModal: this.toggleModal,
+      setContainerStatus: this.setContainerStatus,
       classPrefix: classPrefix || defaultClassPrefix,
+      minifyCSS,
     };
 
     return (
@@ -107,8 +119,9 @@ class ModalProvider extends Component {
 }
 
 ModalProvider.defaultProps = {
-  classPrefix: ''
-}
+  classPrefix: '',
+  minifyCSS: true,
+};
 
 ModalProvider.propTypes = {
   children: PropTypes.oneOfType([
@@ -118,6 +131,7 @@ ModalProvider.propTypes = {
     ),
   ]).isRequired,
   classPrefix: PropTypes.string,
+  minifyCSS: PropTypes.bool,
 };
 
 export default ModalProvider;

@@ -12,7 +12,7 @@ const App = () => {
       <DemoModal slug="demo" />
       <ModalContainer />
     </ModalProvider>
-  )
-}
+  );
+};
 
 export default App;

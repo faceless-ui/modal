@@ -10,7 +10,7 @@ This project leverages React's Context API as well as the browser's native histo
 
 ```javascript
   const MyModal = asModal(() => return <div>My Modal</div>);
-  
+
   <ModalProvider>
     <ModalToggler />
     <MyModal />
@@ -22,10 +22,11 @@ This project leverages React's Context API as well as the browser's native histo
 
 The source components in their raw form are found in the `src` directory. These are all batch exported from the top-level `index.js` so that they can be easily accessed via import.
 
-[Modal Provider](/src/ModalProvider/README.md)
-[Modal Container](/src/ModalContainer/README.md)
-[Modal ModalToggler](/src/ModalToggler/README.md)
-[Modal AsModal](/src/asModal/README.md)
+[asModal](/src/asModal/README.md)
+[ModalContainer](/src/ModalContainer/README.md)
+[ModalProvider](/src/ModalProvider/README.md)
+[ModalModalToggler](/src/ModalToggler/README.md)
+[withModalContext](/src/withModalContext/README.md)
 
 ## Environment
 

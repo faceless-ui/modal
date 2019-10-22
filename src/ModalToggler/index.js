@@ -1,57 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ModalContext from '../ModalProvider/context';
+import withModalContext from '../withModalContext';
 
-class ModalToggler extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMounted: false,
-    };
-  }
+const ModalToggler = (props) => {
+  const {
+    slug,
+    children,
+    className,
+    ariaLabel,
+    currentModal,
+    toggleModal,
+    classPrefix,
+  } = props;
 
-  componentDidMount() {
-    this.setState({ isMounted: true });
-  }
+  const baseClass = `${classPrefix}__modal-toggler`;
 
-  render() {
-    const {
-      slug,
-      children,
-      className,
-      ariaLabel
-    } = this.props;
+  const classes = [
+    baseClass,
+    currentModal === slug && `${baseClass}--is-open`,
+    className,
+  ].filter(Boolean).join(' ');
 
-    const { isMounted } = this.state;
-
-    const {
-      isSlugOpen,
-      toggleModal,
-      classPrefix
-    } = this.context;
-
-    const baseClass = `${classPrefix}__modal-toggler`;
-
-    const classes = [
-      baseClass,
-      isMounted && isSlugOpen(slug) && `${baseClass}--is-open`,
-      className,
-    ].filter(Boolean).join(' ');
-
-    return (
-      <button
-        className={classes}
-        type="button"
-        aria-label={ariaLabel}
-        onClick={() => toggleModal(slug)}
-      >
-        {children}
-      </button>
-    );
-  }
-}
-
-ModalToggler.contextType = ModalContext;
+  return (
+    <button
+      className={classes}
+      type="button"
+      aria-label={ariaLabel}
+      onClick={() => toggleModal(slug)}
+    >
+      {children}
+    </button>
+  );
+};
 
 ModalToggler.defaultProps = {
   className: '',
@@ -68,6 +48,9 @@ ModalToggler.propTypes = {
     ),
   ]).isRequired,
   ariaLabel: PropTypes.string,
+  currentModal: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  classPrefix: PropTypes.string.isRequired,
 };
 
-export default ModalToggler;
+export default withModalContext(ModalToggler);

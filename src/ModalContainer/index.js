@@ -1,61 +1,52 @@
 import React, { Fragment, Component } from 'react';
-import ModalContext from '../ModalProvider/context';
+import PropTypes from 'prop-types';
+import minifyCssString from 'minify-css-string';
+import withModalContext from '../withModalContext';
+import generateCSS from './css';
 
 class ModalContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMounted: false,
-    };
+  componentDidMount() {
+    const { setContainerStatus } = this.props;
+    setContainerStatus(true);
   }
 
-  componentDidMount() {
-    this.setState({ isMounted: true });
+  componentWillUnmount() {
+    const { setContainerStatus } = this.props;
+    setContainerStatus(false);
   }
 
   render() {
-    const { isMounted } = this.state;
-    const { isAnyOpen, classPrefix } = this.context;
+    const {
+      oneIsOpen,
+      classPrefix,
+      minifyCSS,
+    } = this.props;
 
-    const isOpen = isMounted && isAnyOpen();
-    const baseClass = `${classPrefix}__modal-container`
+    const baseClass = `${classPrefix}__modal-container`;
+    const classes = [
+      baseClass,
+      oneIsOpen && `${baseClass}--is-open`,
+    ].filter(Boolean).join(' ');
+
+    const cssString = generateCSS(baseClass);
 
     return (
       <Fragment>
-        <style dangerouslySetInnerHTML={{ __html: `
-          .${baseClass} {
-            transform: translateZ(0);
-            transition: all 200ms ease;
-            visibility: hidden;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            position: fixed;
-            background-color: rgba(0, 0, 0, .75);
-            color: ${isOpen ? 'white' : 'unset'};
-            opacity: ${isOpen ? '1' : '0'};
-            visibility: ${isOpen ? 'visible' : 'hidden'};
-            z-index: ${isOpen ? '39' : '-1'};
-
-            > * {
-              transition: 200ms ease;
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              left: 0;
-              top: 0;
-              opacity: ${isOpen ? '1' : '0'};
-              visibility: ${isOpen ? 'visible' : 'hidden'};
-            }
-          }
-        `}} />
-        <div id={baseClass} />
+        <style dangerouslySetInnerHTML={{ __html: minifyCSS ? minifyCssString(cssString) : cssString }} />
+        <div
+          id={baseClass}
+          className={classes}
+        />
       </Fragment>
     );
   }
 }
 
-ModalContainer.contextType = ModalContext;
+ModalContainer.propTypes = {
+  oneIsOpen: PropTypes.bool.isRequired,
+  classPrefix: PropTypes.string.isRequired,
+  minifyCSS: PropTypes.bool.isRequired,
+  setContainerStatus: PropTypes.func.isRequired,
+};
 
-export default ModalContainer;
+export default withModalContext(ModalContainer);
