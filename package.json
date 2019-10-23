@@ -12,9 +12,10 @@
   "dependencies": {
     "minify-css-string": "^1.0.0",
     "prop-types": "^15.7.2",
+    "qs": "^6.9.0",
     "react": "^16.10.1",
     "react-dom": "npm:@hot-loader/react-dom",
-    "qs": "^6.9.0"
+    "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

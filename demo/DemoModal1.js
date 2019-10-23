@@ -11,7 +11,7 @@ const DemoModal = (props) => {
   } = props;
 
   return (
-    <div>
+    <div style={{ background: 'rgba(0, 0, 0, .75)', color: 'white' }}>
       <h2>Demo Modal 1</h2>
       <span>
         <ModalToggler slug="demo1">

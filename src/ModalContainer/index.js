@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import withModalContext from '../withModalContext';
 import containerBaseClass from './baseClass';
+import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
 
 class ModalContainer extends Component {
   componentDidMount() {
@@ -20,21 +22,28 @@ class ModalContainer extends Component {
       modal: {
         oneIsOpen,
         classPrefix,
+        transTime,
       },
     } = this.props;
 
     const baseClass = `${classPrefix}__${containerBaseClass}`;
     const classes = [
       baseClass,
-      oneIsOpen && `${baseClass}--one-is-open`,
       className,
     ].filter(Boolean).join(' ');
 
     return (
-      <div
-        id={baseClass}
-        className={classes}
-      />
+      <CSSTransition
+        in={oneIsOpen}
+        timeout={transTime}
+        classNames={generateTransitionClasses(baseClass)}
+        appear
+      >
+        <div
+          id={baseClass}
+          className={classes}
+        />
+      </CSSTransition>
     );
   }
 }
@@ -49,6 +58,7 @@ ModalContainer.propTypes = {
     oneIsOpen: PropTypes.bool,
     classPrefix: PropTypes.string,
     setContainerStatus: PropTypes.func,
+    transTime: PropTypes.number,
   }).isRequired,
 };
 

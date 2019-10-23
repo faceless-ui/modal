@@ -100,6 +100,7 @@ class ModalProvider extends Component {
       classPrefix,
       minifyCSS,
       zIndex,
+      transTime,
     } = this.props;
 
     const {
@@ -117,6 +118,7 @@ class ModalProvider extends Component {
         toggle: this.toggle,
         setContainerStatus: this.setContainerStatus,
         classPrefix: classPrefix || defaultClassPrefix,
+        transTime,
       },
     };
 
@@ -137,6 +139,7 @@ ModalProvider.defaultProps = {
   classPrefix: '',
   minifyCSS: true,
   zIndex: 9999,
+  transTime: 1000,
 };
 
 ModalProvider.propTypes = {
@@ -149,6 +152,7 @@ ModalProvider.propTypes = {
   classPrefix: PropTypes.string,
   minifyCSS: PropTypes.bool,
   zIndex: PropTypes.number,
+  transTime: PropTypes.number,
 };
 
 export default ModalProvider;
