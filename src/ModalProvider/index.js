@@ -26,7 +26,7 @@ class ModalProvider extends Component {
     document.removeEventListener('keydown', e => this.bindEsc(e), false);
   }
 
-  closeAllModals = () => {
+  closeAll = () => {
     const searchQuery = this.getSearchQuery();
     delete searchQuery.modal;
 
@@ -39,25 +39,27 @@ class ModalProvider extends Component {
     });
   }
 
-  openModal = (slug) => {
-    const searchQuery = this.getSearchQuery();
-    searchQuery.modal = slug;
+  open = (slug) => {
+    if (slug) {
+      const searchQuery = this.getSearchQuery();
+      searchQuery.modal = slug;
 
-    const queryWithModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
-    window.history.pushState({}, '', `${window.location.pathname}${queryWithModal}`);
+      const queryWithModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
+      window.history.pushState({}, '', `${window.location.pathname}${queryWithModal}`);
 
-    this.setState({
-      currentModal: slug,
-      oneIsOpen: true,
-    });
+      this.setState({
+        currentModal: slug,
+        oneIsOpen: true,
+      });
+    }
   }
 
-  toggleModal = (slug) => {
+  toggle = (slug) => {
     const { currentModal } = this.state;
     if (slug === currentModal) {
-      this.closeAllModals();
+      this.closeAll();
     } else {
-      this.openModal(slug);
+      this.open(slug);
     }
   }
 
@@ -80,7 +82,7 @@ class ModalProvider extends Component {
 
   bindEsc = (e) => {
     if (e.keyCode === 27) {
-      this.closeAllModals();
+      this.closeAll();
     }
   };
 
@@ -109,14 +111,15 @@ class ModalProvider extends Component {
     } = this.state;
 
     const modalContext = {
-      containerIsMounted,
-      oneIsOpen,
-      currentModal,
-      closeAllModals: this.closeAllModals,
-      openModal: this.openModal,
-      toggleModal: this.toggleModal,
-      setContainerStatus: this.setContainerStatus,
-      classPrefix: classPrefix || defaultClassPrefix,
+      modal: {
+        containerIsMounted,
+        oneIsOpen,
+        currentModal,
+        closeAll: this.closeAll,
+        toggle: this.toggle,
+        setContainerStatus: this.setContainerStatus,
+        classPrefix: classPrefix || defaultClassPrefix,
+      },
     };
 
     const cssString = generateCSS(

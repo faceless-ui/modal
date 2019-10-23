@@ -8,9 +8,11 @@ const ModalToggler = (props) => {
     children,
     className,
     ariaLabel,
-    currentModal,
-    toggleModal,
-    classPrefix,
+    modal: {
+      currentModal,
+      toggle,
+      classPrefix,
+    },
   } = props;
 
   const baseClass = `${classPrefix}__modal-toggler`;
@@ -26,7 +28,7 @@ const ModalToggler = (props) => {
       className={classes}
       type="button"
       aria-label={ariaLabel}
-      onClick={() => toggleModal(slug)}
+      onClick={() => toggle(slug)}
     >
       {children}
     </button>
@@ -48,9 +50,11 @@ ModalToggler.propTypes = {
     ),
   ]).isRequired,
   ariaLabel: PropTypes.string,
-  currentModal: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
-  classPrefix: PropTypes.string.isRequired,
+  modal: PropTypes.shape({
+    currentModal: PropTypes.string,
+    toggle: PropTypes.func,
+    classPrefix: PropTypes.string,
+  }).isRequired,
 };
 
 export default withModalContext(ModalToggler);

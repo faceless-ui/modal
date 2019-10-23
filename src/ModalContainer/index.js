@@ -5,20 +5,22 @@ import containerBaseClass from './baseClass';
 
 class ModalContainer extends Component {
   componentDidMount() {
-    const { setContainerStatus } = this.props;
+    const { modal: { setContainerStatus } } = this.props;
     setContainerStatus(true);
   }
 
   componentWillUnmount() {
-    const { setContainerStatus } = this.props;
+    const { modal: { setContainerStatus } } = this.props;
     setContainerStatus(false);
   }
 
   render() {
     const {
-      oneIsOpen,
-      classPrefix,
       className,
+      modal: {
+        oneIsOpen,
+        classPrefix,
+      },
     } = this.props;
 
     const baseClass = `${classPrefix}__${containerBaseClass}`;
@@ -43,9 +45,11 @@ ModalContainer.defaultProps = {
 
 ModalContainer.propTypes = {
   className: PropTypes.string,
-  oneIsOpen: PropTypes.bool.isRequired,
-  classPrefix: PropTypes.string.isRequired,
-  setContainerStatus: PropTypes.func.isRequired,
+  modal: PropTypes.shape({
+    oneIsOpen: PropTypes.bool,
+    classPrefix: PropTypes.string,
+    setContainerStatus: PropTypes.func,
+  }).isRequired,
 };
 
 export default withModalContext(ModalContainer);

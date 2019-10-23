@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { asModal, ModalToggler } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
 
 const DemoModal = (props) => {
-  const { toggleModal, closeAllModals } = props;
+  const {
+    modal: {
+      toggle,
+      closeAll,
+    },
+  } = props;
 
   return (
     <div>
@@ -15,11 +20,11 @@ const DemoModal = (props) => {
 
         <p>
           <button
-            onClick={() => toggleModal('demo1')}
+            onClick={() => toggle('demo1')}
             type="button"
           >
             <a>
-              Click here to close with the toggleModal method
+              Click here to close with the toggle method
             </a>
           </button>
         </p>
@@ -27,11 +32,11 @@ const DemoModal = (props) => {
         <p>
           or even this:
           <button
-            onClick={() => closeAllModals()}
+            onClick={() => closeAll()}
             type="button"
           >
             <a>
-            Click here to close with the closeAllModals method
+            Click here to close with the closeAll method
             </a>
           </button>
         </p>
@@ -49,8 +54,10 @@ const DemoModal = (props) => {
 };
 
 DemoModal.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
-  closeAllModals: PropTypes.func.isRequired,
+  modal: PropTypes.shape({
+    toggle: PropTypes.func,
+    closeAll: PropTypes.func,
+  }).isRequired,
 };
 
 export default asModal(DemoModal);

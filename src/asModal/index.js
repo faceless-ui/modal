@@ -4,14 +4,15 @@ import withModalContext from '../withModalContext';
 import containerBaseClass from '../ModalContainer/baseClass';
 import itemBaseClass from './baseClass';
 
-const asModal = (ModalComponent) => {
+const asModal = (ModalComponent, slug) => {
   const ModalWrap = (props) => {
     const {
-      slug,
-      currentModal,
-      closeAllModals,
-      classPrefix,
-      containerIsMounted,
+      modal: {
+        currentModal,
+        closeAll,
+        classPrefix,
+        containerIsMounted,
+      },
     } = props;
 
     if (containerIsMounted) {
@@ -19,11 +20,11 @@ const asModal = (ModalComponent) => {
       const baseName = `${classPrefix}__${itemBaseClass}`;
 
       return ReactDOM.createPortal(
-        <div className={currentModal === slug ? `${baseName}--is-open` : baseName}>
+        <div className={currentModal === slug ? `${baseName} ${baseName}--is-open` : baseName}>
           <ModalComponent
             {...props}
             isOpen={currentModal === slug}
-            closeAllModals={closeAllModals}
+            closeAll={closeAll}
           />
         </div>,
         modalContainer,
