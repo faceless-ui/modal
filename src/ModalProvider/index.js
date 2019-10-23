@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'qs';
+import minifyCssString from 'minify-css-string';
 import ModalContext from './context';
 import defaultClassPrefix from './defaultClassPrefix';
+import generateCSS from './css';
 
 class ModalProvider extends Component {
   constructor() {
@@ -115,16 +117,22 @@ class ModalProvider extends Component {
       toggleModal: this.toggleModal,
       setContainerStatus: this.setContainerStatus,
       classPrefix: classPrefix || defaultClassPrefix,
-      minifyCSS,
+    };
+
+    const cssString = generateCSS(
+      classPrefix,
       transTime,
       transCurve,
       backgroundColor,
-    };
+    );
 
     return (
-      <ModalContext.Provider value={modalContext}>
-        {children}
-      </ModalContext.Provider>
+      <Fragment>
+        <style dangerouslySetInnerHTML={{ __html: minifyCSS ? minifyCssString(cssString) : cssString }} />
+        <ModalContext.Provider value={modalContext}>
+          {children}
+        </ModalContext.Provider>
+      </Fragment>
     );
   }
 }

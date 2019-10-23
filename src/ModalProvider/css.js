@@ -1,5 +1,8 @@
-const generateCSS = (baseClass, classPrefix, transTime, transCurve, backgroundColor) => (`
-  .${baseClass} {
+import containerBaseClass from '../ModalContainer/baseClass';
+import itemBaseClass from '../asModal/baseClass';
+
+const generateCSS = (classPrefix, transTime, transCurve, backgroundColor) => (`
+  .${classPrefix}__${containerBaseClass} {
     transform: translateZ(0);
     transition: all ${transTime}ms ${transCurve};
     visibility: hidden;
@@ -14,13 +17,13 @@ const generateCSS = (baseClass, classPrefix, transTime, transCurve, backgroundCo
     z-index: -1;
   }
 
-  .${baseClass}--one-is-open {
+  .${classPrefix}__${containerBaseClass}--one-is-open {
     opacity: 1;
     visibility: visible;
     z-index: 39;
   }
 
-  .${classPrefix}__modal-item {
+  .${classPrefix}__${itemBaseClass} {
     transition: all ${transTime}ms ${transCurve};
     position: absolute;
     width: 100%;
@@ -31,7 +34,7 @@ const generateCSS = (baseClass, classPrefix, transTime, transCurve, backgroundCo
     visibility: hidden;
   }
 
-  .${classPrefix}__modal-item--is-open {
+  .${classPrefix}__${itemBaseClass}--is-open {
     opacity: 1;
     visibility: visible;
   }

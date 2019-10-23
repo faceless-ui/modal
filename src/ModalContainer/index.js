@@ -1,8 +1,7 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import minifyCssString from 'minify-css-string';
 import withModalContext from '../withModalContext';
-import generateCSS from './css';
+import containerBaseClass from './baseClass';
 
 class ModalContainer extends Component {
   componentDidMount() {
@@ -19,36 +18,21 @@ class ModalContainer extends Component {
     const {
       oneIsOpen,
       classPrefix,
-      minifyCSS,
       className,
-      transTime,
-      transCurve,
-      backgroundColor,
     } = this.props;
 
-    const baseClass = `${classPrefix}__modal-container`;
+    const baseClass = `${classPrefix}__${containerBaseClass}`;
     const classes = [
       baseClass,
       oneIsOpen && `${baseClass}--one-is-open`,
       className,
     ].filter(Boolean).join(' ');
 
-    const cssString = generateCSS(
-      baseClass,
-      classPrefix,
-      transTime,
-      transCurve,
-      backgroundColor,
-    );
-
     return (
-      <Fragment>
-        <style dangerouslySetInnerHTML={{ __html: minifyCSS ? minifyCssString(cssString) : cssString }} />
-        <div
-          id={baseClass}
-          className={classes}
-        />
-      </Fragment>
+      <div
+        id={baseClass}
+        className={classes}
+      />
     );
   }
 }
@@ -61,11 +45,7 @@ ModalContainer.propTypes = {
   className: PropTypes.string,
   oneIsOpen: PropTypes.bool.isRequired,
   classPrefix: PropTypes.string.isRequired,
-  minifyCSS: PropTypes.bool.isRequired,
   setContainerStatus: PropTypes.func.isRequired,
-  transTime: PropTypes.number.isRequired,
-  transCurve: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
 };
 
 export default withModalContext(ModalContainer);

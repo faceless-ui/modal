@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import withModalContext from '../withModalContext';
+import containerBaseClass from '../ModalContainer/baseClass';
+import itemBaseClass from './baseClass';
 
 const asModal = (ModalComponent) => {
   const ModalWrap = (props) => {
@@ -13,8 +15,8 @@ const asModal = (ModalComponent) => {
     } = props;
 
     if (containerIsMounted) {
-      const modalContainer = document.getElementById(`${classPrefix}__modal-container`);
-      const baseName = `${classPrefix}__modal-item`;
+      const modalContainer = document.getElementById(`${classPrefix}__${containerBaseClass}`);
+      const baseName = `${classPrefix}__${itemBaseClass}`;
 
       return ReactDOM.createPortal(
         <div className={currentModal === slug ? `${baseName}--is-open` : baseName}>
