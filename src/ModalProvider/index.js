@@ -16,11 +16,8 @@ class ModalProvider extends Component {
 
   componentDidMount() {
     document.addEventListener('keydown', e => this.bindEsc(e), false);
-    const currentModal = this.getModalParam();
-    this.setState({
-      currentModal,
-      oneIsOpen: Boolean(currentModal),
-    });
+    window.addEventListener('popstate', () => this.resetInternalState());
+    this.resetInternalState();
   }
 
   componentWillUnmount() {
@@ -85,11 +82,22 @@ class ModalProvider extends Component {
     }
   };
 
+  resetInternalState = () => {
+    const currentModal = this.getModalParam();
+    this.setState({
+      currentModal,
+      oneIsOpen: Boolean(currentModal),
+    });
+  }
+
   render() {
     const {
       children,
       classPrefix,
       minifyCSS,
+      transTime,
+      transCurve,
+      backgroundColor,
     } = this.props;
 
     const {
@@ -108,6 +116,9 @@ class ModalProvider extends Component {
       setContainerStatus: this.setContainerStatus,
       classPrefix: classPrefix || defaultClassPrefix,
       minifyCSS,
+      transTime,
+      transCurve,
+      backgroundColor,
     };
 
     return (
@@ -119,11 +130,16 @@ class ModalProvider extends Component {
 }
 
 ModalProvider.defaultProps = {
+  transTime: 200,
+  transCurve: 'linear',
   classPrefix: '',
   minifyCSS: true,
+  backgroundColor: 'rgba(0, 0, 0, .75)',
 };
 
 ModalProvider.propTypes = {
+  transTime: PropTypes.number,
+  transCurve: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(
@@ -132,6 +148,7 @@ ModalProvider.propTypes = {
   ]).isRequired,
   classPrefix: PropTypes.string,
   minifyCSS: PropTypes.bool,
+  backgroundColor: PropTypes.string,
 };
 
 export default ModalProvider;

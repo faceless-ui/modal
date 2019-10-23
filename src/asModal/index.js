@@ -14,13 +14,16 @@ const asModal = (ModalComponent) => {
 
     if (containerIsMounted) {
       const modalContainer = document.getElementById(`${classPrefix}__modal-container`);
+      const baseName = `${classPrefix}__modal-item`;
 
       return ReactDOM.createPortal(
-        <ModalComponent
-          {...props}
-          isOpen={currentModal === slug}
-          closeAllModals={closeAllModals}
-        />,
+        <div className={currentModal === slug ? `${baseName}--is-open` : baseName}>
+          <ModalComponent
+            {...props}
+            isOpen={currentModal === slug}
+            closeAllModals={closeAllModals}
+          />
+        </div>,
         modalContainer,
       );
     }

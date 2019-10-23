@@ -1,7 +1,7 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  mode: "production",
+  mode: 'production',
   entry: './src/index.js',
   output: {
     filename: 'build.bundle.js',
@@ -13,8 +13,8 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loaders: ["babel-loader"],
-      }
-    ]
-  }
+        loaders: ['babel-loader'],
+      },
+    ],
+  },
 };

@@ -20,15 +20,26 @@ class ModalContainer extends Component {
       oneIsOpen,
       classPrefix,
       minifyCSS,
+      className,
+      transTime,
+      transCurve,
+      backgroundColor,
     } = this.props;
 
     const baseClass = `${classPrefix}__modal-container`;
     const classes = [
       baseClass,
-      oneIsOpen && `${baseClass}--is-open`,
+      oneIsOpen && `${baseClass}--one-is-open`,
+      className,
     ].filter(Boolean).join(' ');
 
-    const cssString = generateCSS(baseClass);
+    const cssString = generateCSS(
+      baseClass,
+      classPrefix,
+      transTime,
+      transCurve,
+      backgroundColor,
+    );
 
     return (
       <Fragment>
@@ -42,11 +53,19 @@ class ModalContainer extends Component {
   }
 }
 
+ModalContainer.defaultProps = {
+  className: '',
+};
+
 ModalContainer.propTypes = {
+  className: PropTypes.string,
   oneIsOpen: PropTypes.bool.isRequired,
   classPrefix: PropTypes.string.isRequired,
   minifyCSS: PropTypes.bool.isRequired,
   setContainerStatus: PropTypes.func.isRequired,
+  transTime: PropTypes.number.isRequired,
+  transCurve: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string.isRequired,
 };
 
 export default withModalContext(ModalContainer);
