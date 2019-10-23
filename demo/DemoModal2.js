@@ -18,4 +18,4 @@ const DemoModal = () => {
   );
 };
 
-export default asModal(DemoModal);
+export default asModal(DemoModal, 'demo2');

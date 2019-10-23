@@ -20,13 +20,13 @@ const App = () => {
       >
         <a>Click to open demo 1</a>
       </ModalToggler>
-      <DemoModal1 slug="demo1" />
+      <DemoModal1 />
 
       <h2>Demo 2</h2>
       <ModalToggler slug="demo2">
         <a>Click to open demo 2</a>
       </ModalToggler>
-      <DemoModal2 slug="demo2" />
+      <DemoModal2 />
 
       <ModalContainer className="hijklmnop" />
     </ModalProvider>

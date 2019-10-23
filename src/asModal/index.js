@@ -18,7 +18,7 @@ const asModal = (ModalComponent, slug) => {
     if (containerIsMounted) {
       const modalContainer = document.getElementById(`${classPrefix}__${containerBaseClass}`);
       const baseName = `${classPrefix}__${itemBaseClass}`;
-
+      console.log(currentModal, slug);
       return ReactDOM.createPortal(
         <div className={currentModal === slug ? `${baseName} ${baseName}--is-open` : baseName}>
           <ModalComponent

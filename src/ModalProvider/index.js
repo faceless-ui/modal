@@ -99,9 +99,7 @@ class ModalProvider extends Component {
       children,
       classPrefix,
       minifyCSS,
-      transTime,
-      transCurve,
-      backgroundColor,
+      zIndex,
     } = this.props;
 
     const {
@@ -122,12 +120,7 @@ class ModalProvider extends Component {
       },
     };
 
-    const cssString = generateCSS(
-      classPrefix,
-      transTime,
-      transCurve,
-      backgroundColor,
-    );
+    const cssString = generateCSS(classPrefix, zIndex);
 
     return (
       <Fragment>
@@ -141,16 +134,12 @@ class ModalProvider extends Component {
 }
 
 ModalProvider.defaultProps = {
-  transTime: 200,
-  transCurve: 'linear',
   classPrefix: '',
   minifyCSS: true,
-  backgroundColor: 'rgba(0, 0, 0, .75)',
+  zIndex: 9999,
 };
 
 ModalProvider.propTypes = {
-  transTime: PropTypes.number,
-  transCurve: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(
@@ -159,7 +148,7 @@ ModalProvider.propTypes = {
   ]).isRequired,
   classPrefix: PropTypes.string,
   minifyCSS: PropTypes.bool,
-  backgroundColor: PropTypes.string,
+  zIndex: PropTypes.number,
 };
 
 export default ModalProvider;

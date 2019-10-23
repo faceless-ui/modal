@@ -60,4 +60,4 @@ DemoModal.propTypes = {
   }).isRequired,
 };
 
-export default asModal(DemoModal);
+export default asModal(DemoModal, 'demo1');
