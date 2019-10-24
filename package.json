@@ -2,7 +2,7 @@
   "name": "react-modal",
   "version": "1.0.0",
   "main": "dist/build.bundle.js",
-  "repository": "git@github.com:keen-studio/react-modal.git",
+  "repository": "git@github.com:trbldesign/react-modal.git",
   "author": "<jacobsfletch@gmail.com>",
   "license": "MIT",
   "scripts": {
