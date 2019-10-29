@@ -19,7 +19,8 @@ const ModalToggler = (props) => {
 
   const classes = [
     baseClass,
-    currentModal === slug && `${baseClass}--is-open`,
+    `${baseClass}--slug-${slug}`,
+    currentModal === slug && `${baseClass}--slug-${slug}--is-open`,
     className,
   ].filter(Boolean).join(' ');
 
