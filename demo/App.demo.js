@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { ModalProvider, ModalContainer, ModalToggler } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
-import DemoModal1 from './DemoModal1';
-import DemoModal2 from './DemoModal2';
+import ModalDemo1 from './Modal1.demo';
+import ModalDemo2 from './Modal2.demo';
 
 const App = () => {
   return (
@@ -9,7 +9,7 @@ const App = () => {
       <style
         dangerouslySetInnerHTML={{ __html: `
           .customClassPrefix__modal-item {
-            transition: all 2000ms cubic-bezier(0, 0, 0.2, 1);
+            transition: all 250ms cubic-bezier(0, 0, 0.2, 1);
             opacity: 0;
           }
 
@@ -21,24 +21,22 @@ const App = () => {
       />
       <ModalProvider
         classPrefix="customClassPrefix"
-        transTime={2000}
+        transTime={250}
       >
         <h1>React Modal</h1>
 
-        <h2>Demo 1</h2>
         <ModalToggler
           slug="demo1"
           className="customAdditionalClass"
         >
           <a>Click to open demo 1</a>
         </ModalToggler>
-        <DemoModal1 />
+        <ModalDemo1 />
 
-        <h2>Demo 2</h2>
         <ModalToggler slug="demo2">
           <a>Click to open demo 2</a>
         </ModalToggler>
-        <DemoModal2 />
+        <ModalDemo2 />
 
         <ModalContainer className="customAdditionalClass" />
       </ModalProvider>

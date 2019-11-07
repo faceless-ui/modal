@@ -1,10 +1,19 @@
-# React Modal ![Beta](https://img.shields.io/badge/release-alpha-ff4553)
+[![NPM](https://img.shields.io/npm/v/@trbl/react-modal)](https://www.npmjs.com/@trbl/react-modal)
+[![Supported by TRBL](https://img.shields.io/badge/supported_by-TRBL-black)](https://github.com/trbldesign)
 
-## Abstract
+# React Modal
 
-This project leverages React's Context API as well as the browser's native history state in a way that allows for an elegantly abstracted, highly performant modal experience for the both the developer and end-user.
+An elegantly abstracted, highly performant modal experience for both the developer and end-user.
 
-## Component Composition
+## Quick Start
+
+### Installation
+
+```bash
+$ yarn add @trbl/react-modal
+```
+
+### Compositon
 
 ```jsx
   const MyModal = asModal(() => return <div>My Modal</div>, 'demo-modal');
@@ -22,9 +31,19 @@ This project leverages React's Context API as well as the browser's native histo
   <ModalProvider>
 ```
 
-## Component Documentation
+## Demo
 
-The source components in their raw form are found in the `src` directory. These are all batch exported from the top-level `index.js` so that they can be easily accessed via import.
+To demo locally, clone the repo and
+
+```bash
+$ yarn install
+$ npm run dev
+$ open http://localhost:3000
+```
+
+## Documentation
+
+All available props can be found via the references below:
 
   - [asModal](/src/asModal/README.md)
   - [ModalContainer](/src/ModalContainer/README.md)
@@ -32,20 +51,6 @@ The source components in their raw form are found in the `src` directory. These 
   - [ModalModalToggler](/src/ModalToggler/README.md)
   - [withModalContext](/src/withModalContext/README.md)
 
-## Environment
+## License
 
-### Distribution
-
-The entrypoint for the production bundle is `/dist/build.bundle.js`, as defined in `package.json`. Importing this project will return that bundle.
-
-### Compilation and Transpilation
-
-Generating this production bundle is defined in `webpack.production.config.js`, one of two custom webpack configurations defined at the top of this repo. It simply processes all of the `.js` files within the `src` directory through the `babel-loader` transpiler and into the `dist` directory.
-
-  - tldr: `npm run build`
-
-### Development
-
-The other webpack configuration is `webpack.development.config.js` which does a few things differently -- compilation happens from the `demo` directory as opposed to the `src` directory. It then will spin up `webpack-dev-server`, which serves a compiled and transpiled build _in memory_, with hot-reloading enabled.
-
-  - tldr: `npm run dev`
+[MIT](https://github.com/trbldesign/react-modal/blob/master/LICENSE) Copyright (c) TRBL, LLC
