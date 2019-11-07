@@ -119,6 +119,7 @@ class ModalProvider extends Component {
         setContainerStatus: this.setContainerStatus,
         classPrefix: classPrefix || defaultClassPrefix,
         transTime,
+        manuallyRerender: this.resetInternalState,
       },
     };
 
