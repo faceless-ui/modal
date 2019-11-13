@@ -4,7 +4,7 @@
 
 # React Modal
 
-An elegantly abstracted, highly performant modal experience for both the developer and end-user.
+Modalayheehoo!
 
 ## Quick Start
 
@@ -17,19 +17,24 @@ $ yarn add @trbl/react-modal
 ### Compositon
 
 ```jsx
+  import React from 'react';
+  import { asModal, ModalContainer, ModalProvider, ModalToggler } from '@trbl/react-modal';
+
   const MyModal = asModal(() => return <div>My Modal</div>, 'demo-modal');
 
-  <ModalProvider
-    classPrefix="demo"
-    transTime={2000}
-    zindex={999}
-  >
-    <ModalToggler slug="demo-modal">
-      ...
-    </ModalToggler>
-    <MyModal />
-    <ModalContainer />
-  <ModalProvider>
+  const App = () => {
+    return (
+      <ModalProvider>
+        <ModalToggler slug="demo-modal">
+          ...
+        </ModalToggler>
+        <MyModal />
+        <ModalContainer />
+      <ModalProvider>
+    )
+  }
+
+  export default App;
 ```
 
 ## Demo

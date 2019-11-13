@@ -8,23 +8,21 @@ const App = () => {
     <Fragment>
       <style
         dangerouslySetInnerHTML={{ __html: `
-          .customClassPrefix__modal-item {
+          .demo__modal-item {
             transition: all 250ms cubic-bezier(0, 0, 0.2, 1);
             opacity: 0;
           }
 
-          .customClassPrefix__modal-item--will-open,
-          .customClassPrefix__modal-item--is-open {
+          .demo__modal-item--will-open,
+          .demo__modal-item--is-open {
             opacity: 1;
           }
         ` }}
       />
       <ModalProvider
-        classPrefix="customClassPrefix"
+        classPrefix="demo"
         transTime={250}
       >
-        <h1>React Modal</h1>
-
         <ModalToggler
           slug="demo1"
           className="customAdditionalClass"
@@ -40,7 +38,6 @@ const App = () => {
 
         <ModalContainer className="customAdditionalClass" />
       </ModalProvider>
-
     </Fragment>
   );
 };

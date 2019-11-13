@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import queryString from 'qs';
 import minifyCssString from 'minify-css-string';
 import ModalContext from './context';
-import defaultClassPrefix from './defaultClassPrefix';
+import defaultClassPrefix from '../defaultClassPrefix';
 import generateCSS from './css';
 
 class ModalProvider extends Component {
