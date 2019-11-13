@@ -1,4 +1,5 @@
 [![NPM](https://img.shields.io/npm/v/@trbl/react-modal)](https://www.npmjs.com/@trbl/react-modal)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/@trbl/react-modal?label=zipped)
 [![Supported by TRBL](https://img.shields.io/badge/supported_by-TRBL-black)](https://github.com/trouble)
 
 # React Modal
@@ -53,4 +54,4 @@ All available props can be found via the references below:
 
 ## License
 
-[MIT](https://github.com/trbldesign/react-modal/blob/master/LICENSE) Copyright (c) TRBL, LLC
+[MIT](https://github.com/trouble/react-modal/blob/master/LICENSE) Copyright (c) TRBL, LLC
