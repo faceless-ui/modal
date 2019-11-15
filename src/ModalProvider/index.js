@@ -27,11 +27,17 @@ class ModalProvider extends Component {
   }
 
   closeAll = () => {
-    const searchQuery = this.getSearchQuery();
-    delete searchQuery.modal;
+    const { handleParamChange } = this.props;
 
-    const queryWithoutModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
-    window.history.pushState({}, '', `${window.location.pathname}${queryWithoutModal}`);
+    if (typeof handleParamChange === 'function') {
+      handleParamChange({ key: 'modal', value: '' });
+    } else {
+      const searchQuery = this.getSearchQuery();
+      delete searchQuery.modal;
+      const queryWithoutModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
+      const newURL = `${window.location.pathname}${queryWithoutModal}`;
+      window.history.pushState({}, '', newURL);
+    }
 
     this.setState({
       currentModal: '',
@@ -41,11 +47,17 @@ class ModalProvider extends Component {
 
   open = (slug) => {
     if (slug) {
-      const searchQuery = this.getSearchQuery();
-      searchQuery.modal = slug;
+      const { handleParamChange } = this.props;
 
-      const queryWithModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
-      window.history.pushState({}, '', `${window.location.pathname}${queryWithModal}`);
+      if (typeof handleParamChange === 'function') {
+        handleParamChange({ key: 'modal', value: slug });
+      } else {
+        const searchQuery = this.getSearchQuery();
+        searchQuery.modal = slug;
+        const queryWithModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
+        const newURL = `${window.location.pathname}${queryWithModal}`;
+        window.history.pushState({}, '', newURL);
+      }
 
       this.setState({
         currentModal: slug,
@@ -141,6 +153,7 @@ ModalProvider.defaultProps = {
   minifyCSS: true,
   zIndex: 9999,
   transTime: 1000,
+  handleParamChange: undefined,
 };
 
 ModalProvider.propTypes = {
@@ -154,6 +167,7 @@ ModalProvider.propTypes = {
   minifyCSS: PropTypes.bool,
   zIndex: PropTypes.number,
   transTime: PropTypes.number,
+  handleParamChange: PropTypes.func,
 };
 
 export default ModalProvider;

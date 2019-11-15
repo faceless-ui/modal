@@ -36,8 +36,8 @@ module.exports = {
     "react/no-did-update-set-state": 0,
     "object-curly-newline": 0,
     "import/prefer-default-export": 0,
+    "no-throw-literal": 0,
     "react/jsx-max-props-per-line": [1, { "maximum": 1 }],
-    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
   },
 };
