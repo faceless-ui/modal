@@ -26,12 +26,12 @@ class ModalProvider extends Component {
     document.removeEventListener('keydown', e => this.bindEsc(e), false);
   }
 
-  closeAll = () => {
+  closeAll = (updateHistory = true) => {
     const { handleParamChange } = this.props;
 
     if (typeof handleParamChange === 'function') {
       handleParamChange({ key: 'modal', value: '' });
-    } else {
+    } else if (updateHistory) {
       const searchQuery = this.getSearchQuery();
       delete searchQuery.modal;
       const queryWithoutModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
