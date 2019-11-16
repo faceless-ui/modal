@@ -29,14 +29,16 @@ class ModalProvider extends Component {
   closeAll = (updateHistory = true) => {
     const { handleParamChange } = this.props;
 
-    if (typeof handleParamChange === 'function') {
-      handleParamChange({ key: 'modal', value: '' });
-    } else if (updateHistory) {
-      const searchQuery = this.getSearchQuery();
-      delete searchQuery.modal;
-      const queryWithoutModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
-      const newURL = `${window.location.pathname}${queryWithoutModal}`;
-      window.history.pushState({}, '', newURL);
+    if (updateHistory) {
+      if (typeof handleParamChange === 'function') {
+        handleParamChange({ key: 'modal', value: '' });
+      } else {
+        const searchQuery = this.getSearchQuery();
+        delete searchQuery.modal;
+        const queryWithoutModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
+        const newURL = `${window.location.pathname}${queryWithoutModal}`;
+        window.history.pushState({}, '', newURL);
+      }
     }
 
     this.setState({
