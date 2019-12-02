@@ -4,15 +4,18 @@ import withModalContext from '../withModalContext';
 
 const ModalToggler = (props) => {
   const {
-    slug,
-    children,
+    id,
     className,
-    ariaLabel,
     modal: {
       currentModal,
       toggle,
       classPrefix,
     },
+    slug,
+    style,
+    htmlElement: HtmlElement,
+    htmlAttributes,
+    children,
   } = props;
 
   const baseClass = `${classPrefix}__modal-toggler`;
@@ -22,40 +25,73 @@ const ModalToggler = (props) => {
     `${baseClass}--slug-${slug}`,
     currentModal === slug && `${baseClass}--slug-${slug}--is-open`,
     className,
+    htmlAttributes.className,
   ].filter(Boolean).join(' ');
 
+  const strippedHtmlAttributes = { ...htmlAttributes };
+  delete strippedHtmlAttributes.id;
+  delete strippedHtmlAttributes.className;
+  delete strippedHtmlAttributes.style;
+
   return (
-    <button
+    <HtmlElement
+      id={id || htmlAttributes.id}
       className={classes}
-      type="button"
-      aria-label={ariaLabel}
       onClick={() => toggle(slug)}
+      style={{
+        ...htmlAttributes.style,
+        ...style,
+      }}
+      {...strippedHtmlAttributes}
     >
       {children}
-    </button>
+    </HtmlElement>
   );
 };
 
 ModalToggler.defaultProps = {
+  id: '',
   className: '',
-  ariaLabel: '',
+  style: {},
+  htmlElement: 'button',
+  htmlAttributes: {},
 };
 
 ModalToggler.propTypes = {
-  slug: PropTypes.string.isRequired,
+  id: PropTypes.string,
   className: PropTypes.string,
+  modal: PropTypes.shape({
+    currentModal: PropTypes.string,
+    toggle: PropTypes.func,
+    classPrefix: PropTypes.string,
+  }).isRequired,
+  slug: PropTypes.string.isRequired,
+  style: PropTypes.shape({}),
+  htmlElement: PropTypes.oneOf([
+    'article',
+    'aside',
+    'div',
+    'footer',
+    'header',
+    'main',
+    'nav',
+    'section',
+    'span',
+    'ul',
+    'li',
+    'button',
+  ]),
+  htmlAttributes: PropTypes.shape({
+    id: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.shape({}),
+  }),
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(
       PropTypes.node,
     ),
   ]).isRequired,
-  ariaLabel: PropTypes.string,
-  modal: PropTypes.shape({
-    currentModal: PropTypes.string,
-    toggle: PropTypes.func,
-    classPrefix: PropTypes.string,
-  }).isRequired,
 };
 
 export default withModalContext(ModalToggler);

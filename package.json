@@ -1,6 +1,6 @@
 {
   "name": "@trbl/react-modal",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "dist/build.bundle.js",
   "repository": "git@github.com:trouble/react-modal.git",
   "description": "Modalayheehoo!",
@@ -20,7 +20,7 @@
     "test": "echo \"No test specified\""
   },
   "peerDependencies": {
-    "react": "^16.11.0"
+    "react": "^16.8.0"
   },
   "dependencies": {
     "minify-css-string": "^1.0.0",
