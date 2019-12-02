@@ -34,7 +34,7 @@ const App = () => {
         <ModalToggler slug="demo2">
           <a>Click to open demo 2</a>
         </ModalToggler>
-        <ModalDemo2 />
+        <ModalDemo2 slug="demo2" />
 
         <ModalContainer className="customAdditionalClass" />
       </ModalProvider>

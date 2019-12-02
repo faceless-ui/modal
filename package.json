@@ -1,6 +1,6 @@
 {
   "name": "@trbl/react-modal",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "dist/build.bundle.js",
   "repository": "git@github.com:trouble/react-modal.git",
   "description": "Modalayheehoo!",
