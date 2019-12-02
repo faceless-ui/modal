@@ -10,7 +10,7 @@ class ModalProvider extends Component {
   constructor() {
     super();
     this.state = {
-      containerIsMounted: false,
+      containerNode: undefined,
       currentModal: '',
       oneIsOpen: false,
     };
@@ -90,8 +90,8 @@ class ModalProvider extends Component {
     return query;
   }
 
-  setContainerStatus = (status) => {
-    this.setState({ containerIsMounted: status });
+  setContainerNode = (node) => {
+    this.setState({ containerNode: node });
   }
 
   bindEsc = (e) => {
@@ -118,19 +118,19 @@ class ModalProvider extends Component {
     } = this.props;
 
     const {
-      containerIsMounted,
+      containerNode,
       oneIsOpen,
       currentModal,
     } = this.state;
 
     const modalContext = {
       modal: {
-        containerIsMounted,
+        containerNode,
         oneIsOpen,
         currentModal,
         closeAll: this.closeAll,
         toggle: this.toggle,
-        setContainerStatus: this.setContainerStatus,
+        setContainerNode: this.setContainerNode,
         classPrefix: classPrefix || defaultClassPrefix,
         transTime,
         manuallyRerender: this.resetInternalState,

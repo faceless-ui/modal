@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import withModalContext from '../withModalContext';
-import containerBaseClass from '../ModalContainer/baseClass';
 import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
 
@@ -13,14 +12,13 @@ const asModal = (ModalComponent, slugFromArg) => {
       modal: {
         currentModal,
         classPrefix,
-        containerIsMounted,
+        containerNode,
         transTime,
       },
       slug: slugFromProp,
     } = props;
 
-    if (containerIsMounted) {
-      const modalContainer = document.getElementById(`${classPrefix}__${containerBaseClass}`);
+    if (containerNode) {
       const baseClass = `${classPrefix}__${itemBaseClass}`;
       const slug = slugFromArg || slugFromProp;
 
@@ -43,7 +41,7 @@ const asModal = (ModalComponent, slugFromArg) => {
             />
           </div>
         </CSSTransition>,
-        modalContainer,
+        containerNode,
       );
     }
     return null;
