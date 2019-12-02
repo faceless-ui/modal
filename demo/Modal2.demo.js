@@ -1,5 +1,5 @@
 import React from 'react';
-import { asModal } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
+import { asModal } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
 const DemoModal = () => {
   return (

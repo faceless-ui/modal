@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import withModalContext from '../withModalContext';
@@ -6,14 +6,19 @@ import containerBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
 
 class ModalContainer extends Component {
+  constructor() {
+    super();
+    this.containerRef = createRef();
+  }
+
   componentDidMount() {
-    const { modal: { setContainerStatus } } = this.props;
-    setContainerStatus(true);
+    const { modal: { setContainerNode } } = this.props;
+    setContainerNode(this.containerRef.current);
   }
 
   componentWillUnmount() {
-    const { modal: { setContainerStatus } } = this.props;
-    setContainerStatus(false);
+    const { modal: { setContainerNode } } = this.props;
+    setContainerNode(undefined);
   }
 
   render() {
@@ -42,6 +47,7 @@ class ModalContainer extends Component {
         <div
           id={baseClass}
           className={classes}
+          ref={this.containerRef}
         />
       </CSSTransition>
     );
@@ -57,7 +63,7 @@ ModalContainer.propTypes = {
   modal: PropTypes.shape({
     oneIsOpen: PropTypes.bool,
     classPrefix: PropTypes.string,
-    setContainerStatus: PropTypes.func,
+    setContainerNode: PropTypes.func,
     transTime: PropTypes.number,
   }).isRequired,
 };

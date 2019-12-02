@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { ModalProvider, ModalContainer, ModalToggler } from '../src'; // swap '../src' for '../dist/build.bundle' to test production
+import { ModalProvider, ModalContainer, ModalToggler } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 import ModalDemo1 from './Modal1.demo';
 import ModalDemo2 from './Modal2.demo';
 
