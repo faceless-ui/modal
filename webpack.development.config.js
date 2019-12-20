@@ -13,7 +13,17 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loaders: ['react-hot-loader/webpack', 'babel-loader'],
+        loaders: [
+          'react-hot-loader/webpack',
+          'babel-loader',
+          {
+            loader: 'eslint-loader',
+            options: {
+              fix: true,
+              emitWarning: true,
+            },
+          },
+        ],
       },
     ],
   },
