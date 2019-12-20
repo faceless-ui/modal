@@ -4,7 +4,7 @@
 
 # React Modal
 
-Modalayheehoo!
+Basically the matrix.
 
 ## Quick Start
 
@@ -56,6 +56,10 @@ All available props can be found via the references below:
   - [ModalProvider](/src/ModalProvider/README.md)
   - [ModalModalToggler](/src/ModalToggler/README.md)
   - [withModalContext](/src/withModalContext/README.md)
+
+## Contribution
+
+[Help us,](https://github.com/trouble/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/trouble/.github/blob/master/SUPPORT.md).
 
 ## License
 
