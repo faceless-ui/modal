@@ -15,39 +15,31 @@ const DemoModal = (props) => {
       <h2>Demo Modal 1</h2>
       <span>
         <ModalToggler slug="demo1">
-          <a>Click here to close with the ModalToggler component</a>
+          Click here to close with the ModalToggler component
         </ModalToggler>
-
-        <p>
+        <div>
           <button
             onClick={() => toggle('demo1')}
             type="button"
           >
-            <a>
-              Click here to close with the toggle method
-            </a>
+            Click here to close with the toggle method
           </button>
-        </p>
-
-        <p>
-          or even this:
+        </div>
+        <div>
           <button
             onClick={() => closeAll()}
             type="button"
           >
-            <a>
             Click here to close with the closeAll method
-            </a>
           </button>
-        </p>
-
-        <p>
+        </div>
+        <div>
           or press:
           &nbsp;
           <b><kbd>esc</kbd></b>
           &nbsp;
           on your keyboard
-        </p>
+        </div>
       </span>
     </div>
   );

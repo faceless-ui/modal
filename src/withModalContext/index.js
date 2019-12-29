@@ -2,22 +2,18 @@ import React from 'react';
 import ModalContext from '../ModalProvider/context';
 
 const WithModalContext = (PassedComponent) => {
-  const ModalContextWrap = (props) => {
-    return (
-      <ModalContext.Consumer>
-        {(context) => {
-          return (
-            <PassedComponent
-              {...{
-                ...props,
-                ...context,
-              }}
-            />
-          );
-        }}
-      </ModalContext.Consumer>
-    );
-  };
+  const ModalContextWrap = (props) => (
+    <ModalContext.Consumer>
+      {(context) => (
+        <PassedComponent
+          {...{
+            ...props,
+            ...context,
+          }}
+        />
+      )}
+    </ModalContext.Consumer>
+  );
   return ModalContextWrap;
 };
 

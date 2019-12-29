@@ -4,7 +4,7 @@
 
 # React Modal
 
-Basically the matrix.
+America's next top modal.
 
 ## Quick Start
 
@@ -14,7 +14,7 @@ Basically the matrix.
 $ yarn add @trbl/react-modal
 ```
 
-### Compositon
+### Composition
 
 ```jsx
   import React from 'react';
@@ -42,8 +42,8 @@ $ yarn add @trbl/react-modal
 To demo locally, clone the repo and
 
 ```bash
-$ yarn install
-$ npm run dev
+$ yarn
+$ yarn dev
 $ open http://localhost:3000
 ```
 

@@ -17,13 +17,13 @@ class ModalProvider extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener('keydown', e => this.bindEsc(e), false);
+    document.addEventListener('keydown', (e) => this.bindEsc(e), false);
     window.addEventListener('popstate', () => this.resetInternalState());
     this.resetInternalState();
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', e => this.bindEsc(e), false);
+    document.removeEventListener('keydown', (e) => this.bindEsc(e), false);
   }
 
   closeAll = (updateHistory = true) => {
