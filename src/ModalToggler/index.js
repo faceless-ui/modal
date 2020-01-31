@@ -21,27 +21,30 @@ const ModalToggler = (props) => {
 
   const baseClass = `${classPrefix}__modal-toggler`;
 
-  const classes = [
+  const mergedClasses = [
     baseClass,
     `${baseClass}--slug-${slug}`,
     currentModal === slug && `${baseClass}--slug-${slug}--is-open`,
     className,
   ].filter(Boolean).join(' ');
 
-  const handleClick = () => {
-    toggle(slug);
-    if (htmlAttributes.onClick === 'function') htmlAttributes.onClick();
+  const mergedAttributes = {
+    ...htmlAttributes,
+    onClick: () => {
+      toggle(slug);
+      if (typeof htmlAttributes.onClick === 'function') htmlAttributes.onClick();
+    },
   };
 
   return (
     <HTMLElement
-      className={classes}
       {...{
         id,
+        className: mergedClasses,
         style,
         htmlElement,
+        htmlAttributes: mergedAttributes,
       }}
-      onClick={handleClick}
     >
       {children && children}
     </HTMLElement>
@@ -49,8 +52,8 @@ const ModalToggler = (props) => {
 };
 
 ModalToggler.defaultProps = {
-  id: '',
-  className: '',
+  id: undefined,
+  className: undefined,
   style: {},
   htmlElement: 'button',
   htmlAttributes: {},

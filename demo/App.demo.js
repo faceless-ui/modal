@@ -24,7 +24,13 @@ const App = () => (
       classPrefix="demo"
       transTime={250}
     >
-      <ModalToggler slug="demo1">
+      <ModalToggler
+        slug="demo1"
+        className="demo-className"
+        htmlAttributes={{
+          onClick: () => console.count('click'), // eslint-disable-line no-console
+        }}
+      >
         Click to open demo 1
       </ModalToggler>
       <ModalDemo1 />

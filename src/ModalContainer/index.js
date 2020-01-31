@@ -1,6 +1,7 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
+import HTMLElement from '@trbl/react-html-element';
 import withModalContext from '../withModalContext';
 import containerBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
@@ -23,7 +24,11 @@ class ModalContainer extends Component {
 
   render() {
     const {
+      id,
       className,
+      style,
+      htmlElement,
+      htmlAttributes,
       modal: {
         oneIsOpen,
         classPrefix,
@@ -32,7 +37,8 @@ class ModalContainer extends Component {
     } = this.props;
 
     const baseClass = `${classPrefix}__${containerBaseClass}`;
-    const classes = [
+
+    const mergedClasses = [
       baseClass,
       className,
     ].filter(Boolean).join(' ');
@@ -44,9 +50,14 @@ class ModalContainer extends Component {
         classNames={generateTransitionClasses(baseClass)}
         appear
       >
-        <div
-          id={baseClass}
-          className={classes}
+        <HTMLElement
+          {...{
+            id,
+            className: mergedClasses,
+            style,
+            htmlElement,
+            htmlAttributes,
+          }}
           ref={this.containerRef}
         />
       </CSSTransition>
@@ -55,11 +66,19 @@ class ModalContainer extends Component {
 }
 
 ModalContainer.defaultProps = {
-  className: '',
+  id: undefined,
+  className: undefined,
+  style: {},
+  htmlElement: 'div',
+  htmlAttributes: {},
 };
 
 ModalContainer.propTypes = {
+  id: PropTypes.string,
   className: PropTypes.string,
+  style: PropTypes.shape({}),
+  htmlElement: PropTypes.string,
+  htmlAttributes: PropTypes.shape({}),
   modal: PropTypes.shape({
     oneIsOpen: PropTypes.bool,
     classPrefix: PropTypes.string,
