@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import HTMLElement from '@trbl/react-html-element';
 import withModalContext from '../withModalContext';
 
 const ModalToggler = (props) => {
@@ -13,7 +14,7 @@ const ModalToggler = (props) => {
     },
     slug,
     style,
-    htmlElement: HtmlElement,
+    htmlElement,
     htmlAttributes,
     children,
   } = props;
@@ -25,27 +26,25 @@ const ModalToggler = (props) => {
     `${baseClass}--slug-${slug}`,
     currentModal === slug && `${baseClass}--slug-${slug}--is-open`,
     className,
-    htmlAttributes.className,
   ].filter(Boolean).join(' ');
 
-  const strippedHtmlAttributes = { ...htmlAttributes };
-  delete strippedHtmlAttributes.id;
-  delete strippedHtmlAttributes.className;
-  delete strippedHtmlAttributes.style;
+  const handleClick = () => {
+    toggle(slug);
+    if (htmlAttributes.onClick === 'function') htmlAttributes.onClick();
+  };
 
   return (
-    <HtmlElement
-      id={id || htmlAttributes.id}
+    <HTMLElement
       className={classes}
-      onClick={() => toggle(slug)}
-      style={{
-        ...htmlAttributes.style,
-        ...style,
+      {...{
+        id,
+        style,
+        htmlElement,
       }}
-      {...strippedHtmlAttributes}
+      onClick={handleClick}
     >
-      {children}
-    </HtmlElement>
+      {children && children}
+    </HTMLElement>
   );
 };
 
@@ -55,43 +54,27 @@ ModalToggler.defaultProps = {
   style: {},
   htmlElement: 'button',
   htmlAttributes: {},
+  children: undefined,
 };
 
 ModalToggler.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
+  style: PropTypes.shape({}),
+  htmlElement: PropTypes.string,
+  htmlAttributes: PropTypes.shape({
+    id: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.shape({}),
+    onClick: PropTypes.func,
+  }),
+  slug: PropTypes.string.isRequired,
   modal: PropTypes.shape({
     currentModal: PropTypes.string,
     toggle: PropTypes.func,
     classPrefix: PropTypes.string,
   }).isRequired,
-  slug: PropTypes.string.isRequired,
-  style: PropTypes.shape({}),
-  htmlElement: PropTypes.oneOf([
-    'article',
-    'aside',
-    'div',
-    'footer',
-    'header',
-    'main',
-    'nav',
-    'section',
-    'span',
-    'ul',
-    'li',
-    'button',
-  ]),
-  htmlAttributes: PropTypes.shape({
-    id: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.shape({}),
-  }),
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(
-      PropTypes.node,
-    ),
-  ]).isRequired,
+  children: PropTypes.node,
 };
 
 export default withModalContext(ModalToggler);

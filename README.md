@@ -51,11 +51,11 @@ $ open http://localhost:3000
 
 All available props can be found via the references below:
 
-  - [asModal](/src/asModal/README.md)
-  - [ModalContainer](/src/ModalContainer/README.md)
-  - [ModalProvider](/src/ModalProvider/README.md)
-  - [ModalModalToggler](/src/ModalToggler/README.md)
-  - [withModalContext](/src/withModalContext/README.md)
+  - [asModal](./src/asModal/README.md)
+  - [ModalContainer](./src/ModalContainer/README.md)
+  - [ModalProvider](./src/ModalProvider/README.md)
+  - [ModalModalToggler](./src/ModalToggler/README.md)
+  - [withModalContext](./src/withModalContext/README.md)
 
 ## Contribution
 

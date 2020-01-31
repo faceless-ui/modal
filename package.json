@@ -4,7 +4,7 @@
   "main": "dist/build.bundle.js",
   "repository": "git@github.com:trouble/react-modal.git",
   "description": "America's next top modal.",
-  "author": "<info@trbl.design>",
+  "author": "<dev@trbl.design>",
   "license": "MIT",
   "keywords": [
     "react",
@@ -15,7 +15,7 @@
     "ux"
   ],
   "scripts": {
-    "build": "yarn run lint && webpack --config webpack.production.config.js",
+    "build": "yarn lint && webpack --config webpack.production.config.js",
     "dev": "webpack-dev-server --hot --inline --config webpack.development.config.js",
     "lint": "eslint .",
     "test": "echo \"No test specified\""
@@ -24,6 +24,7 @@
     "react": "^16.8.0"
   },
   "dependencies": {
+    "@trbl/react-html-element": "^1.0.1",
     "minify-css-string": "^1.0.0",
     "prop-types": "^15.7.2",
     "qs": "^6.9.1",
@@ -32,24 +33,36 @@
     "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/preset-react": "^7.7.4",
-    "@trbl/eslint-config": "^1.1.4",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@trbl/eslint-config": "^1.2.3",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
-    "eslint": "^5.16.0",
+    "eslint": "^6.8.0",
     "eslint-loader": "^3.0.3",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest-dom": "^2.0.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "html-webpack-plugin": "^3.2.0",
-    "react-hot-loader": "^4.12.18",
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.6",
+    "react-hot-loader": "^4.12.19",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
+  },
+  "lint-staged": {
+    "*.js": "yarn lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "files": [
     "dist"

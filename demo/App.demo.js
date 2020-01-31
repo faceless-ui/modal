@@ -24,10 +24,7 @@ const App = () => (
       classPrefix="demo"
       transTime={250}
     >
-      <ModalToggler
-        slug="demo1"
-        className="customAdditionalClass"
-      >
+      <ModalToggler slug="demo1">
         Click to open demo 1
       </ModalToggler>
       <ModalDemo1 />

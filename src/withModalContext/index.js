@@ -1,7 +1,7 @@
 import React from 'react';
 import ModalContext from '../ModalProvider/context';
 
-const WithModalContext = (PassedComponent) => {
+const withModalContext = (PassedComponent) => {
   const ModalContextWrap = (props) => (
     <ModalContext.Consumer>
       {(context) => (
@@ -17,4 +17,4 @@ const WithModalContext = (PassedComponent) => {
   return ModalContextWrap;
 };
 
-export default WithModalContext;
+export default withModalContext;
