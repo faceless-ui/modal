@@ -6,11 +6,13 @@ const DemoModal = () => (
     <h2>Demo Modal 2</h2>
     <span>
       <p>
-          press
-          &nbsp;
-        <b><kbd>esc</kbd></b>
-          &nbsp;
-          on your keyboard
+        press
+        &nbsp;
+        <b>
+          <kbd>esc</kbd>
+        </b>
+        &nbsp;
+        on your keyboard
       </p>
     </span>
   </div>
