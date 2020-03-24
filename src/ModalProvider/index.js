@@ -124,17 +124,15 @@ class ModalProvider extends Component {
     } = this.state;
 
     const modalContext = {
-      modal: {
-        containerNode,
-        oneIsOpen,
-        currentModal,
-        closeAll: this.closeAll,
-        toggle: this.toggle,
-        setContainerNode: this.setContainerNode,
-        classPrefix: classPrefix || defaultClassPrefix,
-        transTime,
-        manuallyRerender: this.resetInternalState,
-      },
+      containerNode,
+      oneIsOpen,
+      currentModal,
+      closeAll: this.closeAll,
+      toggle: this.toggle,
+      setContainerNode: this.setContainerNode,
+      classPrefix: classPrefix || defaultClassPrefix,
+      transTime,
+      manuallyRerender: this.resetInternalState,
     };
 
     const cssString = generateCSS(classPrefix, zIndex);

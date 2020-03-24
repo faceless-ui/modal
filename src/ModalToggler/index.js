@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HTMLElement from '@trbl/react-html-element';
-import withModalContext from '../withModalContext';
+import withModal from '../withModal';
 
 const ModalToggler = (props) => {
   const {
@@ -80,4 +80,4 @@ ModalToggler.propTypes = {
   children: PropTypes.node,
 };
 
-export default withModalContext(ModalToggler);
+export default withModal(ModalToggler);

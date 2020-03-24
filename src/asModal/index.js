@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
-import withModalContext from '../withModalContext';
+import withModal from '../withModal';
 import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
 
@@ -55,7 +55,7 @@ const asModal = (ModalComponent, slugFromArg) => {
     slug: PropTypes.string,
   };
 
-  return withModalContext(ModalWrap);
+  return withModal(ModalWrap);
 };
 
 export default asModal;

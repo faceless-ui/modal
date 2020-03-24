@@ -2,7 +2,7 @@ import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import HTMLElement from '@trbl/react-html-element';
-import withModalContext from '../withModalContext';
+import withModal from '../withModal';
 import containerBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
 
@@ -87,4 +87,4 @@ ModalContainer.propTypes = {
   }).isRequired,
 };
 
-export default withModalContext(ModalContainer);
+export default withModal(ModalContainer);

@@ -1,14 +1,16 @@
 import React from 'react';
 import ModalContext from '../ModalProvider/context';
 
-const withModalContext = (PassedComponent) => {
+const withModal = (PassedComponent) => {
   const ModalContextWrap = (props) => (
     <ModalContext.Consumer>
       {(context) => (
         <PassedComponent
           {...{
             ...props,
-            ...context,
+            modal: {
+              ...context,
+            },
           }}
         />
       )}
@@ -17,4 +19,4 @@ const withModalContext = (PassedComponent) => {
   return ModalContextWrap;
 };
 
-export default withModalContext;
+export default withModal;
