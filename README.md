@@ -55,6 +55,7 @@ All available props can be found via the references below:
   - [ModalContainer](./src/ModalContainer/README.md)
   - [ModalProvider](./src/ModalProvider/README.md)
   - [ModalModalToggler](./src/ModalToggler/README.md)
+  - [useModalContext](./src/useModalContext/README.md)
   - [withModalContext](./src/withModalContext/README.md)
 
 ## Contribution
