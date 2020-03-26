@@ -8,9 +8,7 @@ const withModal = (PassedComponent) => {
         <PassedComponent
           {...{
             ...props,
-            modal: {
-              ...context,
-            },
+            modal: context,
           }}
         />
       )}

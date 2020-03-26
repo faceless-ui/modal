@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { ModalProvider, ModalContainer, ModalToggler } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import ModalDemo1 from './Modal1.demo';
-import ModalDemo2 from './Modal2.demo';
-import ModalHook from './ModalHook.demo';
+import AsModal1 from './AsModal1.demo';
+import AsModal2 from './AsModal2.demo';
+import UseModal from './UseModal.demo';
 
 const App = () => (
   <Fragment>
@@ -10,7 +10,7 @@ const App = () => (
       dangerouslySetInnerHTML={{
         __html: `
           .demo__modal-item {
-            transition: all 250ms cubic-bezier(0, 0, 0.2, 1);
+            transition: all 0ms cubic-bezier(0, 0, 0.2, 1);
             opacity: 0;
           }
 
@@ -34,13 +34,13 @@ const App = () => (
       >
         Click to open demo 1
       </ModalToggler>
-      <ModalDemo1 />
+      <AsModal1 />
       <ModalToggler slug="demo2">
         Click to open demo 2
       </ModalToggler>
-      <ModalDemo2 slug="demo2" />
+      <AsModal2 slug="demo2" />
       <ModalContainer className="customAdditionalClass" />
-      <ModalHook />
+      <UseModal />
     </ModalProvider>
   </Fragment>
 );

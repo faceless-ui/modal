@@ -1,9 +1,8 @@
 import { useModal } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
-const ModalHookDemo = () => {
-  const modalContext = useModal();
-  console.log(modalContext);
+const UseModal = () => {
+  const modalContext = useModal(); // eslint-disable-line no-unused-vars
   return null;
 };
 
-export default ModalHookDemo;
+export default UseModal;

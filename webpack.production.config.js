@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  devtool: 'source-map',
   mode: 'production',
   entry: './src/index.js',
   output: {
@@ -16,5 +17,8 @@ module.exports = {
         loaders: ['babel-loader'],
       },
     ],
+  },
+  externals: {
+    react: 'react',
   },
 };

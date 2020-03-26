@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { asModal, ModalToggler } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
-const DemoModal1 = (props) => {
+const AsModal1 = (props) => {
   const {
     modal: {
       toggle,
@@ -45,11 +45,11 @@ const DemoModal1 = (props) => {
   );
 };
 
-DemoModal1.propTypes = {
+AsModal1.propTypes = {
   modal: PropTypes.shape({
     toggle: PropTypes.func,
     closeAll: PropTypes.func,
   }).isRequired,
 };
 
-export default asModal(DemoModal1, 'demo1');
+export default asModal(AsModal1, 'demo1');

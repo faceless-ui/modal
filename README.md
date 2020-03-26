@@ -20,7 +20,7 @@ $ yarn add @trbl/react-modal
   import React from 'react';
   import { asModal, ModalContainer, ModalProvider, ModalToggler } from '@trbl/react-modal';
 
-  const MyModal = asModal(() => return <div>My Modal</div>, 'demo-modal');
+  const AsModal = asModal(() => return <div>My Modal</div>, 'demo-modal');
 
   const App = () => {
     return (
@@ -28,7 +28,7 @@ $ yarn add @trbl/react-modal
         <ModalToggler slug="demo-modal">
           ...
         </ModalToggler>
-        <MyModal />
+        <AsModal />
         <ModalContainer />
       <ModalProvider>
     )
@@ -55,8 +55,8 @@ All available props can be found via the references below:
   - [ModalContainer](./src/ModalContainer/README.md)
   - [ModalProvider](./src/ModalProvider/README.md)
   - [ModalModalToggler](./src/ModalToggler/README.md)
-  - [useModalContext](./src/useModalContext/README.md)
-  - [withModalContext](./src/withModalContext/README.md)
+  - [useModal](./src/useModal/README.md)
+  - [withModal](./src/withModal/README.md)
 
 ## Contribution
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { asModal } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
-const DemoModal2 = () => (
+const AsModal2 = () => (
   <div style={{ background: 'rgba(0, 0, 0, .75)', color: 'white' }}>
     <h2>Demo Modal 2</h2>
     <span>
@@ -18,4 +18,4 @@ const DemoModal2 = () => (
   </div>
 );
 
-export default asModal(DemoModal2);
+export default asModal(AsModal2);
