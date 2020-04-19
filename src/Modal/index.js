@@ -1,14 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import asModal from '../asModal';
 
 const Modal = (props) => {
   const { children, modal } = props;
-  return (
-    <div>
-      {children(modal)}
-    </div>
-  );
+  return children(modal);
 };
 
 Modal.defaultProps = {

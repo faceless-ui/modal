@@ -32,7 +32,9 @@ class ModalProvider extends Component {
     if (updateHistory) {
       if (typeof handleParamChange === 'function') {
         handleParamChange({ key: 'modal', value: '' });
-      } else {
+      }
+
+      if (typeof handleParamChange === 'boolean' && handleParamChange) {
         const searchQuery = this.getSearchQuery();
         delete searchQuery.modal;
         const queryWithoutModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
@@ -53,7 +55,7 @@ class ModalProvider extends Component {
 
       if (typeof handleParamChange === 'function') {
         handleParamChange({ key: 'modal', value: slug });
-      } else {
+      } else if (typeof handleParamChange === 'boolean' && handleParamChange) {
         const searchQuery = this.getSearchQuery();
         searchQuery.modal = slug;
         const queryWithModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
@@ -167,7 +169,10 @@ ModalProvider.propTypes = {
   minifyCSS: PropTypes.bool,
   zIndex: PropTypes.number,
   transTime: PropTypes.number,
-  handleParamChange: PropTypes.func,
+  handleParamChange: PropTypes.oneOf([
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
 };
 
 export default ModalProvider;
