@@ -2,6 +2,14 @@
 
 This is the global context that all components within this module will read from and interact with. Render a single instance anywhere within within your app, so long as its an ancestor of other components within this module.
 
+## Usage
+
+Lorem ipsum
+
+```jsx
+
+```
+
 ## Props
 
 - #### `classPrefix`
