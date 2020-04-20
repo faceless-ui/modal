@@ -10,12 +10,15 @@ const App = () => (
       dangerouslySetInnerHTML={{
         __html: `
           .demo__modal-item {
-            transition: all 0ms cubic-bezier(0, 0, 0.2, 1);
+            transition: all 250ms cubic-bezier(0, 0, 0.2, 1);
             opacity: 0;
           }
 
-          .demo__modal-item--will-open,
-          .demo__modal-item--is-open {
+          .demo__modal-item--appear,
+          .demo__modal-item--appearDone,
+          .demo__modal-item--enter,
+          .demo__modal-item--enterDone,
+          .demo__modal-item--exit {
             opacity: 1;
           }
         `,

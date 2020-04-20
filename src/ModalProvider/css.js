@@ -13,9 +13,11 @@ const generateCSS = (classPrefix, zIndex) => (`
     z-index: -1;
   }
 
-  .${classPrefix}__${containerBaseClass}--will-open,
-  .${classPrefix}__${containerBaseClass}--is-open,
-  .${classPrefix}__${containerBaseClass}--will-close {
+  .${classPrefix}__${containerBaseClass}--appear,
+  .${classPrefix}__${containerBaseClass}--appearDone,
+  .${classPrefix}__${containerBaseClass}--enter,
+  .${classPrefix}__${containerBaseClass}--enterDone,
+  .${classPrefix}__${containerBaseClass}--exit {
     pointer-events: all;
     visibility: visible;
     z-index: ${zIndex};
@@ -30,9 +32,11 @@ const generateCSS = (classPrefix, zIndex) => (`
     visibility: hidden;
   }
 
-  .${classPrefix}__${itemBaseClass}--will-open,
-  .${classPrefix}__${itemBaseClass}--is-open,
-  .${classPrefix}__${itemBaseClass}--will-close {
+  .${classPrefix}__${itemBaseClass}--appear,
+  .${classPrefix}__${itemBaseClass}--appearDone,
+  .${classPrefix}__${itemBaseClass}--enter,
+  .${classPrefix}__${itemBaseClass}--enterDone,
+  .${classPrefix}__${itemBaseClass}--exit {
     visibility: visible;
   }
 `);
