@@ -1,6 +1,6 @@
 # Modal Toggler
 
-This component is a plug-and-play solution for toggling modal windows. Opening and closing modals is easy, so you don't necessarily need this component in order to do that, but it does provide a common pattern for the majority of use cases. If you need control beyond what this component provides, you should interact with the `ModalContext` yourself.
+A plug-and-play solution for toggling modal windows, complete with class names and accessibility. Provides a common pattern for the vast majority of use cases, including hamburger menus. For additional control, try [useModal](../useModal/README.md) or [withModal](../withModal/README.md).
 
 ## Usage
 
@@ -10,20 +10,20 @@ Give it a valid slug to an existing modal, along with some children, and voila.
   import React from 'react';
   import { ModalToggler } from '@trbl/react-modal';
 
-  const MyComponent = () => (
+  export default SomeComponent = () => (
     <ModalToggler slug="modal1">
       ...
     </ModalToggler>
   )
 ```
 
-If needed, this component is easily augmented with additional behavior, making easy work for things like custom markup, accessability, or additional click action. It is being piped through [@trbl/react-html-element](https://www.npmjs.com/package/@trbl/react-html-element) to give you complete control over the DOM.
+Customize the markup, add additional click behavior, anything you want.
 
 ```jsx
   import React, { useState } from 'react';
   import { ModalToggler } from '@trbl/react-modal';
 
-  const MyComponent = () => (
+  const SomeComponent = () => (
     <ModalToggler
       slug="modal1"
       id="some-id"
@@ -38,6 +38,22 @@ If needed, this component is easily augmented with additional behavior, making e
     </ModalToggler>
   )
 ```
+
+## Accessibility
+
+Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [Disclosure (Show/Hide)](https://www.w3.org/TR/wai-aria-practices/#disclosure), all of which can be modified at your discretion.
+
+- #### `htmlElement`
+  Defaults to `button`
+
+- #### `role`
+  Defaults to `button`.
+
+- #### `aria-expanded`
+  Toggled `true` or `false` based on the status of the controlled modal
+
+- #### `aria-controls`
+  Defaults to the `id` of the controlled modal, which is the slug
 
 ## Classes
 
@@ -75,7 +91,9 @@ If needed, this component is easily augmented with additional behavior, making e
   Type: String
   Optional
   Default: button
+  Notes: Changes may effect [accessibility](#accessibility)
 
 - #### `htmlAttributes`
   Type: Object
   Optional
+  Notes: Changes may effect [accessibility](#accessibility)

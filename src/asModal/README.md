@@ -1,33 +1,35 @@
 # asModal
 
-This higher-order component is what enables your component for use as a modal. It is responsible for portaling your component through to the [Modal Container](../ModalContainer/README.md), and attaching an `isOpen` prop for your consumption.
+A higher-order component used to instantiate a modal. Portals your content into the [Modal Container](../ModalContainer/README.md). Also provides transition classes and accessibility. Inherits the`isOpen` prop along with the [modal context](../ModalProvider/README.md#provided-context). For an inline approach, try [Modal](../Modal/README.md).
 
 ## Usage
 
-Render the HOC inline:
+Wrap your component when its defined.
 
 ```jsx
   import React from 'react';
   import { asModal } from '@trbl/react-modal';
 
-  const Modal1 = asModal(() => (
-    <div>Modal 1</div>
-  ), 'modal1');
-
-  export default Modal1;
+  export default SomeComponent = asModal((props) => {
+    const { isOpen } = props;
+    return <p>{isOpen}</p>;
+  }, 'modal1');
 ```
 
-Or wrap the HOC on export:
+Or wrap your component on export, also useful when chaining higher-order components.
 
 ```jsx
   import React from 'react';
   import { asModal } from '@trbl/react-modal';
 
-  const Modal1 = () => (
-    <div>Modal 1</div>
-  );
+  class SomeComponent extends Component {
+    render() {
+      const { isOpen } = this.props;
+      return <p>{isOpen}</p>;
+    }
+  };
 
-  export default asModal(Modal1, 'modal1');
+  export default asModal(SomeComponent, 'modal1');
 ```
 
 Or for dynamically rendered modals, you can set the slug as a prop instead of an argument:
@@ -36,16 +38,44 @@ Or for dynamically rendered modals, you can set the slug as a prop instead of an
   import React from 'react';
   import { asModal } from '@trbl/react-modal';
 
-  const Modal1 = asModal(() => (
+  const SomeComponent = asModal(() => (
     <div>Modal 1</div>
   ));
 
-  const SomeOtherComponent = () => (
-    <Modal1 slug="modal1" />
+  const App = () => (
+    <SomeComponent slug="modal1" />
   );
 
-  export default SomeOtherComponent;
+  export default App;
 ```
+
+## Accessibility
+
+Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [dialog containers](https://www.w3.org/TR/wai-aria-practices/#dialog_roles_states_props), all of which can be modified at your discretion.
+
+- #### `htmlElement`
+  Set to `dialog`
+
+- #### `open`
+  Toggled `true` or `false` based on the status of the modal
+
+- #### `role`
+  Set to `dialog` (redundant if [htmlElement](#htmlElement) is also `dialog`)
+
+- #### `aria-modal`
+  Defaults to `true`, informs assistive technologies that outside content is inert. Modals are given no visual style, so to further comply you may want to ensure that your design obscures the outside content.
+
+- #### `id`
+  Defaults to the modal slug and is referenced by the [aria-controls](../ModalToggler/README.md#aria-controls) of the [Modal Toggler](../ModalToggler/README.md)
+
+- #### `aria-label`
+  Defaults to the modal slug only if [aria-labelledby](#aria-labelledby) is undefined, [as suggested](https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby)
+
+- #### `aria-labelledby`
+  Modals are not aware of their children, so you must explicitly set this property based on your content. Set to one or more IDs of visible elements within your modal, using a [space-delineated list](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute). Should be concise
+
+- #### `aria-describedby`
+  Same as [above](#aria-labelledby) but elements that best describe the primary purpose or message of the modal.
 
 ## Classes
 
@@ -73,19 +103,47 @@ Or for dynamically rendered modals, you can set the slug as a prop instead of an
   Type: Node
   Required
 
-- #### `Slug`
+- #### `slug`
   Type: String
   Optional
-  Notes: Use if the slug prop is absent.
+  Notes: Use if the slug prop is undefined
 
 ## Props
 
 - #### `slug`
   Type: String
   Optional
-  Notes: Use if the slug argument is absent.
+  Notes: Use if the slug argument is undefined
+
+- #### `id`
+  Type: String
+  Optional
+  Default: slug
+  Notes: Changes may effect [accessibility](#accessibility)
+
+- #### `className`
+  Type: String
+  Optional
+
+- #### `style`
+  Type: Boolean
+  Optional
+
+- #### `htmlElement`
+  Type: String
+  Optional
+  Default: dialog
+  Notes: Changes may effect [accessibility](#accessibility)
+
+- #### `htmlAttributes`
+  Type: Object
+  Optional
+  Notes: Changes may effect [accessibility](#accessibility)
 
 ## Inherited Props
 
 - #### `isOpen`
   Type: Boolean
+
+- #### `modal`
+  Type: Object

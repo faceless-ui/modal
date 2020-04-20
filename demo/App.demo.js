@@ -27,6 +27,7 @@ const App = () => (
     <ModalProvider
       classPrefix="demo"
       transTime={250}
+      handleParamChange
     >
       <ModalToggler
         slug="demo1"
@@ -38,7 +39,10 @@ const App = () => (
         Click to open demo 1
       </ModalToggler>
       <AsModal1 />
-      <ModalToggler slug="demo2">
+      <ModalToggler
+        slug="demo2"
+        htmlElement="div"
+      >
         Click to open demo 2
       </ModalToggler>
       <AsModal2 slug="demo2" />

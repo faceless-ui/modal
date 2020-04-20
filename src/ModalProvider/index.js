@@ -17,9 +17,12 @@ class ModalProvider extends Component {
   }
 
   componentDidMount() {
+    const { handleParamChange } = this.props;
     document.addEventListener('keydown', (e) => this.bindEsc(e), false);
-    window.addEventListener('popstate', () => this.resetInternalState());
-    this.resetInternalState();
+    if (typeof handleParamChange === 'boolean' && handleParamChange) {
+      window.addEventListener('popstate', () => this.resetFromParam());
+    }
+    this.resetFromParam();
   }
 
   componentWillUnmount() {
@@ -55,7 +58,9 @@ class ModalProvider extends Component {
 
       if (typeof handleParamChange === 'function') {
         handleParamChange({ key: 'modal', value: slug });
-      } else if (typeof handleParamChange === 'boolean' && handleParamChange) {
+      }
+
+      if (typeof handleParamChange === 'boolean' && handleParamChange) {
         const searchQuery = this.getSearchQuery();
         searchQuery.modal = slug;
         const queryWithModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
@@ -102,7 +107,7 @@ class ModalProvider extends Component {
     }
   };
 
-  resetInternalState = () => {
+  resetFromParam = () => {
     const currentModal = this.getModalParam();
     this.setState({
       currentModal,
@@ -113,6 +118,7 @@ class ModalProvider extends Component {
   render() {
     const {
       children,
+      generateCSS: shouldGenerateCSS,
       classPrefix,
       minifyCSS,
       zIndex,
@@ -130,20 +136,26 @@ class ModalProvider extends Component {
       oneIsOpen,
       currentModal,
       closeAll: this.closeAll,
+      open: this.open,
       toggle: this.toggle,
       setContainerRef: this.setContainerRef,
       classPrefix: classPrefix || defaultClassPrefix,
       transTime,
-      manuallyRerender: this.resetInternalState,
+      resetFromParam: this.resetFromParam,
     };
 
-    const cssString = generateCSS(classPrefix, zIndex);
+    let cssString = '';
+
+    if (shouldGenerateCSS) {
+      cssString = generateCSS(classPrefix, zIndex);
+      if (minifyCSS) cssString = minifyCssString(cssString);
+    }
 
     return (
       <Fragment>
-        <style dangerouslySetInnerHTML={{ __html: minifyCSS ? minifyCssString(cssString) : cssString }} />
+        {shouldGenerateCSS && <style dangerouslySetInnerHTML={{ __html: cssString }} />}
         <ModalContext.Provider value={modalContext}>
-          {children}
+          {children && children}
         </ModalContext.Provider>
       </Fragment>
     );
@@ -152,27 +164,25 @@ class ModalProvider extends Component {
 
 ModalProvider.defaultProps = {
   classPrefix: '',
+  generateCSS: true,
   minifyCSS: true,
   zIndex: 9999,
   transTime: 1000,
   handleParamChange: undefined,
+  children: undefined,
 };
 
 ModalProvider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(
-      PropTypes.node,
-    ),
-  ]).isRequired,
   classPrefix: PropTypes.string,
+  generateCSS: PropTypes.bool,
   minifyCSS: PropTypes.bool,
   zIndex: PropTypes.number,
   transTime: PropTypes.number,
-  handleParamChange: PropTypes.oneOf([
+  handleParamChange: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.bool,
   ]),
+  children: PropTypes.node,
 };
 
 export default ModalProvider;

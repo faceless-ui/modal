@@ -36,7 +36,14 @@ const asModal = (ModalComponent, slugFromArg) => {
           classNames={generateTransitionClasses(baseClass)}
           appear
         >
-          <div className={classes}>
+          <dialog // TODO: pipe through @trbl/react-html-element
+            open={isOpen}
+            className={classes}
+            aria-modal="true"
+            aria-label={slug} // TODO: remove if "aria-labelledby" is "undefined"
+            // role="dialog" // TODO: remove if "htmlElement" is "dialog"
+            id={slug}
+          >
             <ModalComponent
               {...{
                 ...props,
@@ -44,7 +51,7 @@ const asModal = (ModalComponent, slugFromArg) => {
                 modal,
               }}
             />
-          </div>
+          </dialog>
         </CSSTransition>,
         containerRef,
       );

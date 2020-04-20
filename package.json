@@ -11,6 +11,11 @@
     "react-component",
     "modal",
     "dialog",
+    "drawer",
+    "mega-menu",
+    "popup",
+    "light-box",
+    "accessibility",
     "ui",
     "ux"
   ],

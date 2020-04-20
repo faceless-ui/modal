@@ -20,15 +20,19 @@ const ModalToggler = (props) => {
   } = props;
 
   const baseClass = `${classPrefix}__modal-toggler`;
+  const isOpen = currentModal === slug;
 
   const mergedClasses = [
     baseClass,
     `${baseClass}--slug-${slug}`,
-    currentModal === slug && `${baseClass}--slug-${slug}--is-open`,
+    isOpen && `${baseClass}--slug-${slug}--is-open`,
     className,
   ].filter(Boolean).join(' ');
 
   const mergedAttributes = {
+    role: 'button',
+    'aria-expanded': isOpen ? 'true' : 'false',
+    'aria-controls': slug,
     ...htmlAttributes,
     onClick: () => {
       toggle(slug);

@@ -1,7 +1,7 @@
 import containerBaseClass from '../ModalContainer/baseClass';
 import itemBaseClass from '../asModal/baseClass';
 
-const generateCSS = (classPrefix, zIndex) => (`
+export default (classPrefix, zIndex) => (`
   .${classPrefix}__${containerBaseClass} {
     top: 0;
     right: 0;
@@ -30,6 +30,9 @@ const generateCSS = (classPrefix, zIndex) => (`
     left: 0;
     top: 0;
     visibility: hidden;
+    border: unset;
+    background: unset;
+    padding: unset;
   }
 
   .${classPrefix}__${itemBaseClass}--appear,
@@ -40,5 +43,3 @@ const generateCSS = (classPrefix, zIndex) => (`
     visibility: visible;
   }
 `);
-
-export default generateCSS;

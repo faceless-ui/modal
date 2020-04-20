@@ -4,27 +4,27 @@
 
 # React Modal
 
-America's next top modal.
+A system for creating dialogs, drawers, mega-menus, popups, light-boxes, and whatchamacallits...modals, with fancy names. This library does the heavy-lifting and nothing more. You decide what it does, how it works, how it looks...and ultimately what its called.
 
 ## Highlights
 
 - #### Modularization
-  Tie into the modal context in both functional and class-based components with the [useModal](./src/useModal/README.md) hook or the [withModal](./src/useModal/README.md) higher-order component. Scaffold a modal with the [asModal](./src/asModal/README.md) higher-order component, or new up a modal with the [Modal](./src/Modal.README.md) component to immediately consume the modal context from its render props. Quickly open and close a modal the [ModalToggler](./src/ModalToggler/README.md) component, or wire in your own directly. _Let the composition of your app determine your modal setup, not the other way around_.
-
-- #### Routing
-  Opt-in to URL parameter handling through the [Modal Provider](./src/ModalProvider/README.md), useful if you want to share a direct link to the modal or navigate using the forward and back button of your browser. If your app is already using a router, easily handle the parameter change yourself with a callback function.
+  Get creative with your setup. Create a modal from anywhere with [Modal](./src/Modal.README.md) or [asModal](./src/asModal/README.md). Interact with a modal from anywhere with [useModal](./src/useModal/README.md) or [withModal](./src/useModal/README.md) — or quickly control them with the [Modal Toggler](./src/ModalToggler/README.md). Integrate into existing apps, retrofit existing components, and have fun.
 
 - #### Portaling
-  Instances of modals are portaled into the [Modal Container](./src/ModalContainer/README.md), which can be rendered anywhere as a descendent of the [Modal Provider](./src/ModalProvider/README.md). This way you write modals contextually, preventing you from having to lift state or drill props, or resort to some global state manager, i.e. [Redux](https://redux.js.org/). Portaling each modal into a centralized, global container also helps in dealing with CSS stacking contexts.
+  Keep your modal content contextual. Stop lifting state and drilling props, or throwing into [Redux](https://redux.js.org/). Just render the [Modal Container](./src/ModalContainer/README.md) anywhere in your app as a descendent of the [Modal Provider](./src/ModalProvider/README.md), and render your modal anywhere else. Also helpful in dealing with CSS stacking contexts.
 
 - #### Accessibility
-  This package aims to comply with the general accessibility requirements of the modern web by following the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines. Open modals will prevent irrelevant elements from receiving focus unexpectedly, they will append the `aria-hidden` attribute to the html body, and are able to be closed using the escape key.Additional ARIA attributes can be given to any component (see [Agnostic DOM](#agnostic-dom)).
+  Accessibility is important. [Modal Provider](./src/ModalProvider/README.md#accessibility), [asModal](./src/asModal/README.md#accessibility), and [ModalToggler](./src/ModalToggler/README.md#accessibility) come shipped with accessibility that closely follow the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [modal dialogs](https://www.w3.org/TR/wai-aria-practices/#dialog_modal). You can also [customize anything](#agnostic-dom).
 
-- #### Pre-configured CSS Classes
-  [BEM](http://getbem.com/) classes have been provided for you, meaning you can use CSS to target any element or state without additional legwork. To mitigate conflicting class names, a class prefix can be attached by setting a prop on the [Modal Provider](./src/ModalProvider/README.md). Transition classes also come pre-configured using [React Transition Group](https://reactcommunity.org/react-transition-group/). This makes it easy to accommodate fancy modal experiences. Transition classes can be customized with a prop on the [Modal Provider](./src/ModalProvider/README.md).
+- #### Routing
+  Control any modal with the URL. Share direct links, open on load, or navigate with the back button. Opt-in to use the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API), or [do it yourself](./src/ModalProvider/README.md#routing) using your app's existing router.
+
+- ####  CSS Classes
+  Target any element and any state without additional legwork. [BEM](http://getbem.com/) classes come shipped. Transition classes too, using [React Transition Group](https://reactcommunity.org/react-transition-group/). Build literally any modal experience, and start challenging your designers for a change.
 
 - #### Agnostic DOM
-  These components make as few assumptions about your setup as possible to give you complete control over the DOM. Things like custom markup, accessability, and event handling are all possible by piping them through [React HTML Element](https://www.npmjs.com/package/@trbl/react-html-element).
+  Take complete control over the DOM. Things like custom markup, accessability, or additional event handling. Everything beyond core functionality is [extendable](https://www.npmjs.com/package/@trbl/react-html-element).
 
 ## Quick Start
 
@@ -47,11 +47,11 @@ $ yarn add @trbl/react-modal
     ModalToggler
   } from '@trbl/react-modal';
 
-  const Modal1 = asModal(() => return <div>Modal1</div>);
+  const SomeComponent = asModal(() => return <div>Modal1</div>);
 
   const App = () => (
     <ModalProvider>
-      <Modal1 slug="modal1" />
+      <SomeComponent slug="modal1" />
       <ModalToggler slug="modal1">
         ...
       </ModalToggler>
