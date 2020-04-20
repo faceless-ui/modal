@@ -2,25 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
-import withModal from '../withModal';
+import useModal from '../useModal';
 import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
 
 const asModal = (ModalComponent, slugFromArg) => {
   const ModalWrap = (props) => {
-    const {
-      modal: {
-        currentModal,
-        classPrefix,
-        containerNode,
-        transTime,
-      },
-      slug: slugFromProp,
-    } = props;
+    const modal = useModal();
 
-    if (containerNode) {
+    const {
+      currentModal,
+      classPrefix,
+      containerRef,
+      transTime,
+    } = modal;
+
+    const { slug: slugFromProp } = props;
+
+    if (containerRef) {
       const baseClass = `${classPrefix}__${itemBaseClass}`;
       const slug = slugFromArg || slugFromProp;
+      const isOpen = currentModal === slug;
 
       const classes = [
         baseClass,
@@ -36,12 +38,15 @@ const asModal = (ModalComponent, slugFromArg) => {
         >
           <div className={classes}>
             <ModalComponent
-              {...props}
-              isOpen={currentModal === slug}
+              {...{
+                ...props,
+                isOpen,
+                modal,
+              }}
             />
           </div>
         </CSSTransition>,
-        containerNode,
+        containerRef,
       );
     }
     return null;
@@ -55,7 +60,7 @@ const asModal = (ModalComponent, slugFromArg) => {
     slug: PropTypes.string,
   };
 
-  return withModal(ModalWrap);
+  return ModalWrap;
 };
 
 export default asModal;

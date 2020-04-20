@@ -1,69 +1,54 @@
-import React, { Component, createRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import HTMLElement from '@trbl/react-html-element';
-import withModal from '../withModal';
+import useModal from '../useModal';
 import containerBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
 
-class ModalContainer extends Component {
-  constructor() {
-    super();
-    this.containerRef = createRef();
-  }
+const ModalContainer = (props) => {
+  const {
+    oneIsOpen,
+    classPrefix,
+    transTime,
+    setContainerRef,
+  } = useModal();
 
-  componentDidMount() {
-    const { modal: { setContainerNode } } = this.props;
-    setContainerNode(this.containerRef.current);
-  }
+  const {
+    id,
+    className,
+    style,
+    htmlElement,
+    htmlAttributes,
+  } = props;
 
-  componentWillUnmount() {
-    const { modal: { setContainerNode } } = this.props;
-    setContainerNode(undefined);
-  }
+  const baseClass = `${classPrefix}__${containerBaseClass}`;
 
-  render() {
-    const {
-      id,
-      className,
-      style,
-      htmlElement,
-      htmlAttributes,
-      modal: {
-        oneIsOpen,
-        classPrefix,
-        transTime,
-      },
-    } = this.props;
+  const mergedClasses = [
+    baseClass,
+    className,
+  ].filter(Boolean).join(' ');
 
-    const baseClass = `${classPrefix}__${containerBaseClass}`;
-
-    const mergedClasses = [
-      baseClass,
-      className,
-    ].filter(Boolean).join(' ');
-
-    return (
-      <CSSTransition
-        in={oneIsOpen}
-        timeout={transTime}
-        classNames={generateTransitionClasses(baseClass)}
-        appear
-      >
-        <HTMLElement
-          {...{
-            id,
-            className: mergedClasses,
-            style,
-            htmlElement,
-            htmlAttributes,
-          }}
-          ref={this.containerRef}
-        />
-      </CSSTransition>
-    );
-  }
-}
+  return (
+    <CSSTransition
+      in={oneIsOpen}
+      timeout={transTime}
+      classNames={generateTransitionClasses(baseClass)}
+      appear
+    >
+      <HTMLElement
+        {...{
+          id,
+          className: mergedClasses,
+          style,
+          htmlElement,
+          htmlAttributes,
+        }}
+        ref={setContainerRef}
+      />
+    </CSSTransition>
+  );
+};
 
 ModalContainer.defaultProps = {
   id: undefined,
@@ -79,12 +64,6 @@ ModalContainer.propTypes = {
   style: PropTypes.shape({}),
   htmlElement: PropTypes.string,
   htmlAttributes: PropTypes.shape({}),
-  modal: PropTypes.shape({
-    oneIsOpen: PropTypes.bool,
-    classPrefix: PropTypes.string,
-    setContainerNode: PropTypes.func,
-    transTime: PropTypes.number,
-  }).isRequired,
 };
 
-export default withModal(ModalContainer);
+export default ModalContainer;
