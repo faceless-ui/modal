@@ -74,6 +74,7 @@ const asModal = (ModalComponent, slugFromArg) => {
     slug: '',
     autoFocus: true,
     trapFocus: true,
+    returnFocus: true,
     closeOnBlur: true,
   };
 
@@ -81,6 +82,7 @@ const asModal = (ModalComponent, slugFromArg) => {
     slug: PropTypes.string,
     autoFocus: PropTypes.bool,
     trapFocus: PropTypes.bool,
+    returnFocus: PropTypes.bool,
     closeOnBlur: PropTypes.bool,
   };
 

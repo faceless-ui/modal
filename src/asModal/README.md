@@ -75,10 +75,10 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
   Modals are not aware of their children, so you must explicitly set this property based on your content. Set to one or more IDs of visible elements within your modal, using a [space-delineated list](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute). Should be concise
 
 - #### `aria-describedby`
-  Same as [above](#aria-labelledby) but elements that best describe the primary purpose or message of the modal. Can be more verbose.
+  Same as [above](#aria-labelledby) but with elements that best describe the primary purpose or message of the modal. Can be more verbose.
 
-- ## Focus Trapping
-  This prevents user interaction from focusing any content other than the descendants of an open modal. It picks up where the [aria-modal](#aria-modal) leaves off. See [trapFocus](#trapFocus).
+- ## `Focus Handling`
+  [autoFocus](#autoFocus), [trapFocus](#trapFocus), and [returnFocus](#returnFocus) are all enabled by default.
 
 ## Classes
 
@@ -124,11 +124,23 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
   Default: true\
   Notes: If `true`, will notify the [Modal Container](../ModalContainer/README.md) to close all modals when it is clicked.
 
+- #### `autoFocus`
+  Type: Boolean\
+  Optional\
+  Default: true\
+  Notes: Automatically focuses the first focusible element of the modal content.
+
 - #### `trapFocus`
   Type: Boolean\
-  Optional
-  Default: true
-  Notes: Locks the underlying interface by.
+  Optional\
+  Default: true\
+  Notes: Prevents the underlying interface from receiving focus by looping the focus of the modal content.
+
+- #### `returnFocus`
+  Type: Boolean\
+  Optional\
+  Default: true\
+  Notes: On close, returns focus to the element that originally opened the modal.
 
 - #### `id`
   Type: String\
@@ -138,7 +150,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
 
 - #### `className`
   Type: String\
-  Optional\
+  Optional
 
 - #### `style`
   Type: Boolean\
