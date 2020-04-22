@@ -1,7 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'qs';
-import minifyCssString from 'minify-css-string';
 import ModalContext from './context';
 import defaultClassPrefix from '../defaultClassPrefix';
 import generateCSS from './css';
@@ -17,12 +16,12 @@ class ModalProvider extends Component {
   }
 
   componentDidMount() {
-    const { handleParamChange } = this.props;
     document.addEventListener('keydown', (e) => this.bindEsc(e), false);
-    if (typeof handleParamChange === 'boolean' && handleParamChange) {
-      window.addEventListener('popstate', () => this.resetFromParam());
-    }
-    this.resetFromParam();
+    const currentModal = this.getModalParam();
+    this.setState({
+      currentModal,
+      oneIsOpen: Boolean(currentModal),
+    });
   }
 
   componentWillUnmount() {
@@ -111,13 +110,7 @@ class ModalProvider extends Component {
     }
   };
 
-  resetFromParam = () => {
-    const currentModal = this.getModalParam();
-    this.setState({
-      currentModal,
-      oneIsOpen: Boolean(currentModal),
-    });
-  }
+  minifyCSSString = (css) => css.replace(/\n/g, '').replace(/\s\s+/g, ' ');
 
   render() {
     const {
@@ -148,14 +141,13 @@ class ModalProvider extends Component {
       setContainerRef: this.setContainerRef,
       classPrefix: classPrefix || defaultClassPrefix,
       transTime,
-      resetFromParam: this.resetFromParam,
     };
 
     let cssString = '';
 
     if (shouldGenerateCSS) {
       cssString = generateCSS(classPrefix, zIndex);
-      if (minifyCSS) cssString = minifyCssString(cssString);
+      if (minifyCSS) cssString = this.minifyCSSString(cssString);
     }
 
     return (

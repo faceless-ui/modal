@@ -4,7 +4,7 @@
 
 # React Modal
 
-A system for creating dialogs, drawers, popups, popovers, mega-menus, light-boxes, etc, etc, etc...all modals with fancy names. This library does the heavy-lifting and nothing more. You decide what it does, how it works, how it looks...and ultimately what its called.
+A highly configurable, a11y-enabled library for creating dialogs, drawers, popups, popovers, mega-menus, light-boxes, etc, etc, etc. Modals...with fancy names. This library is agnostic in every way, and so provides no visual styles. You decide what it does, how it works, how it looks...and ultimately what its called.
 
 ## Highlights
 
@@ -18,13 +18,13 @@ A system for creating dialogs, drawers, popups, popovers, mega-menus, light-boxe
   Keep your modal content contextual. Stop lifting state and drilling props, or throwing into [Redux](https://redux.js.org/). Just render the [Modal Container](./src/ModalContainer/README.md) anywhere in your app as a descendent of the [Modal Provider](./src/ModalProvider/README.md), and render your modal anywhere else. Also helpful in dealing with CSS stacking contexts.
 
 - #### Routing
-  Control any modal with the URL. Share direct links, open on load, or navigate with the back button. Opt-in to use the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API), or [do it yourself](./src/ModalProvider/README.md#routing) using your app's existing router.
+  Control any modal with the URL. Share direct links, open on load, or navigate with the back button. Opt-in to use the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API). Already using [React Router](https://reacttraining.com/react-router/web/guides/quick-start), [Next.js](https://nextjs.org/), [Gatsby](https://www.gatsbyjs.org/) or some other router? Easily [use those tools](./src/ModalProvider/README.md#routing) instead.
 
 - ####  CSS Classes
   Target any element and any state without additional legwork. [BEM](http://getbem.com/) classes come shipped. Transition classes too, using [React Transition Group](https://reactcommunity.org/react-transition-group/). Build literally any modal experience, and start challenging your designers for a change.
 
 - #### Agnostic DOM
-  Take complete control over the DOM. Things like custom markup, accessability, or additional event handling. Everything beyond core functionality is [extendable](https://www.npmjs.com/package/@trbl/react-html-element).
+  Take complete control over the DOM. Things like custom markup, accessibility, or additional event handling. Everything beyond core functionality is [extendable](https://www.npmjs.com/package/@trbl/react-html-element).
 
 ## Quick Start
 
@@ -76,7 +76,7 @@ $ open http://localhost:3000
 ## Documentation
 
   - [asModal](./src/asModal/README.md)
-  - [Modal](./src/Modal.README.md)
+  - [Modal](./src/Modal/README.md)
   - [ModalContainer](./src/ModalContainer/README.md)
   - [ModalProvider](./src/ModalProvider/README.md)
   - [ModalToggler](./src/ModalToggler/README.md)

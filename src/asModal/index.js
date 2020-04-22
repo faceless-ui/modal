@@ -97,6 +97,7 @@ const asModal = (ModalComponent, slugFromArg) => {
     trapFocus: true,
     returnFocus: true,
     closeOnBlur: true,
+    lockScroll: true,
   };
 
   ModalWrap.propTypes = {
@@ -115,6 +116,7 @@ const asModal = (ModalComponent, slugFromArg) => {
     trapFocus: PropTypes.bool,
     returnFocus: PropTypes.bool,
     closeOnBlur: PropTypes.bool,
+    lockScroll: PropTypes.bool,
   };
 
   return ModalWrap;

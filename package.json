@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@trbl/react-html-element": "^1.0.3",
-    "minify-css-string": "^1.0.0",
     "prop-types": "^15.7.2",
     "qs": "^6.9.1",
     "react-transition-group": "^4.3.0"

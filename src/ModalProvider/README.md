@@ -19,7 +19,7 @@ Render a single instance anywhere within within your app, so long as its an ance
 
 ### Routing
 
-Set and remove URL parameters using the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API) using [handleParamChange](#handleParamChange).
+Set and remove URL parameters using the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API).
 
 ```jsx
   import React from 'react';
@@ -32,26 +32,21 @@ Set and remove URL parameters using the [history API](https://developer.mozilla.
   )
 ```
 
-If your app already uses a router, send a callback function to `handleParamChange`, then `resetFromParam` after handling the change.
+If your app already uses a router, send a callback function to [handleParamChange](#handleParamChange).
 
 ```jsx
   import React, { useCallback, useEffect } from 'react';
-  import { ModalProvider, useModal } from '@trbl/react-modal';
+  import { ModalProvider } from '@trbl/react-modal';
   import Router from 'next/router';
 
   const HandleRoutingEvents = (props) => {
     const { children } = props;
-    const { resetFromParam } = useModal();
 
     const handleParamChange = useCallback((slug) => {
       Router.push({
         query: { modal: slug },
       })
     }. [Router])
-
-    useEffect(() => {
-      Router.events.on('routeChangeComplete', () => resetFromParam());
-    }, [Router, resetFromParam]);
 
     return children;
   }
@@ -88,7 +83,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
   Type: Boolean\
   Optional\
   Default: `true`\
-  Notes: Generates a tiny CSS stylesheet to render at the root of the provider. Used for positioning and transition timing, not visual styling. Relevant to the vast majority of use cases.
+  Notes: Generates a tiny CSS stylesheet (~600B) to render at the root of the provider. Used for positioning and transition timing, _not_ visual styling. Relevant to the vast majority of use cases.
 
 - #### `minifyCSS`
   Type: Boolean\
@@ -109,10 +104,10 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
   Notes: Determines the duration by which transition classes are applied, in milliseconds.
 
 - #### `handleParamChange`
-  Type: Boolean or Function\
+  Type: Boolean or Callback\
   Optional\
   Default: `false`\
-  Notes: If `true`, will set and reset the `modal` URL parameter using [pushState](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) method of the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API). Can also be sent a callback function to use your app's existing router instead, just inform the modal of your change with [resetFromParam](#resetFromParam).
+  Notes: If `true`, will set and reset the `modal` URL parameter using [pushState](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) from the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API). If sent a `callback`, will execute your function with a slug for you to process.
 
 ## Provided Context
 
@@ -164,8 +159,3 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
 - #### `transTime`
   Type: Number\
   Notes: See [transTime](#transTime) above.
-
-- #### `resetFromParam`
-  Type: Method\
-  Args: None\
-  Notes: Resets [currentModal](#currentModal) and [oneIsOpen](#oneIsOpen) by reading the `slug` param of the URL. Should be fired after any [handleParamChange](#handleParamChange) callback.

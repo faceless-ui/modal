@@ -1,10 +1,10 @@
 # Modal Container
 
-This is the DOM node that all modals will portal into. Background overlays can be applied here for a global effect, or styled directly into the modal.
+This is the DOM node that all modals will portal into. Background overlays can be applied here for a global effect or styled directly onto individual modals.
 
 ## Usage
 
-Render a single instance anywhere within your app, so long as its a descendent of the [Modal Provider](../ModalProvider/README.md) tree.
+Render a single instance anywhere within your app, so long as its a descendent of the [Modal Provider](../ModalProvider/README.md).
 
 ```jsx
   import React from 'react';
