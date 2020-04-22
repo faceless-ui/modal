@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
@@ -15,14 +15,25 @@ const asModal = (ModalComponent, slugFromArg) => {
       classPrefix,
       containerRef,
       transTime,
+      setCloseOnBlur,
     } = modal;
 
-    const { slug: slugFromProp } = props;
+    // TODO: pipe through @trbl/react-html-element
+
+    const {
+      slug: slugFromProp,
+      closeOnBlur,
+    } = props;
+
+    const slug = slugFromArg || slugFromProp;
+    const isOpen = currentModal === slug;
+
+    useEffect(() => {
+      if (isOpen) setCloseOnBlur(closeOnBlur);
+    }, [isOpen, closeOnBlur, setCloseOnBlur]);
 
     if (containerRef) {
       const baseClass = `${classPrefix}__${itemBaseClass}`;
-      const slug = slugFromArg || slugFromProp;
-      const isOpen = currentModal === slug;
 
       const classes = [
         baseClass,
@@ -61,10 +72,16 @@ const asModal = (ModalComponent, slugFromArg) => {
 
   ModalWrap.defaultProps = {
     slug: '',
+    autoFocus: true,
+    trapFocus: true,
+    closeOnBlur: true,
   };
 
   ModalWrap.propTypes = {
     slug: PropTypes.string,
+    autoFocus: PropTypes.bool,
+    trapFocus: PropTypes.bool,
+    closeOnBlur: PropTypes.bool,
   };
 
   return ModalWrap;

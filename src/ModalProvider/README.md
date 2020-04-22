@@ -1,6 +1,6 @@
 # Modal Provider
 
-Provides context for all components to subscribe to and interact with. Can also set and remove URL parameters using the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API), making it possible share direct links, open on load, or navigate with the back button. Opt-in, or provide [your own router](#routing).
+Provides context for all components to subscribe to and interact with. Can also set and remove URL parameters using the [History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API), making it possible share direct links, open on load, or navigate with the back button. Opt-in, or provide [your own router](#routing).
 
 ## Usage
 
@@ -80,83 +80,92 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
 ## Props
 
 - #### `classPrefix`
-  Type: String
-  Optional
+  Type: String\
+  Optional\
   Notes: Appends onto every class name, useful for unique namespacing within complex stylesheets. Or add additional class names to any component.
 
 - #### `generateCSS`
-  Type: Boolean
-  Optional
-  Default: `true`
+  Type: Boolean\
+  Optional\
+  Default: `true`\
   Notes: Generates a tiny CSS stylesheet to render at the root of the provider. Used for positioning and transition timing, not visual styling. Relevant to the vast majority of use cases.
 
 - #### `minifyCSS`
-  Type: Boolean
-  Optional
-  Default: `true`
+  Type: Boolean\
+  Optional\
+  Default: `true`\
   Notes: Minifies the result of [generateCSS](#generateCSS).
 
 - #### `zIndex`
-  Type: Number
-  Optional
-  Default: `9999`
+  Type: Number\
+  Optional\
+  Default: `9999`\
   Notes: Only used when [generateCSS](#generateCSS) is `true`. Determines the stacking order of the [Modal Container](../ModalContainer/README.md).
 
 - #### `transTime`
-  Type: Number
-  Optional
-  Defaults: `1000`
+  Type: Number\
+  Optional\
+  Defaults: `1000`\
   Notes: Determines the duration by which transition classes are applied, in milliseconds.
 
 - #### `handleParamChange`
-  Type: Boolean or Function
-  Optional
-  Default: `false`
+  Type: Boolean or Function\
+  Optional\
+  Default: `false`\
   Notes: If `true`, will set and reset the `modal` URL parameter using [pushState](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) method of the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API). Can also be sent a callback function to use your app's existing router instead, just inform the modal of your change with [resetFromParam](#resetFromParam).
 
 ## Provided Context
 
 - #### `containerRef`
-  Type: Reference
+  Type: Reference\
   Notes: The container that each modal will portal into, used by [Modal Container](../ModalContainer/README.md)
 
 - #### `setContainerRef`
-  Type: Method
-  Args: Reference
+  Type: Method\
+  Args: Reference\
   Notes: Used by [Modal Container](../ModalContainer/README.md) to populate `containerRef` on mount.
 
 - #### `oneIsOpen`
-  Type: Boolean
+  Type: Boolean\
   Notes: `true` when [currentModal](#currentModal) has value. Triggers transition states on the [Modal Container](../ModalContainer).
 
 - #### `currentModal`
-  Type: String
+  Type: String\
   Notes: Slug of the currently open modal.
 
 - #### `closeAll`
-  Type: Method
-  Args: None
+  Type: Method\
+  Args: None\
   Notes: Resets [currentModal](#currentModal) and [oneIsOpen](#oneIsOpen). Will either remove `modal` from the URL parameters or fire the given callback function based on [handleParamChange](#handleParamChange).
 
+- #### `closeOnBlur`
+  Type: Boolean\
+  Notes: Enables a click event on the [Modal Container](../ModalContainer/README.md) that will close all modals.
+
+- #### `setCloseOnBlur`
+  Type: Method\
+  Args: Boolean\
+  Notes: Sets the [closeOnBlur](#closeOnBlur) status. Fired each time a modal is opened based on its own [closeOnBlur](../asModal/README.md#closeOnBlur) prop.
+
 - #### `open`
-  Type: Method
-  Args: Slug
+  Type: Method\
+  Args: Slug\
   Notes: Sets [currentModal](#closeAll) to the given slug and [oneIsOpen](#oneIsOpen) to `true`. Will either add `modal` to the URL parameters or fire the given callback function based on [handleParamChange](#handleParamChange).
 
 - #### `toggle`
-  Type: Method
-  Args: Slug
+  Type: Method\
+  Args: Slug\
   Notes: Will [closeAll](#closeAll) if the given slug is currently open, otherwise will [open](#open) the given slug.
 
 - #### `classPrefix`
-  Type: String
+  Type: String\
   Notes: See [classPrefix](#classPrefix) above.
 
 - #### `transTime`
-  Type: Number
+  Type: Number\
   Notes: See [transTime](#transTime) above.
 
 - #### `resetFromParam`
-  Type: Method
-  Args: None
+  Type: Method\
+  Args: None\
   Notes: Resets [currentModal](#currentModal) and [oneIsOpen](#oneIsOpen) by reading the `slug` param of the URL. Should be fired after any [handleParamChange](#handleParamChange) callback.

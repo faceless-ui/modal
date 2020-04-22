@@ -4,7 +4,7 @@
 
 # React Modal
 
-A system for creating dialogs, drawers, mega-menus, popups, light-boxes, and whatchamacallits...modals, with fancy names. This library does the heavy-lifting and nothing more. You decide what it does, how it works, how it looks...and ultimately what its called.
+A system for creating dialogs, drawers, popups, popovers, mega-menus, light-boxes, etc, etc, etc...all modals with fancy names. This library does the heavy-lifting and nothing more. You decide what it does, how it works, how it looks...and ultimately what its called.
 
 ## Highlights
 
@@ -47,7 +47,7 @@ $ yarn add @trbl/react-modal
     ModalToggler
   } from '@trbl/react-modal';
 
-  const SomeComponent = asModal(() => return <div>Modal1</div>);
+  const SomeComponent = asModal(() => <div>Modal1</div>);
 
   const App = () => (
     <ModalProvider>
@@ -62,7 +62,7 @@ $ yarn add @trbl/react-modal
   export default App;
 ```
 
-For more complex examples, see the [demo app](./demo/App.demo.js).
+For working examples, see the [demo app](./demo/App.demo.js).
 
 ## Demo
 

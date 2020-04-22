@@ -12,14 +12,14 @@ const AsModal1 = (props) => {
 
   return (
     <div style={{ background: 'rgba(0, 0, 0, .75)', color: 'white' }}>
-      <h2>Demo Modal 1</h2>
+      <h2>asModal Demo 1</h2>
       <span>
-        <ModalToggler slug="demo1">
+        <ModalToggler slug="modal1">
           Click here to close with the ModalToggler component
         </ModalToggler>
         <div>
           <button
-            onClick={() => toggle('demo1')}
+            onClick={() => toggle('modal1')}
             type="button"
           >
             Click here to close with the toggle method
@@ -33,13 +33,16 @@ const AsModal1 = (props) => {
             Click here to close with the closeAll method
           </button>
         </div>
-        <div>
+        <p>
           or press:
           &nbsp;
           <b><kbd>esc</kbd></b>
           &nbsp;
           on your keyboard
-        </div>
+        </p>
+        <p>
+          or click outside this modal
+        </p>
       </span>
     </div>
   );
@@ -52,4 +55,4 @@ AsModal1.propTypes = {
   }).isRequired,
 };
 
-export default asModal(AsModal1, 'demo1');
+export default asModal(AsModal1, 'modal1');

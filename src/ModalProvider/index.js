@@ -101,6 +101,10 @@ class ModalProvider extends Component {
     this.setState({ containerRef: ref });
   }
 
+  setCloseOnBlur = (status) => {
+    this.setState({ closeOnBlur: status });
+  }
+
   bindEsc = (e) => {
     if (e.keyCode === 27) {
       this.closeAll();
@@ -129,6 +133,7 @@ class ModalProvider extends Component {
       containerRef,
       oneIsOpen,
       currentModal,
+      closeOnBlur,
     } = this.state;
 
     const modalContext = {
@@ -136,6 +141,8 @@ class ModalProvider extends Component {
       oneIsOpen,
       currentModal,
       closeAll: this.closeAll,
+      closeOnBlur,
+      setCloseOnBlur: this.setCloseOnBlur,
       open: this.open,
       toggle: this.toggle,
       setContainerRef: this.setContainerRef,

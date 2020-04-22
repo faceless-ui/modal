@@ -1,6 +1,6 @@
 # Modal Container
 
-This is the DOM node that all modals will portal into.
+This is the DOM node that all modals will portal into. Background overlays can be applied here for a global effect, or styled directly into the modal.
 
 ## Usage
 
@@ -60,22 +60,22 @@ Customize the markup, enhance accessibility, anything you want.
 ## Props
 
 - #### `id`
-  Type: String
+  Type: String\
   Optional
 
 - #### `className`
-  Type: String
+  Type: String\
   Optional
 
 - #### `style`
-  Type: Boolean
+  Type: Boolean\
   Optional
 
 - #### `htmlElement`
-  Type: String
-  Optional
+  Type: String\
+  Optional\
   Default: div
 
 - #### `htmlAttributes`
-  Type: Object
+  Type: Object\
   Optional

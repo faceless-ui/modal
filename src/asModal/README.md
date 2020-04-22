@@ -54,16 +54,16 @@ Or for dynamically rendered modals, you can set the slug as a prop instead of an
 Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [dialog containers](https://www.w3.org/TR/wai-aria-practices/#dialog_roles_states_props), all of which can be modified at your discretion.
 
 - #### `htmlElement`
-  Set to `dialog`
+  Set to `dialog`, shares benefits of [aria-modal](#aria-modal).
 
 - #### `open`
-  Toggled `true` or `false` based on the status of the modal
+  Toggled `true` or `false` based on the status of the modal.
 
 - #### `role`
   Set to `dialog` (redundant if [htmlElement](#htmlElement) is also `dialog`)
 
 - #### `aria-modal`
-  Defaults to `true`, informs assistive technologies that outside content is inert. Modals are given no visual style, so to further comply you may want to ensure that your design obscures the outside content.
+  Defaults to `true`, informs assistive technologies that underlying content is inert. Modals are given no visual style, so to further comply you may want to also obscure the outside content. See [focus trapping](#focus-trapping) to also prevent user interaction with underlying content.
 
 - #### `id`
   Defaults to the modal slug and is referenced by the [aria-controls](../ModalToggler/README.md#aria-controls) of the [Modal Toggler](../ModalToggler/README.md)
@@ -75,7 +75,10 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
   Modals are not aware of their children, so you must explicitly set this property based on your content. Set to one or more IDs of visible elements within your modal, using a [space-delineated list](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute). Should be concise
 
 - #### `aria-describedby`
-  Same as [above](#aria-labelledby) but elements that best describe the primary purpose or message of the modal.
+  Same as [above](#aria-labelledby) but elements that best describe the primary purpose or message of the modal. Can be more verbose.
+
+- ## Focus Trapping
+  This prevents user interaction from focusing any content other than the descendants of an open modal. It picks up where the [aria-modal](#aria-modal) leaves off. See [trapFocus](#trapFocus).
 
 ## Classes
 
@@ -100,44 +103,56 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
 ## Args
 
 - #### `ModalComponent`
-  Type: Node
+  Type: Node\
   Required
 
 - #### `slug`
-  Type: String
-  Optional
+  Type: String\
+  Optional\
   Notes: Use if the slug prop is undefined
 
 ## Props
 
 - #### `slug`
-  Type: String
-  Optional
+  Type: String\
+  Optional\
   Notes: Use if the slug argument is undefined
 
-- #### `id`
-  Type: String
+- #### `closeOnBlur`
+  Type: Boolean\
+  Optional\
+  Default: true\
+  Notes: If `true`, will notify the [Modal Container](../ModalContainer/README.md) to close all modals when it is clicked.
+
+- #### `trapFocus`
+  Type: Boolean\
   Optional
-  Default: slug
+  Default: true
+  Notes: Locks the underlying interface by.
+
+- #### `id`
+  Type: String\
+  Optional\
+  Default: slug\
   Notes: Changes may effect [accessibility](#accessibility)
 
 - #### `className`
-  Type: String
-  Optional
+  Type: String\
+  Optional\
 
 - #### `style`
-  Type: Boolean
+  Type: Boolean\
   Optional
 
 - #### `htmlElement`
-  Type: String
-  Optional
-  Default: dialog
+  Type: String\
+  Optional\
+  Default: dialog\
   Notes: Changes may effect [accessibility](#accessibility)
 
 - #### `htmlAttributes`
-  Type: Object
-  Optional
+  Type: Object\
+  Optional\
   Notes: Changes may effect [accessibility](#accessibility)
 
 ## Inherited Props
@@ -146,4 +161,5 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
   Type: Boolean
 
 - #### `modal`
-  Type: Object
+  Type: Object\
+  Notes: Everything from the [modal context](../ModalProvider/README.md#provided-context)

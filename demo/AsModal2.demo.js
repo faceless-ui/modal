@@ -3,7 +3,7 @@ import { asModal } from '../src'; // swap '../src' for '../dist/build.bundle' to
 
 const AsModal2 = () => (
   <div style={{ background: 'rgba(0, 0, 0, .75)', color: 'white' }}>
-    <h2>Demo Modal 2</h2>
+    <h2>asModal Demo 2</h2>
     <span>
       <p>
         press
@@ -13,6 +13,9 @@ const AsModal2 = () => (
         </b>
         &nbsp;
         on your keyboard
+      </p>
+      <p>
+        or click outside this modal
       </p>
     </span>
   </div>

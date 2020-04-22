@@ -12,6 +12,8 @@ const ModalContainer = (props) => {
     classPrefix,
     transTime,
     setContainerRef,
+    closeAll,
+    closeOnBlur,
   } = useModal();
 
   const {
@@ -29,6 +31,14 @@ const ModalContainer = (props) => {
     className,
   ].filter(Boolean).join(' ');
 
+  const mergedAttributes = {
+    ...htmlAttributes,
+    onClick: () => {
+      if (closeOnBlur) closeAll();
+      if (typeof htmlAttributes.onClick === 'function') htmlAttributes.onClick();
+    },
+  };
+
   return (
     <CSSTransition
       in={oneIsOpen}
@@ -42,7 +52,7 @@ const ModalContainer = (props) => {
           className: mergedClasses,
           style,
           htmlElement,
-          htmlAttributes,
+          htmlAttributes: mergedAttributes,
         }}
         ref={setContainerRef}
       />
@@ -63,7 +73,9 @@ ModalContainer.propTypes = {
   className: PropTypes.string,
   style: PropTypes.shape({}),
   htmlElement: PropTypes.string,
-  htmlAttributes: PropTypes.shape({}),
+  htmlAttributes: PropTypes.shape({
+    onClick: PropTypes.func,
+  }),
 };
 
 export default ModalContainer;
