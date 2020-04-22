@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
+import HTMLElement from '@trbl/react-html-element';
 import useModal from '../useModal';
 import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
@@ -21,6 +22,11 @@ const asModal = (ModalComponent, slugFromArg) => {
     // TODO: pipe through @trbl/react-html-element
 
     const {
+      id,
+      className,
+      style,
+      htmlElement,
+      htmlAttributes,
       slug: slugFromProp,
       closeOnBlur,
     } = props;
@@ -35,10 +41,19 @@ const asModal = (ModalComponent, slugFromArg) => {
     if (containerRef) {
       const baseClass = `${classPrefix}__${itemBaseClass}`;
 
-      const classes = [
+      const mergedClasses = [
         baseClass,
         `${baseClass}--slug-${slug}`,
+        className,
       ].filter(Boolean).join(' ');
+
+      const mergedAttributes = {
+        role: htmlElement !== 'dialog' ? 'dialog' : undefined,
+        open: isOpen,
+        'aria-modal': true,
+        'aria-label': !htmlAttributes['aria-labelledby'] ? slug : undefined,
+        ...htmlAttributes,
+      };
 
       return ReactDOM.createPortal(
         <CSSTransition
@@ -47,13 +62,14 @@ const asModal = (ModalComponent, slugFromArg) => {
           classNames={generateTransitionClasses(baseClass)}
           appear
         >
-          <dialog // TODO: pipe through @trbl/react-html-element
-            open={isOpen}
-            className={classes}
-            aria-modal="true"
-            aria-label={slug} // TODO: remove if "aria-labelledby" is "undefined"
-            // role="dialog" // TODO: remove if "htmlElement" is "dialog"
-            id={slug}
+          <HTMLElement
+            {...{
+              id: id || slug,
+              className: mergedClasses,
+              style,
+              htmlElement,
+              htmlAttributes: mergedAttributes,
+            }}
           >
             <ModalComponent
               {...{
@@ -62,7 +78,7 @@ const asModal = (ModalComponent, slugFromArg) => {
                 modal,
               }}
             />
-          </dialog>
+          </HTMLElement>
         </CSSTransition>,
         containerRef,
       );
@@ -71,6 +87,11 @@ const asModal = (ModalComponent, slugFromArg) => {
   };
 
   ModalWrap.defaultProps = {
+    id: undefined,
+    className: undefined,
+    style: {},
+    htmlElement: 'dialog',
+    htmlAttributes: {},
     slug: '',
     autoFocus: true,
     trapFocus: true,
@@ -79,6 +100,16 @@ const asModal = (ModalComponent, slugFromArg) => {
   };
 
   ModalWrap.propTypes = {
+    id: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.shape({}),
+    htmlElement: PropTypes.string,
+    htmlAttributes: PropTypes.shape({
+      id: PropTypes.string,
+      className: PropTypes.string,
+      style: PropTypes.shape({}),
+      onClick: PropTypes.func,
+    }),
     slug: PropTypes.string,
     autoFocus: PropTypes.bool,
     trapFocus: PropTypes.bool,
