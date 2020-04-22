@@ -5,6 +5,7 @@ const Modal1 = () => (
   <Modal
     slug="modal3"
     closeOnBlur={false}
+    lockBodyScroll={false}
   >
     {(modal) => {
       const { toggle } = modal;
@@ -29,6 +30,9 @@ const Modal1 = () => (
             </p>
             <p>
               But clicking outside this modal does nothing.
+            </p>
+            <p>
+              And scrolling will cause the underlying body to also scroll.
             </p>
           </span>
         </div>

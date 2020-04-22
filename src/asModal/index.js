@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import HTMLElement from '@trbl/react-html-element';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import useModal from '../useModal';
 import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
@@ -19,8 +20,6 @@ const asModal = (ModalComponent, slugFromArg) => {
       setCloseOnBlur,
     } = modal;
 
-    // TODO: pipe through @trbl/react-html-element
-
     const {
       id,
       className,
@@ -29,6 +28,7 @@ const asModal = (ModalComponent, slugFromArg) => {
       htmlAttributes,
       slug: slugFromProp,
       closeOnBlur,
+      lockBodyScroll,
     } = props;
 
     const slug = slugFromArg || slugFromProp;
@@ -37,6 +37,20 @@ const asModal = (ModalComponent, slugFromArg) => {
     useEffect(() => {
       if (isOpen) setCloseOnBlur(closeOnBlur);
     }, [isOpen, closeOnBlur, setCloseOnBlur]);
+
+    const modalRef = useRef(null);
+
+    const setModalRef = useCallback((node) => {
+      modalRef.current = node;
+    }, [modalRef]);
+
+    useEffect(() => {
+      if (modalRef.current) {
+        if (isOpen && lockBodyScroll) disableBodyScroll(modalRef.current);
+        else enableBodyScroll(modalRef.current);
+      }
+      return () => enableBodyScroll(modalRef.current);
+    }, [modalRef, isOpen, lockBodyScroll]);
 
     if (containerRef) {
       const baseClass = `${classPrefix}__${itemBaseClass}`;
@@ -70,6 +84,7 @@ const asModal = (ModalComponent, slugFromArg) => {
               htmlElement,
               htmlAttributes: mergedAttributes,
             }}
+            ref={setModalRef}
           >
             <ModalComponent
               {...{
@@ -97,7 +112,7 @@ const asModal = (ModalComponent, slugFromArg) => {
     trapFocus: true,
     returnFocus: true,
     closeOnBlur: true,
-    lockScroll: true,
+    lockBodyScroll: true,
   };
 
   ModalWrap.propTypes = {
@@ -116,7 +131,7 @@ const asModal = (ModalComponent, slugFromArg) => {
     trapFocus: PropTypes.bool,
     returnFocus: PropTypes.bool,
     closeOnBlur: PropTypes.bool,
-    lockScroll: PropTypes.bool,
+    lockBodyScroll: PropTypes.bool,
   };
 
   return ModalWrap;

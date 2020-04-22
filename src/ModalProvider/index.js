@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'qs';
+import { clearAllBodyScrollLocks } from 'body-scroll-lock';
 import ModalContext from './context';
 import defaultClassPrefix from '../defaultClassPrefix';
 import generateCSS from './css';
@@ -44,6 +45,8 @@ class ModalProvider extends Component {
         window.history.pushState({}, '', newURL);
       }
     }
+
+    clearAllBodyScrollLocks();
 
     this.setState({
       currentModal: '',

@@ -43,6 +43,9 @@ const AsModal1 = (props) => {
         <p>
           or click outside this modal
         </p>
+        <p>
+          Notice the underlying body does not scroll.
+        </p>
       </span>
     </div>
   );

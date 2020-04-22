@@ -40,16 +40,19 @@ const App = () => (
         Click to open asModal1
       </ModalToggler>
       <AsModal1 />
+      <br />
       <ModalToggler slug="modal2">
         Click to open asModal2
       </ModalToggler>
       <AsModal2 slug="modal2" />
       <ModalContainer className="customAdditionalClass" />
       <UseModal />
+      <br />
       <Modal1 />
       <ModalToggler slug="modal3">
         Click to open Modal1
       </ModalToggler>
+      <div style={{ height: '150vh' }} />
     </ModalProvider>
   </Fragment>
 );

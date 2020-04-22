@@ -128,7 +128,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
   Type: Boolean\
   Optional\
   Default: true\
-  Notes:
+  Notes: If `true`, will prevent the underlying [body from scrolling](https://www.npmjs.com/package/body-scroll-lock) while the modal is open.
 
 - #### ~~`autoFocus`~~
   ~~Type: Boolean~~\
