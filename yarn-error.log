@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.21.1/libexec/bin/yarn.js build
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.21.1/libexec/bin/yarn.js netlify
 
 PATH: 
   /usr/local/php5/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/php5/bin:/usr/local/mongodb/bin:/usr/local/mongodb/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/jacobfletcher/dev/npm/react-modal/package.json: Unexpected token } in JSON at position 813
+  SyntaxError: /Users/jacobfletcher/dev/npm/react-modal/package.json: Unexpected token } in JSON at position 1023
       at JSON.parse (<anonymous>)
       at /usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
@@ -24,7 +24,7 @@ Trace:
 npm manifest: 
   {
     "name": "@trbl/react-modal",
-    "version": "0.1.1",
+    "version": "1.0.1",
     "main": "dist/build.bundle.js",
     "repository": "git@github.com:trouble/react-modal.git",
     "description": "America's next top modal.",
@@ -46,6 +46,7 @@ npm manifest:
     "scripts": {
       "build": "yarn lint && yarn test && webpack --config webpack.production.config.js",
       "dev": "webpack-dev-server --hot --inline --config webpack.development.config.js",
+      "netlify": "yarn lint && yarn test && webpack --config webpack.netlify.config.js",
       "lint": "eslint .",
       "test": "jest"
     },
@@ -55,6 +56,10 @@ npm manifest:
     },
     "dependencies": {
       "@trbl/react-html-element": "^1.0.3",
+      "body-scroll-lock": "^3.0.1",
+      "prop-types": "^15.7.2",
+      "qs": "^6.9.1",
+      "react-transition-group": "^4.3.0",
     },
     "devDependencies": {
       "@babel/core": "^7.8.4",
@@ -83,7 +88,8 @@ npm manifest:
       "react-hot-loader": "^4.12.19",
       "webpack": "^4.41.4",
       "webpack-cli": "^3.3.10",
-      "webpack-dev-server": "^3.10.1"
+      "webpack-dev-server": "^3.10.1",
+      "webpack-merge": "^4.2.2"
     },
     "lint-staged": {
       "*.js": "yarn lint"
@@ -94,7 +100,8 @@ npm manifest:
       }
     },
     "files": [
-      "dist"
+      "dist/build.bundle.js",
+      "dist/build.bundle.js.map"
     ]
   }
 
@@ -1958,6 +1965,11 @@ Lockfile:
       qs "6.7.0"
       raw-body "2.4.0"
       type-is "~1.6.17"
+  
+  body-scroll-lock@^3.0.1:
+    version "3.0.1"
+    resolved "https://registry.yarnpkg.com/body-scroll-lock/-/body-scroll-lock-3.0.1.tgz#bacb9ebf64fef2498392a3b779f4943af2004fad"
+    integrity sha512-BYcnBAv6r3iKFDeYgG3ZMiOtxHDcHaev84he4vU4nB062A9MSUHsbVkrgsiSZlGCcWqoqGKCKTytSUhzuEjiCQ==
   
   bonjour@^3.5.0:
     version "3.5.0"
@@ -5829,11 +5841,6 @@ Lockfile:
     dependencies:
       dom-walk "^0.1.0"
   
-  minify-css-string@^1.0.0:
-    version "1.0.0"
-    resolved "https://registry.yarnpkg.com/minify-css-string/-/minify-css-string-1.0.0.tgz#201bd949271e19f6e0af0a1dc0ccc583de47c630"
-    integrity sha1-IBvZSSceGfbgrwodwMzFg95HxjA=
-  
   minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz#2e194de044626d4a10e7f7fbc00ce73e83e4d5c7"
@@ -8591,6 +8598,13 @@ Lockfile:
     dependencies:
       ansi-colors "^3.0.0"
       uuid "^3.3.2"
+  
+  webpack-merge@^4.2.2:
+    version "4.2.2"
+    resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-4.2.2.tgz#a27c52ea783d1398afd2087f547d7b9d2f43634d"
+    integrity sha512-TUE1UGoTX2Cd42j3krGYqObZbOD+xF7u28WB7tfUordytSjbWTIjK/8V0amkBfTYN4/pB/GIDlJZZ657BGG19g==
+    dependencies:
+      lodash "^4.17.15"
   
   webpack-sources@^1.4.0, webpack-sources@^1.4.1:
     version "1.4.3"

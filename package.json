@@ -22,6 +22,7 @@
   "scripts": {
     "build": "yarn lint && yarn test && webpack --config webpack.production.config.js",
     "dev": "webpack-dev-server --hot --inline --config webpack.development.config.js",
+    "netlify": "yarn lint && yarn test && webpack --config webpack.netlify.config.js",
     "lint": "eslint .",
     "test": "jest"
   },
@@ -74,6 +75,7 @@
     }
   },
   "files": [
-    "dist"
+    "dist/build.bundle.js",
+    "dist/build.bundle.js.map"
   ]
 }
