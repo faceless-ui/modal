@@ -19,7 +19,12 @@ module.exports = {
     ],
   },
   externals: {
+    '@trbl/react-html-element': '@trbl/react-html-element',
+    'body-scroll-lock': 'body-scroll-lock',
     react: 'react',
     'react-dom': 'react-dom',
+    'prop-types': 'prop-types',
+    qs: 'qs',
+    'react-transition-group': 'react-transition-group',
   },
 };

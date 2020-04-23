@@ -3,7 +3,8 @@ import asModal from '../asModal';
 
 const Modal = (props) => {
   const { children, modal } = props;
-  return children(modal);
+  if (children && typeof children === 'function') return children(modal);
+  return null;
 };
 
 Modal.defaultProps = {
