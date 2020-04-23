@@ -119,7 +119,7 @@ class ModalProvider extends Component {
     const {
       children,
       generateCSS: shouldGenerateCSS,
-      classPrefix,
+      classPrefix: userClassPrefix,
       minifyCSS,
       zIndex,
       transTime,
@@ -132,6 +132,10 @@ class ModalProvider extends Component {
       closeOnBlur,
     } = this.state;
 
+    let classPrefix = defaultClassPrefix;
+    if (typeof userClassPrefix === 'string' && userClassPrefix) classPrefix = userClassPrefix;
+    if (typeof userClassPrefix === 'boolean' && !userClassPrefix) classPrefix = undefined;
+
     const modalContext = {
       containerRef,
       oneIsOpen,
@@ -142,7 +146,7 @@ class ModalProvider extends Component {
       open: this.open,
       toggle: this.toggle,
       setContainerRef: this.setContainerRef,
-      classPrefix: classPrefix || defaultClassPrefix,
+      classPrefix,
       transTime,
     };
 
@@ -165,7 +169,7 @@ class ModalProvider extends Component {
 }
 
 ModalProvider.defaultProps = {
-  classPrefix: '',
+  classPrefix: undefined,
   generateCSS: true,
   minifyCSS: true,
   zIndex: 9999,
@@ -175,7 +179,10 @@ ModalProvider.defaultProps = {
 };
 
 ModalProvider.propTypes = {
-  classPrefix: PropTypes.string,
+  classPrefix: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   generateCSS: PropTypes.bool,
   minifyCSS: PropTypes.bool,
   zIndex: PropTypes.number,

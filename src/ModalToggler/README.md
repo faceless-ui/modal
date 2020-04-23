@@ -72,28 +72,28 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [D
 ## Props
 
 - #### `slug`
-  Type: String\
+  Type: `String`\
   Required
 
 - #### `id`
-  Type: String\
+  Type: `String`\
   Optional
 
 - #### `className`
-  Type: String\
+  Type: `String`\
   Optional
 
 - #### `style`
-  Type: Boolean\
+  Type: `Boolean`\
   Optional
 
 - #### `htmlElement`
-  Type: String\
+  Type: `String`\
   Optional\
-  Default: button\
+  Default: `button`\
   Notes: Changes may effect [accessibility](#accessibility)
 
 - #### `htmlAttributes`
-  Type: Object\
+  Type: `Object`\
   Optional\
   Notes: Changes may effect [accessibility](#accessibility)

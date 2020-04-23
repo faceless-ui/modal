@@ -60,22 +60,22 @@ Customize the markup, enhance accessibility, anything you want.
 ## Props
 
 - #### `id`
-  Type: String\
+  Type: `String`\
   Optional
 
 - #### `className`
-  Type: String\
+  Type: `String`\
   Optional
 
 - #### `style`
-  Type: Boolean\
+  Type: `Boolean`\
   Optional
 
 - #### `htmlElement`
-  Type: String\
+  Type: `String`\
   Optional\
   Default: div
 
 - #### `htmlAttributes`
-  Type: Object\
+  Type: `Object`\
   Optional

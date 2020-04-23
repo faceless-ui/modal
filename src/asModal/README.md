@@ -103,81 +103,81 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
 ## Args
 
 - #### `ModalComponent`
-  Type: Node\
+  Type: `Node`\
   Required
 
 - #### `slug`
-  Type: String\
+  Type: `String`\
   Optional\
-  Notes: Use if the slug prop is undefined
+  Notes: Use if the `slug` prop is undefined
 
 ## Props
 
 - #### `slug`
-  Type: String\
+  Type: `String`\
   Optional\
-  Notes: Use if the slug argument is undefined
+  Notes: Use if the `slug` argument is undefined
 
 - #### `closeOnBlur`
-  Type: Boolean\
+  Type: `Boolean`\
   Optional\
-  Default: true\
+  Default: `true`\
   Notes: If `true`, will notify the [Modal Container](../ModalContainer/README.md) to close all modals when it is clicked.
 
 - #### `lockBodyScroll`
-  Type: Boolean\
+  Type: `Boolean`\
   Optional\
-  Default: true\
+  Default: `true`\
   Notes: If `true`, will prevent the underlying [body from scrolling](https://www.npmjs.com/package/body-scroll-lock) while the modal is open.
 
 - #### ~~`autoFocus`~~
-  ~~Type: Boolean~~\
+  ~~Type: `Boolean`~~\
   ~~Optional~~\
-  ~~Default: true~~\
+  ~~Default: `true`~~\
   ~~Notes: Automatically focuses the first focusible element of the modal content.~~
 
 - #### ~~`trapFocus`~~
-  ~~Type: Boolean~~\
+  ~~Type: `Boolean`~~\
   ~~Optional~~\
-  ~~Default: true~~\
+  ~~Default: `true`~~\
   ~~Notes: Prevents the underlying interface from receiving focus by looping the focus of the modal content.~~
 
 - #### ~~`returnFocus`~~
-  ~~Type: Boolean~~\
+  ~~Type: `Boolean`~~\
   ~~Optional~~\
-  ~~Default: true~~\
+  ~~Default: `true`~~\
   ~~Notes: On close, returns focus to the element that originally opened the modal.~~
 
 - #### `id`
-  Type: String\
+  Type: `String`\
   Optional\
-  Default: slug\
+  Default: `slug`\
   Notes: Changes may effect [accessibility](#accessibility)
 
 - #### `className`
-  Type: String\
+  Type: `String`\
   Optional
 
 - #### `style`
-  Type: Boolean\
+  Type: `Boolean`\
   Optional
 
 - #### `htmlElement`
-  Type: String\
+  Type: `String`\
   Optional\
-  Default: dialog\
+  Default: `dialog`\
   Notes: Changes may effect [accessibility](#accessibility)
 
 - #### `htmlAttributes`
-  Type: Object\
+  Type: `Object`\
   Optional\
   Notes: Changes may effect [accessibility](#accessibility)
 
 ## Inherited Props
 
 - #### `isOpen`
-  Type: Boolean
+  Type: `Boolean`
 
 - #### `modal`
-  Type: Object\
+  Type: `Object`\
   Notes: Everything from the [modal context](../ModalProvider/README.md#provided-context)

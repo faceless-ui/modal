@@ -26,9 +26,9 @@ const App = () => (
       }}
     />
     <ModalProvider
-      classPrefix="demo"
       transTime={250}
       handleParamChange
+      classPrefix="demo"
     >
       <ModalToggler
         slug="modal1"
