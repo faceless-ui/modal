@@ -127,12 +127,12 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
 
 - #### `currentModal`
   Type: `String`\
-  Notes: Slug of the currently open modal.
+  Notes: Slug of the currently open modal, or the `modal` URL parameter on load (valid or not). Each modal compares its slug with this value to determine its open status.
 
 - #### `closeAll`
   Type: `Method`\
   Args: None\
-  Notes: Resets [currentModal](#currentModal) and [oneIsOpen](#oneIsOpen). Will either remove `modal` from the URL parameters or fire the given callback function based on [handleParamChange](#handleParamChange).
+  Notes: Resets [currentModal](#currentModal) and [oneIsOpen](#oneIsOpen). Will either remove `modal` from the URL parameters or fire the given callback function based on [handleParamChange](#handleParamChange). Unlocks all body scroll locks.
 
 - #### `closeOnBlur`
   Type: `Boolean`\
@@ -142,6 +142,14 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
   Type: `Method`\
   Args: Boolean\
   Notes: Sets the [closeOnBlur](#closeOnBlur) status. Fired each time a modal is opened based on its own [closeOnBlur](../asModal/README.md#closeOnBlur) prop.
+
+- #### `bodyScrollIsLocked`
+  Type: `Boolean`\
+  Notes: The current state of body scroll lock, useful when multiple modals differ in (lockBodyScroll)[../asModal/README.md#lockBodyScroll].
+
+  - #### `setBodyScrollLock`
+  Type: `Function`\
+  Notes: (Enables and disables)[https://www.npmjs.com/package/body-scroll-lock] scroll on the HTML body while. Triggered (by each modal)[../asModal/README.md#lockBodyScroll] individually. Check (bodyScrollIsLocked)(#bodyScrollIsLocked) for the global status after overrides.
 
 - #### `open`
   Type: `Method`\

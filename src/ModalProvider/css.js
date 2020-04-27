@@ -30,9 +30,6 @@ export default (classPrefix, zIndex) => {
       left: 0;
       top: 0;
       visibility: hidden;
-      border: unset;
-      background: unset;
-      padding: unset;
     }
 
     .${prefix}${itemBaseClass}--appear,

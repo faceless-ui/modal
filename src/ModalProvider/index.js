@@ -1,44 +1,51 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'qs';
-import { clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 import ModalContext from './context';
 import defaultClassPrefix from '../defaultClassPrefix';
 import generateCSS from './css';
 
-class ModalProvider extends Component {
-  constructor() {
-    super();
-    this.state = {
-      containerRef: undefined,
-      currentModal: '',
-      oneIsOpen: false,
-    };
-  }
+const getSearchQuery = () => {
+  const query = queryString.parse(
+    window.location.search,
+    { ignoreQueryPrefix: true },
+  );
+  return query;
+};
 
-  componentDidMount() {
-    document.addEventListener('keydown', (e) => this.bindEsc(e), false);
-    const currentModal = this.getModalParam();
-    this.setState({
-      currentModal,
-      oneIsOpen: Boolean(currentModal),
-    });
-  }
+const getModalParam = () => {
+  const searchQuery = getSearchQuery();
+  return searchQuery.modal || '';
+};
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', (e) => this.bindEsc(e), false);
-  }
+const ModalProvider = (props) => {
+  const {
+    classPrefix: userClassPrefix,
+    minifyCSS,
+    generateCSS: shouldGenerateCSS,
+    zIndex,
+    handleParamChange,
+    children,
+    transTime,
+  } = props;
 
-  closeAll = (updateHistory = true) => {
-    const { handleParamChange } = this.props;
+  const containerRef = useRef(null);
+  const [currentModal, setCurrentModal] = useState('');
+  const [oneIsOpen, setOneIsOpen] = useState(false);
+  const [closeOnBlur, setCloseOnBlur] = useState(false);
+  const [bodyScrollIsLocked, setBodyScrollIsLocked] = useState(false);
+  const [cssString, setCSSString] = useState('');
+  const [classPrefix, setClassPrefix] = useState('');
 
+  const closeAll = useCallback((updateHistory = true) => {
     if (updateHistory) {
       if (typeof handleParamChange === 'function') {
         handleParamChange({ key: 'modal', value: '' });
       }
 
       if (typeof handleParamChange === 'boolean' && handleParamChange) {
-        const searchQuery = this.getSearchQuery();
+        const searchQuery = getSearchQuery();
         delete searchQuery.modal;
         const queryWithoutModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
         const newURL = `${window.location.pathname}${queryWithoutModal}`;
@@ -48,149 +55,129 @@ class ModalProvider extends Component {
 
     clearAllBodyScrollLocks();
 
-    this.setState({
-      currentModal: '',
-      oneIsOpen: false,
-    });
-  }
+    setCurrentModal('');
+    setOneIsOpen(false);
+  }, [handleParamChange]);
 
-  open = (slug) => {
-    if (slug) {
-      const { handleParamChange } = this.props;
+  const bindEsc = useCallback((e) => {
+    if (e.keyCode === 27) closeAll();
+  }, [closeAll]);
 
+  useEffect(() => {
+    document.addEventListener('keydown', (e) => bindEsc(e), false);
+    setCurrentModal(getModalParam());
+    return () => document.removeEventListener('keydown', (e) => bindEsc(e), false);
+  }, [bindEsc]);
+
+  useEffect(() => {
+    let newClassPrefix = defaultClassPrefix;
+    if (typeof userClassPrefix === 'string' && userClassPrefix) newClassPrefix = userClassPrefix;
+    if (typeof userClassPrefix === 'boolean' && !userClassPrefix) newClassPrefix = undefined;
+    setClassPrefix(newClassPrefix);
+  }, [userClassPrefix]);
+
+  useEffect(() => {
+    if (shouldGenerateCSS) {
+      let newString = '';
+      newString = generateCSS(classPrefix, zIndex);
+      if (minifyCSS) newString = newString.replace(/\n/g, '').replace(/\s\s+/g, ' ');
+      setCSSString(newString);
+    }
+  }, [shouldGenerateCSS, minifyCSS, zIndex, classPrefix]);
+
+  const open = useCallback((slug, skipParamChange) => {
+    if (!skipParamChange) {
       if (typeof handleParamChange === 'function') {
         handleParamChange({ key: 'modal', value: slug });
       }
 
       if (typeof handleParamChange === 'boolean' && handleParamChange) {
-        const searchQuery = this.getSearchQuery();
+        const searchQuery = getSearchQuery();
         searchQuery.modal = slug;
         const queryWithModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
         const newURL = `${window.location.pathname}${queryWithModal}`;
         window.history.pushState({}, '', newURL);
       }
-
-      this.setState({
-        currentModal: slug,
-        oneIsOpen: true,
-      });
     }
-  }
 
-  toggle = (slug) => {
-    const { currentModal } = this.state;
-    if (slug === currentModal) {
-      this.closeAll();
+    setCurrentModal(slug);
+    setOneIsOpen(true);
+  }, [handleParamChange]);
+
+  const toggle = useCallback((slug) => {
+    if (slug === currentModal) closeAll();
+    else open(slug);
+  }, [closeAll, open, currentModal]);
+
+  const setBodyScrollLock = useCallback((status, excludingRef) => {
+    if (status) {
+      disableBodyScroll(excludingRef.current);
+      setBodyScrollIsLocked(true);
     } else {
-      this.open(slug);
+      enableBodyScroll(excludingRef.current);
+      setBodyScrollIsLocked(false);
     }
-  }
+  }, []);
 
-  getModalParam = () => {
-    const searchQuery = this.getSearchQuery();
-    return searchQuery.modal || '';
-  }
+  const setContainerRef = useCallback((ref) => {
+    containerRef.current = ref;
+  }, []);
 
-  getSearchQuery = () => {
-    const query = queryString.parse(
-      window.location.search,
-      { ignoreQueryPrefix: true },
-    );
-    return query;
-  }
+  const inheritedProps = { ...props };
+  delete inheritedProps.children;
 
-  setContainerRef = (ref) => {
-    this.setState({ containerRef: ref });
-  }
-
-  setCloseOnBlur = (status) => {
-    this.setState({ closeOnBlur: status });
-  }
-
-  bindEsc = (e) => {
-    if (e.keyCode === 27) {
-      this.closeAll();
-    }
-  };
-
-  minifyCSSString = (css) => css.replace(/\n/g, '').replace(/\s\s+/g, ' ');
-
-  render() {
-    const {
-      children,
-      generateCSS: shouldGenerateCSS,
-      classPrefix: userClassPrefix,
-      minifyCSS,
-      zIndex,
-      transTime,
-    } = this.props;
-
-    const {
-      containerRef,
-      oneIsOpen,
-      currentModal,
-      closeOnBlur,
-    } = this.state;
-
-    let classPrefix = defaultClassPrefix;
-    if (typeof userClassPrefix === 'string' && userClassPrefix) classPrefix = userClassPrefix;
-    if (typeof userClassPrefix === 'boolean' && !userClassPrefix) classPrefix = undefined;
-
-    const modalContext = {
-      containerRef,
-      oneIsOpen,
-      currentModal,
-      closeAll: this.closeAll,
-      closeOnBlur,
-      setCloseOnBlur: this.setCloseOnBlur,
-      open: this.open,
-      toggle: this.toggle,
-      setContainerRef: this.setContainerRef,
-      classPrefix,
-      transTime,
-    };
-
-    let cssString = '';
-
-    if (shouldGenerateCSS) {
-      cssString = generateCSS(classPrefix, zIndex);
-      if (minifyCSS) cssString = this.minifyCSSString(cssString);
-    }
-
-    return (
-      <Fragment>
-        {shouldGenerateCSS && <style dangerouslySetInnerHTML={{ __html: cssString }} />}
-        <ModalContext.Provider value={modalContext}>
-          {children && children}
-        </ModalContext.Provider>
-      </Fragment>
-    );
-  }
-}
+  return (
+    <Fragment>
+      {shouldGenerateCSS && <style dangerouslySetInnerHTML={{ __html: cssString }} />}
+      <ModalContext.Provider value={{
+        // props
+        ...inheritedProps,
+        transTime,
+        // state
+        containerRef,
+        currentModal,
+        oneIsOpen,
+        closeOnBlur,
+        bodyScrollIsLocked,
+        classPrefix,
+        // methods
+        closeAll,
+        setCloseOnBlur,
+        open,
+        toggle,
+        setContainerRef,
+        setBodyScrollLock,
+      }}
+      >
+        {children && children}
+      </ModalContext.Provider>
+    </Fragment>
+  );
+};
 
 ModalProvider.defaultProps = {
-  classPrefix: undefined,
   generateCSS: true,
   minifyCSS: true,
-  zIndex: 9999,
-  transTime: 1000,
+  classPrefix: undefined,
   handleParamChange: undefined,
+  transTime: 1000,
+  zIndex: 9999,
   children: undefined,
 };
 
 ModalProvider.propTypes = {
+  generateCSS: PropTypes.bool,
+  minifyCSS: PropTypes.bool,
   classPrefix: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
   ]),
-  generateCSS: PropTypes.bool,
-  minifyCSS: PropTypes.bool,
-  zIndex: PropTypes.number,
-  transTime: PropTypes.number,
   handleParamChange: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.bool,
   ]),
+  transTime: PropTypes.number,
+  zIndex: PropTypes.number,
   children: PropTypes.node,
 };
 
