@@ -53,20 +53,11 @@ Or for dynamically rendered modals, you can set the slug as a prop instead of an
 
 Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [dialog containers](https://www.w3.org/TR/wai-aria-practices/#dialog_roles_states_props), all of which can be modified at your discretion.
 
-- #### `htmlElement`
-  Set to `dialog`, shares benefits of [aria-modal](#aria-modal).
-
-- #### `open`
-  Toggled `true` or `false` based on the status of the modal.
-
-- #### `role`
-  Set to `dialog` (redundant if [htmlElement](#htmlElement) is also `dialog`)
+- #### `id`
+  Defaults to the modal slug, is referenced by the [aria-controls](../ModalToggler/README.md#aria-controls) of the [Modal Toggler](../ModalToggler/README.md).
 
 - #### `aria-modal`
-  Defaults to `true`, informs assistive technologies that underlying content is inert. Modals are given no visual style, so to further comply you may want to also obscure the outside content. See [focus trapping](#focus-trapping) to also prevent user interaction with underlying content.
-
-- #### `id`
-  Defaults to the modal slug and is referenced by the [aria-controls](../ModalToggler/README.md#aria-controls) of the [Modal Toggler](../ModalToggler/README.md)
+  Defaults to `true`, informs assistive technologies that underlying content is inert. Modals are given no visual style, so to further comply you may want to also obscure the outside content. [Close on blue](#closeOnBlur) and [handle focus](#focus-trapping) to also prevent user interaction with underlying content.
 
 - #### `aria-label`
   Defaults to the modal slug only if [aria-labelledby](#aria-labelledby) is undefined, [as suggested](https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby)
@@ -76,6 +67,12 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
 
 - #### `aria-describedby`
   Same as [above](#aria-labelledby) but with elements that best describe the primary purpose or message of the modal. Can be more verbose.
+
+- #### `role`
+  Set to `dialog` only if [htmlElement](#htmlElement) is not `dialog`)
+
+- #### `open`
+  Toggled `true` or `false` only if [htmlElement](#htmlElement) is `dialog`
 
 - #### ~~`Focus Handling`~~
   ~~[autoFocus](#autoFocus), [trapFocus](#trapFocus), and [returnFocus](#returnFocus) are all enabled by default.~~
@@ -165,8 +162,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
 - #### `htmlElement`
   Type: `String`\
   Optional\
-  Default: `dialog`\
-  Notes: Changes may effect [accessibility](#accessibility)
+  Default: `div`\
 
 - #### `htmlAttributes`
   Type: `Object`\

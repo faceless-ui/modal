@@ -1,9 +1,8 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import HTMLElement from '@trbl/react-html-element';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import useModal from '../useModal';
 import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
@@ -18,6 +17,8 @@ const asModal = (ModalComponent, slugFromArg) => {
       containerRef,
       transTime,
       setCloseOnBlur,
+      open,
+      setBodyScrollLock,
     } = modal;
 
     const {
@@ -32,7 +33,19 @@ const asModal = (ModalComponent, slugFromArg) => {
     } = props;
 
     const slug = slugFromArg || slugFromProp;
+    const isFirstRender = useRef(true);
+
     const isOpen = currentModal === slug;
+
+    useEffect(() => {
+      // useful to maintain a true oneIsOpen provider state that is only
+      // ever true if the slug URL parameter matches a mounted modal slug.
+      // i.e. ModalContainer will be protected from erroneously opening.
+      if (isFirstRender) {
+        if (isOpen) open(slug);
+        isFirstRender.current = false;
+      }
+    }, [isOpen, open, isFirstRender, slug]);
 
     useEffect(() => {
       if (isOpen) setCloseOnBlur(closeOnBlur);
@@ -46,13 +59,20 @@ const asModal = (ModalComponent, slugFromArg) => {
 
     useEffect(() => {
       if (modalRef.current) {
-        if (isOpen && lockBodyScroll) disableBodyScroll(modalRef.current);
-        else enableBodyScroll(modalRef.current);
+        if (isOpen && lockBodyScroll) setBodyScrollLock(true, modalRef);
+        else setBodyScrollLock(false, modalRef);
       }
-      return () => enableBodyScroll(modalRef.current);
-    }, [modalRef, isOpen, lockBodyScroll]);
+      return () => setBodyScrollLock(false, modalRef);
+    }, [modalRef, isOpen, lockBodyScroll, setBodyScrollLock]);
 
-    if (containerRef) {
+    const [timedOpen, setTimedOpen] = useState(isOpen);
+
+    useEffect(() => {
+      if (!isOpen) setTimeout(() => setTimedOpen(false), transTime);
+      else setTimedOpen(isOpen);
+    }, [isOpen, transTime]);
+
+    if (containerRef.current) {
       const baseClass = `${classPrefix}__${itemBaseClass}`;
 
       const mergedClasses = [
@@ -63,7 +83,7 @@ const asModal = (ModalComponent, slugFromArg) => {
 
       const mergedAttributes = {
         role: htmlElement !== 'dialog' ? 'dialog' : undefined,
-        open: isOpen,
+        open: htmlElement === 'dialog' ? timedOpen || isOpen : undefined,
         'aria-modal': true,
         'aria-label': !htmlAttributes['aria-labelledby'] ? slug : undefined,
         ...htmlAttributes,
@@ -95,27 +115,33 @@ const asModal = (ModalComponent, slugFromArg) => {
             />
           </HTMLElement>
         </CSSTransition>,
-        containerRef,
+        containerRef.current,
       );
     }
     return null;
   };
 
   ModalWrap.defaultProps = {
+    slug: '',
+    closeOnBlur: true,
+    lockBodyScroll: true,
+    // autoFocus: true,
+    // trapFocus: true,
+    // returnFocus: true,
     id: undefined,
     className: undefined,
     style: {},
     htmlElement: 'dialog',
     htmlAttributes: {},
-    slug: '',
-    autoFocus: true,
-    trapFocus: true,
-    returnFocus: true,
-    closeOnBlur: true,
-    lockBodyScroll: true,
   };
 
   ModalWrap.propTypes = {
+    slug: PropTypes.string,
+    closeOnBlur: PropTypes.bool,
+    lockBodyScroll: PropTypes.bool,
+    // autoFocus: PropTypes.bool,
+    // trapFocus: PropTypes.bool,
+    // returnFocus: PropTypes.bool,
     id: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.shape({}),
@@ -126,12 +152,6 @@ const asModal = (ModalComponent, slugFromArg) => {
       style: PropTypes.shape({}),
       onClick: PropTypes.func,
     }),
-    slug: PropTypes.string,
-    autoFocus: PropTypes.bool,
-    trapFocus: PropTypes.bool,
-    returnFocus: PropTypes.bool,
-    closeOnBlur: PropTypes.bool,
-    lockBodyScroll: PropTypes.bool,
   };
 
   return ModalWrap;
