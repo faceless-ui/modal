@@ -22,6 +22,7 @@ const ModalContainer = (props) => {
     style,
     htmlElement,
     htmlAttributes,
+    children,
   } = props;
 
   const baseClass = `${classPrefix}__${containerBaseClass}`;
@@ -55,7 +56,9 @@ const ModalContainer = (props) => {
           htmlAttributes: mergedAttributes,
         }}
         ref={setContainerRef}
-      />
+      >
+        {children && children}
+      </HTMLElement>
     </CSSTransition>
   );
 };
@@ -66,6 +69,7 @@ ModalContainer.defaultProps = {
   style: {},
   htmlElement: 'div',
   htmlAttributes: {},
+  children: undefined,
 };
 
 ModalContainer.propTypes = {
@@ -76,6 +80,7 @@ ModalContainer.propTypes = {
   htmlAttributes: PropTypes.shape({
     onClick: PropTypes.func,
   }),
+  children: PropTypes.node,
 };
 
 export default ModalContainer;
