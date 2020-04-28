@@ -109,8 +109,8 @@ const ModalProvider = (props) => {
     else open(slug);
   }, [closeAll, open, currentModal]);
 
-  const setBodyScrollLock = useCallback((status, excludingRef) => {
-    if (status) {
+  const setBodyScrollLock = useCallback((shouldLock, excludingRef) => {
+    if (shouldLock) {
       disableBodyScroll(excludingRef.current);
       setBodyScrollIsLocked(true);
     } else {

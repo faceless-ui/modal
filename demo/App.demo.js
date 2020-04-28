@@ -4,7 +4,7 @@ import AsModal from './AsModal.demo';
 import UseModal from './UseModal.demo';
 import Modal from './Modal.demo';
 // import WithModal from './WithModal.demo';
-import Transitions from './Transitions.demo';
+import CSS from './CSS.demo';
 import ProviderControls from './ProviderControls.demo';
 
 const reducer = (state, action) => ({
@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <ModalProvider {...settings}>
-      <Transitions />
+      <CSS />
       <AsModal />
       <Modal />
       <ModalToggler slug="asModal">

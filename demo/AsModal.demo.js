@@ -8,16 +8,9 @@ const AsModal = asModal((props) => {
   delete propsToPrint.dispatchSettings;
 
   return (
-    <div
-      style={{
-        height: '400px',
-        overflow: 'auto',
-      }}
-    >
-      <div style={{ minHeight: '600px' }}>
-        <ModalControls {...props} />
-        <PropBlock {...propsToPrint} />
-      </div>
+    <div style={{ minHeight: '600px' }}>
+      <ModalControls {...props} />
+      <PropBlock {...propsToPrint} />
     </div>
   );
 });
@@ -36,6 +29,10 @@ const AsModalController = () => {
       {...settings}
       slug="asModal"
       dispatchSettings={dispatchSettings}
+      style={{
+        height: '400px',
+        overflow: 'auto',
+      }}
     />
   );
 };

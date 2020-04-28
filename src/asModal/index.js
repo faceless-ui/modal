@@ -62,8 +62,9 @@ const asModal = (ModalComponent, slugFromArg) => {
         if (isOpen && lockBodyScroll) setBodyScrollLock(true, modalRef);
         else setBodyScrollLock(false, modalRef);
       }
-      return () => setBodyScrollLock(false, modalRef);
-    }, [modalRef, isOpen, lockBodyScroll, setBodyScrollLock]);
+    }, [isOpen, lockBodyScroll, setBodyScrollLock]);
+
+    useEffect(() => () => setBodyScrollLock(false, modalRef), [setBodyScrollLock]);
 
     const [timedOpen, setTimedOpen] = useState(isOpen);
 

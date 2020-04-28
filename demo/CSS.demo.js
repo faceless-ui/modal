@@ -1,7 +1,7 @@
 import React from 'react';
 import { useModal } from '../src';
 
-const Transitions = () => {
+const CSS = () => {
   const { classPrefix, transTime } = useModal();
 
   return (
@@ -10,6 +10,17 @@ const Transitions = () => {
         __html: `
           .${classPrefix}__modal-item {
             transition: all ${transTime}ms linear;
+
+            /* Safari has no user agent stylesheet for the "dialog" element */
+            /* They're recreated from Chrome here */
+            left: 0px;
+            right: 0px;
+            background: white;
+            border: black solid;
+            padding: 1em;
+            background-color: white;
+            width: fit-content;
+            margin: auto;
           }
 
           .${classPrefix}__modal-item,
@@ -30,4 +41,4 @@ const Transitions = () => {
   );
 };
 
-export default Transitions;
+export default CSS;
