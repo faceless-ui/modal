@@ -4,7 +4,7 @@ A plug-and-play solution for toggling modal windows, complete with class names a
 
 ## Usage
 
-Give it a valid slug to an existing modal, along with some children, and voila.
+Give it a valid slug to an existing modal, along with some children, and voila. Render it anywhere in your app as a descendent of [ModalProvider](../ModalProvider/README.md).
 
 ```jsx
   import React from 'react';
@@ -44,21 +44,21 @@ Customize the markup, add additional click behavior, anything you want.
 Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [Disclosure (Show/Hide)](https://www.w3.org/TR/wai-aria-practices/#disclosure), all of which can be modified at your discretion.
 
 - #### `htmlElement`
-  Defaults to `button`
+  Defaults to `button`.
 
 - #### `role`
   Defaults to `button`.
 
 - #### `aria-expanded`
-  Toggled `true` or `false` based on the status of the controlled modal
+  Toggled `true` or `false` based on the status of the controlled modal.
 
 - #### `aria-controls`
-  Defaults to the `id` of the controlled modal, which is the slug
+  Defaults to the `id` of the controlled modal, which is the slug.
 
 ## Classes
 
 ```scss
-  .trbl__modal-toggler {
+  .modal-toggler {
     ...
     &--slug-modal1 {
       ...
@@ -91,9 +91,9 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [D
   Type: `String`\
   Optional\
   Default: `button`\
-  Notes: Changes may effect [accessibility](#accessibility)
+  Notes: Changes may effect [accessibility](#accessibility).
 
 - #### `htmlAttributes`
   Type: `Object`\
   Optional\
-  Notes: Changes may effect [accessibility](#accessibility)
+  Notes: Changes may effect [accessibility](#accessibility).

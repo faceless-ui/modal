@@ -1,10 +1,10 @@
 # Modal Container
 
-This is the DOM node that all modals will portal into. Background overlays can be applied here for a global effect or styled directly onto individual modals.
+This is the DOM node that all modals will portal into. Global and shared transitions and background overlays can be scoped here, or [styled directly](../asModal/README.md#classes) onto each modal individually.
 
 ## Usage
 
-Render a single instance anywhere within your app, so long as its a descendent of the [Modal Provider](../ModalProvider/README.md).
+Render a single instance anywhere within your app, so long as its a descendent of [ModalProvider](../ModalProvider/README.md).
 
 ```jsx
   import React from 'react';
@@ -43,7 +43,7 @@ Customize the markup, enhance accessibility, anything you want.
 ## Classes
 
 ```scss
-  .trbl__modal-container {
+  .modal-container {
     ...
     &--appear { ... }
     &--appearActive { ... }

@@ -96,7 +96,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
   Type: `Number`\
   Optional\
   Default: `9999`\
-  Notes: Only used when [generateCSS](#generateCSS) is `true`. Determines the stacking order of the [Modal Container](../ModalContainer/README.md).
+  Notes: Only used when [generateCSS](#generateCSS) is `true`. Determines the stacking order of [ModalContainer](../ModalContainer/README.md).
 
 - #### `transTime`
   Type: `Number`\
@@ -114,12 +114,12 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
 
 - #### `containerRef`
   Type: `Ref`\
-  Notes: The container that each modal will portal into, used by [Modal Container](../ModalContainer/README.md)
+  Notes: The container that each modal will portal into, used by [ModalContainer](../ModalContainer/README.md).
 
 - #### `setContainerRef`
   Type: `Method`\
   Args: Reference\
-  Notes: Used by [Modal Container](../ModalContainer/README.md) to populate `containerRef` on mount.
+  Notes: Used by [ModalContainer](../ModalContainer/README.md) to populate `containerRef` on mount.
 
 - #### `oneIsOpen`
   Type: `Boolean`\
@@ -147,7 +147,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
   Type: `Boolean`\
   Notes: The current state of body scroll lock, useful when multiple modals differ in (lockBodyScroll)[../asModal/README.md#lockBodyScroll].
 
-  - #### `setBodyScrollLock`
+- #### `setBodyScrollLock`
   Type: `Function`\
   Notes: (Enables and disables)[https://www.npmjs.com/package/body-scroll-lock] scroll on the HTML body while. Triggered (by each modal)[../asModal/README.md#lockBodyScroll] individually. Check (bodyScrollIsLocked)(#bodyScrollIsLocked) for the global status after overrides.
 

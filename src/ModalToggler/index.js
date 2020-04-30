@@ -65,6 +65,12 @@ ModalToggler.defaultProps = {
 };
 
 ModalToggler.propTypes = {
+  slug: PropTypes.string.isRequired,
+  modal: PropTypes.shape({
+    currentModal: PropTypes.array,
+    toggle: PropTypes.func,
+    classPrefix: PropTypes.string,
+  }).isRequired,
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.shape({}),
@@ -75,12 +81,6 @@ ModalToggler.propTypes = {
     style: PropTypes.shape({}),
     onClick: PropTypes.func,
   }),
-  slug: PropTypes.string.isRequired,
-  modal: PropTypes.shape({
-    currentModal: PropTypes.string,
-    toggle: PropTypes.func,
-    classPrefix: PropTypes.string,
-  }).isRequired,
   children: PropTypes.node,
 };
 

@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import PropBlock from './PropBlock';
+import LogProps from './LogProps';
 import { asModal } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 import ModalControls from './ModalControls.demo';
 
@@ -10,7 +10,7 @@ const AsModal = asModal((props) => {
   return (
     <div style={{ minHeight: '600px' }}>
       <ModalControls {...props} />
-      <PropBlock {...propsToPrint} />
+      <LogProps {...propsToPrint} />
     </div>
   );
 });

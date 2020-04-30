@@ -1,6 +1,6 @@
 # asModal
 
-A higher-order component used to instantiate a modal. Portals your content into the [Modal Container](../ModalContainer/README.md). Also provides transition classes and accessibility. Inherits the`isOpen` prop along with the [modal context](../ModalProvider/README.md#provided-context). For an inline approach, try [Modal](../Modal/README.md).
+A higher-order component used to instantiate a modal. Portals your content into [ModalContainer](../ModalContainer/README.md). Also provides transition classes and accessibility. Inherits [isOpen](#isOpen) and the [modal context](../ModalProvider/README.md#provided-context). For an inline approach, try [Modal](../Modal/README.md).
 
 ## Usage
 
@@ -54,7 +54,7 @@ Or for dynamically rendered modals, you can set the slug as a prop instead of an
 Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [dialog containers](https://www.w3.org/TR/wai-aria-practices/#dialog_roles_states_props), all of which can be modified at your discretion.
 
 - #### `id`
-  Defaults to the modal slug, is referenced by the [aria-controls](../ModalToggler/README.md#aria-controls) of the [Modal Toggler](../ModalToggler/README.md).
+  Defaults to the modal slug, is referenced by the [aria-controls](../ModalToggler/README.md#aria-controls) of [ModalToggler](../ModalToggler/README.md).
 
 - #### `aria-modal`
   Defaults to `true`, informs assistive technologies that underlying content is inert. Modals are given no visual style, so to further comply you may want to also obscure the outside content. [Close on blue](#closeOnBlur) and [handle focus](#focus-trapping) to also prevent user interaction with underlying content.
@@ -106,20 +106,24 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
 - #### `slug`
   Type: `String`\
   Optional\
-  Notes: Use if the `slug` prop is undefined
+  Notes: Or use the `slug` prop.
 
 ## Props
 
 - #### `slug`
   Type: `String`\
   Optional\
-  Notes: Use if the `slug` argument is undefined
+  Notes: Or the `slug` arg.
 
 - #### `closeOnBlur`
   Type: `Boolean`\
   Optional\
   Default: `true`\
+<<<<<<< HEAD
   Notes: If `true`, will notify the [Modal Container](../ModalContainer/README.md) to close all modals when it is clicked.
+=======
+  Notes: If `true`, will trigger the open [ModalContainer](../ModalContainer/README.md) to close itself along with all open modals when it is clicked.
+>>>>>>> 5ef80e4... revises documentation
 
 - #### `lockBodyScroll`
   Type: `Boolean`\
@@ -149,7 +153,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
   Type: `String`\
   Optional\
   Default: `slug`\
-  Notes: Changes may effect [accessibility](#accessibility)
+  Notes: Changes may effect [accessibility](#accessibility).
 
 - #### `className`
   Type: `String`\
@@ -167,7 +171,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
 - #### `htmlAttributes`
   Type: `Object`\
   Optional\
-  Notes: Changes may effect [accessibility](#accessibility)
+  Notes: Changes may effect [accessibility](#accessibility).
 
 ## Inherited Props
 
@@ -176,4 +180,4 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
 
 - #### `modal`
   Type: `Object`\
-  Notes: Everything from the [modal context](../ModalProvider/README.md#provided-context)
+  Notes: Everything from the [modal context](../ModalProvider/README.md#provided-context).

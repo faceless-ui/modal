@@ -1,6 +1,6 @@
 import React, { Fragment, useReducer } from 'react';
 import { Modal } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import PropBlock from './PropBlock';
+import LogProps from './LogProps';
 import ModalControls from './ModalControls.demo';
 
 const reducer = (state, action) => ({
@@ -27,7 +27,7 @@ const ModalDemo = () => {
               {...modal}
               dispatchSettings={dispatchSettings}
             />
-            <PropBlock {...propsToPrint} />
+            <LogProps {...propsToPrint} />
           </Fragment>
         );
       }}

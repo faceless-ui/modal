@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const filterObject = () => {
   const seen = new WeakSet();
@@ -23,7 +22,7 @@ const filterObject = () => {
   };
 };
 
-const PropsBlock = (props) => (
+const LogProps = (props) => (
   <code>
     <pre>
       {JSON.stringify(props, filterObject(), 2)}
@@ -31,12 +30,4 @@ const PropsBlock = (props) => (
   </code>
 );
 
-PropsBlock.defaultProps = {
-  props: undefined,
-};
-
-PropsBlock.propTypes = {
-  props: PropTypes.shape({}),
-};
-
-export default PropsBlock;
+export default LogProps;
