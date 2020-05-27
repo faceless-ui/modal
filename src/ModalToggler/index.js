@@ -67,7 +67,7 @@ ModalToggler.defaultProps = {
 ModalToggler.propTypes = {
   slug: PropTypes.string.isRequired,
   modal: PropTypes.shape({
-    currentModal: PropTypes.array,
+    currentModal: PropTypes.string,
     toggle: PropTypes.func,
     classPrefix: PropTypes.string,
   }).isRequired,

@@ -41,17 +41,17 @@ $ yarn add @trbl/react-modal
 ```jsx
   import React from 'react';
   import {
-    asModal,
+    Modal,
     ModalContainer,
     ModalProvider,
     ModalToggler
   } from '@trbl/react-modal';
 
-  const SomeComponent = asModal(() => <div>Modal1</div>);
-
   const App = () => (
     <ModalProvider>
-      <SomeComponent slug="modal1" />
+      <Modal slug="modal1">
+        ...
+      </Modal>
       <ModalToggler slug="modal1">
         ...
       </ModalToggler>
