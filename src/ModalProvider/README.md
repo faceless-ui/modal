@@ -35,34 +35,23 @@ Set and remove URL parameters using the [history API](https://developer.mozilla.
 If your app already uses a router, send a callback function to [handleParamChange](#handleParamChange).
 
 ```jsx
-  import React, { useCallback, useEffect } from 'react';
+  import React, { useCallback } from 'react';
   import { ModalProvider } from '@trbl/react-modal';
   import Router from 'next/router';
 
-  const HandleRoutingEvents = (props) => {
-    const { children } = props;
-
+  const MyApp = () => {
     const handleParamChange = useCallback((slug) => {
       Router.push({
         query: { modal: slug },
       })
-    }. [Router])
+    }. [Router]);
 
-    return children;
-  }
-
-  const MyApp = () => (
-    <ModalProvider
-      classPrefix="demo"
-      transTime={1000}
-      handleParamChange={handleParamChange}
-      generateCSS={false}
-    >
-      <HandleRoutingEvents>
+    return (
+      <ModalProvider handleParamChange={handleParamChange}>
         ...
-      </HandleRoutingEvents>
-    </ModalProvider>
-  )
+      </ModalProvider>
+    )
+  }
 ```
 
 ## Accessibility
@@ -101,7 +90,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
 - #### `transTime`
   Type: `Number`\
   Optional\
-  Defaults: `1000`\
+  Default: `0`\
   Notes: Determines the duration by which transition classes are applied, in milliseconds.
 
 - #### `handleParamChange`
