@@ -119,11 +119,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [d
   Type: `Boolean`\
   Optional\
   Default: `true`\
-<<<<<<< HEAD
-  Notes: If `true`, will notify the [Modal Container](../ModalContainer/README.md) to close all modals when it is clicked.
-=======
   Notes: If `true`, will trigger the open [ModalContainer](../ModalContainer/README.md) to close itself along with all open modals when it is clicked.
->>>>>>> 5ef80e4... revises documentation
 
 - #### `lockBodyScroll`
   Type: `Boolean`\
