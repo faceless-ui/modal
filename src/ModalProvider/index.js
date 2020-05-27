@@ -160,7 +160,7 @@ ModalProvider.defaultProps = {
   minifyCSS: true,
   classPrefix: undefined,
   handleParamChange: undefined,
-  transTime: 1000,
+  transTime: 0,
   zIndex: 9999,
   children: undefined,
 };
