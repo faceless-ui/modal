@@ -30,7 +30,7 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@trbl/react-html-element": "^1.0.3",
+    "@faceless-ui/html-element": "^1.0.3",
     "body-scroll-lock": "^3.0.1",
     "prop-types": "^15.7.2",
     "qs": "^6.9.1",

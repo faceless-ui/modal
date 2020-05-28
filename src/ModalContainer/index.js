@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
-import HTMLElement from '@trbl/react-html-element';
+import HTMLElement from '@faceless-ui/html-element';
 import useModal from '../useModal';
 import containerBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
