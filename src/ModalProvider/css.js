@@ -27,8 +27,6 @@ export default (classPrefix, zIndex) => {
 
     .${prefix}${itemBaseClass} {
       position: absolute;
-      left: 0;
-      top: 0;
       visibility: hidden;
     }
 
