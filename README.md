@@ -1,76 +1,122 @@
-[![NPM](https://img.shields.io/npm/v/@trbl/react-modal)](https://www.npmjs.com/@trbl/react-modal)
-![Bundle Size](https://img.shields.io/bundlephobia/minzip/@trbl/react-modal?label=zipped)
+[![NPM](https://img.shields.io/npm/v/@faceless-ui/modal)](https://www.npmjs.com/@faceless-ui/modal)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/@faceless-ui/modal?label=zipped)
 [![Supported by TRBL](https://img.shields.io/badge/supported_by-TRBL-black)](https://github.com/trouble)
 
 # React Modal
 
-A flexible, unstyled, a11y-enabled library for creating dialogs, drawers, popups, popovers, mega-menus, light-boxes, etc, etc, etc. Modals with fancy names. Meant to power other UI libraries. You decide what it does, how it works, how it looks...and ultimately what its called.
+An unstyled, transition-ready, a11y-enabled library for creating dialogs, drawers, confirmations, popups, popovers, mega-menus, light-boxes, etc, etc, etc. Meant to power UI libraries. You decide what it does, how it works, how it looks...and ultimately what its called. Build literally any modal experience.
 
-## Highlights
-
-- #### Modular
-  Get creative with your setup. Create a modal from anywhere with [Modal](./src/Modal.README.md) or [asModal](./src/asModal/README.md). Interact with a modal from anywhere with [useModal](./src/useModal/README.md) or [withModal](./src/useModal/README.md). Quickly control them with [ModalToggler](./src/ModalToggler/README.md) or easily create your own.
-
-- #### Faceless UI
-  Applies no visual style, but encourages you to do so. Target any element and any state without additional legwork. [BEM](http://getbem.com/) classes come shipped. Transition classes too, using [react-transition-group](https://reactcommunity.org/react-transition-group/). Build literally any modal experience, and start challenging your designers for a change.
-
-- #### Agnostic DOM
-  Take complete control over the DOM. Things like custom markup, accessibility, or additional event handling. Everything beyond core functionality is [extendable](https://www.npmjs.com/package/@faceless-ui/html-element). No more needing to nest or wrap nodes unnecessarily.
-
-- #### Router Ready
-  Control any modal with the URL. Share direct links, open on load, or use browser navigation. Opt-in to use the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API). Using [Next.js](https://nextjs.org/), [Gatsby](https://www.gatsbyjs.org/), or some other framework? Easily [use those routers](./src/ModalProvider/README.md#routing) instead.
-
-- #### Contextual
-  Leave your content put. Stop lifting state and drilling props, or throwing into [Redux](https://redux.js.org/). Render [ModalContainer](./src/ModalContainer/README.md) anywhere in your app as a descendent of the [ModalProvider](./src/ModalProvider/README.md). Each modal will ultimately render here, no matter where they're written. Also helpful in dealing with CSS stacking contexts.
-
-- #### Accessible
-  Shipped fully accessible. [ModalProvider](./src/ModalProvider/README.md#accessibility), [asModal](./src/asModal/README.md#accessibility), and [ModalToggler](./src/ModalToggler/README.md#accessibility) strictly follow the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [modal dialogs](https://www.w3.org/TR/wai-aria-practices/#dialog_modal). You can also [customize anything](#agnostic-dom).
+# Table of Contents
+  - [Installation](#installation)
+  - [Basic Setup](#basic-setup)
+  - [Custom Components](#custom-components)
+  - [API](#api)
+  - [Highlights](#highlights)
+  - [Demo](#demo)
+  - [Showcase](#showcase)
+  - [Contribution](#contribution)
 
 ## Quick Start
 
 ### Installation
 
 ```bash
-$ npm i @trbl/react-modal
+$ npm i @faceless-ui/modal
 $ # or
-$ yarn add @trbl/react-modal
+$ yarn add @faceless-ui/modal
 ```
 
-### Composition
+### Basic Setup
 
 ```jsx
-  import React from 'react';
-  import {
-    Modal,
-    ModalContainer,
-    ModalProvider,
-    ModalToggler
-  } from '@trbl/react-modal';
+import React from 'react';
+import {
+  Modal,
+  ModalContainer,
+  ModalProvider,
+  ModalToggler
+} from '@faceless-ui/modal';
 
-  const App = () => (
-    <ModalProvider>
-      <Modal slug="modal1">
-        ...
-      </Modal>
-      <ModalToggler slug="modal1">
-        ...
-      </ModalToggler>
-      <ModalContainer />
-    <ModalProvider>
-  );
+const App = () => (
+  <ModalProvider>
+    <Modal slug="modal1">
+      ...
+    </Modal>
+    <ModalToggler slug="modal1">
+      ...
+    </ModalToggler>
+    <ModalContainer />
+  <ModalProvider>
+);
 
-  export default App;
+export default App;
 ```
 
-For working examples, see the [demo app](./demo/App.demo.js).
+Explanation:
 
-## Demo
+- [ModalProvider](./src/ModalProvider/README.md) provides context. Render it one-time, at the top-level of your app or nearest common ancestor.
+- [ModalContainer](./src/ModalContainer/README.md) is where every modal will portal into. Render it one time, anywhere in your app (as a descendant of the provider).
+- [Modal](./src/Modal/README.md) will new up a modal, it only needs a unique slug. You an also instantiate a modal with the [asModal](./src/asModal/README.md) HOC.
+- [ModalToggler](./src/Modal/README.md) is a quick way to control a modal. You can also toggle a modal directly with the [useModal](./src/useModal/README.md) hook or the [withModal](./src/withModal/README.md) HOC.
 
-```bash
-$ git clone git@github.com:trouble/react-modal.git
-$ yarn
-$ yarn dev
-$ open http://localhost:3000
+### Custom Components
+
+```jsx
+export default CustomModalA = asModal((props) => {
+  const { closeAll } = props;
+
+  return (
+    <div>
+      ...
+      <button onClick={() => closeAll()}>
+        Close
+      </button>
+    <div>
+  )
+}, 'customModalA'); // or render with a 'slug' prop
+```
+
+```jsx
+export default CustomModalB = () => (
+  <Modal slug="customModalB">
+    {(modal) => {
+      const { closeAll } = modal;
+
+      return (
+        <div>
+        ...
+          <button onClick={() => closeAll()}>
+            Close
+          </button>
+        </div>
+      )
+    )}
+  </Modal>
+)
+```
+
+```jsx
+export default CustomModalTogglerA = () => {
+  const { toggle } = useModal();
+
+  return (
+    <button onClick={() => toggle('customModalA')}> // or use 'open()'
+      Open
+    <button>
+  )
+};
+```
+
+```jsx
+export default CustomModalTogglerB = withModal(props) => {
+  const { modal: { toggle } } = props;
+
+  return (
+    <button onClick={() => toggle('customModalB')}> // or use 'open()'
+      Open
+    <button>
+  )
+};
 ```
 
 ## API
@@ -83,10 +129,46 @@ $ open http://localhost:3000
   - [useModal](./src/useModal/README.md)
   - [withModal](./src/withModal/README.md)
 
+For working examples, see the [demo app](./demo/App.demo.js).
+
+## Highlights
+
+- #### Composable
+  Accommodates any setup. Render [ModalProvider](./src/ModalProvider/README.md) at the top-level, and [ModalContainer](./src/ModalProvider/README.md) anywhere within that. Then create modals and interact with them however you see it.
+
+- #### Faceless UI
+  Applies no visual style of it's own. CSS transition-ready using [react-transition-group](https://reactcommunity.org/react-transition-group/). Target any element and any UI state using transition hooks.
+
+- #### Accessible
+  Shipped fully accessible. [ModalProvider](./src/ModalProvider/README.md#accessibility), [asModal](./src/asModal/README.md#accessibility), and [ModalToggler](./src/ModalToggler/README.md#accessibility) strictly follow the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [modal dialogs](https://www.w3.org/TR/wai-aria-practices/#dialog_modal). You can also [customize anything](#agnostic-dom).
+
+- #### Agnostic DOM
+  Leaves minimal DOM footprint and provides full control. Things like custom markup, accessibility, or additional event handling. Everything beyond core functionality is extendable.
+
+- #### Router Ready
+  Control and be controlled by the URL with any modal. Opt-in to use the native [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API). Using [Next.js](https://nextjs.org/), [Gatsby](https://www.gatsbyjs.org/), or some other framework? Easily [use those routers](./src/ModalProvider/README.md#routing) too.
+
+## Demo
+
+```bash
+$ git clone git@github.com:faceless-ui/modal.git
+$ yarn
+$ yarn dev
+$ open http://localhost:3000
+```
+
+## Showcase
+
+This package is being actively used in the following projects. To have your project added to this list, please create an [issue](https://github.com/faceless-ui/modal/issues) or make a [pull request](https://github.com/faceless-ui/modal/pulls).
+
+-  [My290](https://my.290signs.com)
+-  [Custer Inc](https://custerinc.com/)
+-  [Payload CMS](https://payloadcms.com/)
+
 ## Contribution
 
-[Help us,](https://github.com/trouble/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/trouble/.github/blob/master/SUPPORT.md).
+[Help us,](https://github.com/faceless-ui/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/faceless-ui/.github/blob/master/SUPPORT.md).
 
 ## License
 
-[MIT](https://github.com/trouble/react-modal/blob/master/LICENSE) Copyright (c) TRBL, LLC
+[MIT](https://github.com/faceless-ui/modal/blob/master/LICENSE) Copyright (c) TRBL, LLC

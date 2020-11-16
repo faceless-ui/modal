@@ -1,20 +1,26 @@
 # Modal Provider
 
-Provides context for all components to subscribe to and interact with. Can also set and remove URL parameters using the [History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API), making it possible share direct links, open on load, or navigate with the back button. Opt-in, or provide [your own router](#routing).
+Provides context for all other components to subscribe and interact with. Can also control and be controlled by URL parameters via the [History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API). Opt-in, or provide [your own router](#routing).
+
+- [Usage](#usage)
+- [Routing](#routing)
+- [Accessibility](#accessibility)
+- [Props](#props)
+- [Provided Context](#provided-context)
 
 ## Usage
 
-Render a single instance anywhere within within your app, so long as its an ancestor of other components within this module.
+Render it one-time, at the top-level of your app or nearest common ancestor.
 
 ```jsx
-  import React from 'react';
-  import { ModalProvider } from '@trbl/react-modal';
-
-  export default App = () => (
-    <ModalProvider>
-      ...
-    </ModalProvider>
-  )
+<ModalProvider
+  classPrefix="exampleClassPrefix"
+  transTime={250}
+  zIndex={100}
+  generateCSS
+  minifyCSS
+  handleParamChange
+/>
 ```
 
 ### Routing
@@ -22,36 +28,60 @@ Render a single instance anywhere within within your app, so long as its an ance
 Set and remove URL parameters using the [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API).
 
 ```jsx
-  import React from 'react';
-  import { ModalProvider } from '@trbl/react-modal';
-
-  export default App = () => (
-    <ModalProvider handleParamChange>
-      ...
-    </ModalProvider>
-  )
+<ModalProvider handleParamChange>
+  ...
+</ModalProvider>
 ```
 
 If your app already uses a router, send a callback function to [handleParamChange](#handleParamChange).
 
+NextJS:
+
 ```jsx
-  import React, { useCallback } from 'react';
-  import { ModalProvider } from '@trbl/react-modal';
-  import Router from 'next/router';
+import React, { useCallback } from 'react';
+import { ModalProvider } from '@faceless-ui/modal';
+import Router from 'next/router';
 
-  const MyApp = () => {
-    const handleParamChange = useCallback((slug) => {
-      Router.push({
-        query: { modal: slug },
-      })
-    }. [Router]);
+export default App = () => {
+  const handleParamChange = useCallback((incomingSlug) => {
+    Router.push({
+      query: { modal: incomingSlug },
+    })
+  }, []);
 
-    return (
-      <ModalProvider handleParamChange={handleParamChange}>
-        ...
-      </ModalProvider>
-    )
-  }
+  return (
+    <ModalProvider handleParamChange={handleParamChange}>
+      ...
+    </ModalProvider>
+  )
+}
+```
+
+React Router:
+
+```jsx
+import React, { useCallback } from 'react';
+import { ModalProvider } from '@faceless-ui/modal';
+import { useLocation, useHistory } from 'react-router-dom';
+import qs from 'qs';
+
+export default App = () => {
+  const history = useHistory();
+  const { url, search } = useLocation();
+
+  const handleParamChange = useCallback((incomingSlug) => {
+    const withChangedSlug = qs.parse(search, { ignoreQueryPrefix: true });
+    withChangedSlug.slug = incomingSlug;
+    newSearchString = qs.stringify(withChangedSlug, { encode: false });
+    history.push(`${url}${newSearchString}`)
+  }, [url, search, history]);
+
+  return (
+    <ModalProvider handleParamChange={handleParamChange}>
+      ...
+    </ModalProvider>
+  )
+}
 ```
 
 ## Accessibility

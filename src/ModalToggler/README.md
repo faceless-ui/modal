@@ -1,42 +1,27 @@
 # Modal Toggler
 
-A plug-and-play solution for toggling modal windows, complete with class names and accessibility. Provides a common pattern for the vast majority of use cases, including hamburger menus. For additional control, try [useModal](../useModal/README.md) or [withModal](../withModal/README.md).
+Plug-and-play solution to open and close modals. Provides a common pattern for the vast majority of use cases, including hamburger menus. For additional control, interact with the [modal context](../ModalProvider/README.md#provided-context) directly with the [useModal](../useModal/README.md) hook or the [withModal](../withModal/README.md) HOC.
+
+- [Usage](#usage)
+- [Accessibility](#accessibility)
+- [Classes](#classes)
+- [Props](#props)
 
 ## Usage
 
 Give it a valid slug to an existing modal, along with some children, and voila. Render it anywhere in your app as a descendent of [ModalProvider](../ModalProvider/README.md).
 
 ```jsx
-  import React from 'react';
-  import { ModalToggler } from '@trbl/react-modal';
-
-  export default SomeComponent = () => (
-    <ModalToggler slug="modal1">
-      ...
-    </ModalToggler>
-  )
-```
-
-Customize the markup, add additional click behavior, anything you want.
-
-```jsx
-  import React, { useState } from 'react';
-  import { ModalToggler } from '@trbl/react-modal';
-
-  const SomeComponent = () => (
-    <ModalToggler
-      slug="modal1"
-      id="some-id"
-      className="some-additional-class"
-      htmlElement="span"
-      htmlAttributes={{
-        aria-label: 'Click to toggle the modal.',
-        onClick: () => console.count()
-      }}
-    >
-      ...
-    </ModalToggler>
-  )
+<ModalToggler
+  slug="exampleModal"
+  id="exampleID"
+  className="exampleClassName"
+  style={{ ... }}
+  htmlElement="div"
+  htmlAttributes={{ ... }}
+>
+  ...
+</ModalToggler>
 ```
 
 ## Accessibility

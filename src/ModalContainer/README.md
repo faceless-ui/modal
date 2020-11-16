@@ -1,43 +1,21 @@
 # Modal Container
 
-This is the DOM node that all modals will portal into. Global and shared transitions and background overlays can be scoped here, or [styled directly](../asModal/README.md#classes) onto each modal individually.
+The DOM node that all modals will portal into. Render a single instance anywhere within your app, so long as its a descendent of [ModalProvider](../ModalProvider/README.md). Apply css here for a global affect, such as a shared background overlay or transition.
+
+- [Usage](#usage)
+- [Classes](#classes)
+- [Props](#props)
 
 ## Usage
 
-Render a single instance anywhere within your app, so long as its a descendent of [ModalProvider](../ModalProvider/README.md).
-
 ```jsx
-  import React from 'react';
-  import { ModalToggler } from '@trbl/react-modal';
-
-  const App = () => (
-    ...
-    <ModalContainer />
-    ...
-  )
-```
-
-Customize the markup, enhance accessibility, anything you want.
-
-```jsx
-  import React, { useState } from 'react';
-  import { ModalContainer } from '@trbl/react-modal';
-
-  const App = () => (
-    ...
-    <ModalContainer
-      id="some-id"
-      className="some-additional-class"
-      htmlElement="span"
-      htmlAttributes={{
-        aria-label: 'This is the modal container.',
-        title: 'This is the modal container.'
-      }}
-    >
-      ...
-    </ModalToggler>
-    ...
-  )
+<ModalContainer
+  id="exampleID"
+  className="exampleClassName"
+  htmlElement="div"
+  style={{ ... }}
+  htmlAttributes={{ ... }}
+/>
 ```
 
 ## Classes

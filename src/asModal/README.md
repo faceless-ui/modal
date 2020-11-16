@@ -1,52 +1,46 @@
 # asModal
 
-A higher-order component used to instantiate a modal. Portals your content into [ModalContainer](../ModalContainer/README.md). Also provides transition classes and accessibility. Inherits [isOpen](#isOpen) and the [modal context](../ModalProvider/README.md#provided-context). For an inline approach, try [Modal](../Modal/README.md).
+A higher-order component used to instantiate a modal. Portals your content into [ModalContainer](../ModalContainer/README.md). Supplies context, transition classes, and accessibility. Inherits [isOpen](#isOpen) and the [modal context](../ModalProvider/README.md#provided-context). Or use [Modal](../Modal/README.md) instead.
+
+`asModal(ModalComponent, slug = optional)`
+
+- [Usage](#usage)
+- [Accessibility](#accessibility)
+- [Classes](#classes)
+- [Args](#args)
+- [Props](#props)
+- [Inherited Props](#inherited-props)
 
 ## Usage
 
-Wrap your component when its defined.
-
 ```jsx
-  import React from 'react';
-  import { asModal } from '@trbl/react-modal';
+import React from 'react';
+import { asModal } from '@faceless-ui/modal';
 
-  export default SomeComponent = asModal((props) => {
-    const { isOpen } = props;
-    return <p>{isOpen}</p>;
-  }, 'modal1');
-```
-
-Or wrap your component on export, also useful when chaining higher-order components.
-
-```jsx
-  import React from 'react';
-  import { asModal } from '@trbl/react-modal';
-
-  class SomeComponent extends Component {
-    render() {
-      const { isOpen } = this.props;
-      return <p>{isOpen}</p>;
-    }
-  };
-
-  export default asModal(SomeComponent, 'modal1');
-```
-
-Or for dynamically rendered modals, you can set the slug as a prop instead of an argument:
-
-```jsx
-  import React from 'react';
-  import { asModal } from '@trbl/react-modal';
-
-  const SomeComponent = asModal(() => (
-    <div>Modal 1</div>
-  ));
-
-  const App = () => (
-    <SomeComponent slug="modal1" />
+export default ExampleModal = asModal((props) => {
+  const { isOpen, modal } = props;
+  const { currentModal } = modal;
+  return (
+    <p>
+      {`Slug '${currentModal}' is currently ${isOpen ? 'open' : 'closed'}`}
+    </p>
   );
+}, 'exampleModal');
+```
 
-  export default App;
+And then render it somewhere.
+
+```jsx
+<ExampleModal
+  // slug={dynamicSlug} if omitted from above, useful for dynamically rendered modals
+  id="exampleID"
+  className="exampleClassName"
+  closeOnBlur
+  lockBodyScroll
+  htmlElement="div"
+  style={{ ... }}
+  htmlAttributes={{ ... }}
+>
 ```
 
 ## Accessibility
