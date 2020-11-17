@@ -9,7 +9,6 @@ An unstyled, transition-ready, a11y-enabled library for creating dialogs, drawer
 # Table of Contents
   - [Installation](#installation)
   - [Basic Setup](#basic-setup)
-  - [Custom Components](#custom-components)
   - [API](#api)
   - [Highlights](#highlights)
   - [Demo](#demo)
@@ -55,69 +54,79 @@ export default App;
 Explanation:
 
 - [ModalProvider](./src/ModalProvider/README.md) provides context. Render it one-time, at the top-level of your app or nearest common ancestor.
+
 - [ModalContainer](./src/ModalContainer/README.md) is where every modal will portal into. Render it one time, anywhere in your app (as a descendant of the provider).
-- [Modal](./src/Modal/README.md) will new up a modal, it only needs a unique slug. You an also instantiate a modal with the [asModal](./src/asModal/README.md) HOC.
-- [ModalToggler](./src/Modal/README.md) is a quick way to control a modal. You can also toggle a modal directly with the [useModal](./src/useModal/README.md) hook or the [withModal](./src/withModal/README.md) HOC.
 
-### Custom Components
+- [Modal](./src/Modal/README.md) will new up a modal, it only needs a unique slug.
 
-```jsx
-export default CustomModalA = asModal((props) => {
-  const { closeAll } = props;
+  - Render as-is, or with render props:
 
-  return (
-    <div>
-      ...
-      <button onClick={() => closeAll()}>
-        Close
-      </button>
-    <div>
-  )
-}, 'customModalA'); // or render with a 'slug' prop
-```
+    ```jsx
+    export default CustomModalB = () => (
+      <Modal slug="customModalB">
+        {(modal) => {
+          const { closeAll } = modal;
 
-```jsx
-export default CustomModalB = () => (
-  <Modal slug="customModalB">
-    {(modal) => {
-      const { closeAll } = modal;
+          return (
+            <div>
+            ...
+              <button onClick={() => closeAll()}>
+                Close
+              </button>
+            </div>
+          )
+        )}
+      </Modal>
+    )
+    ```
+
+  - Or instantiate a modal with the [asModal](./src/asModal/README.md) HOC:
+
+    ```jsx
+    export default CustomModalA = asModal((props) => {
+      const { closeAll } = props;
 
       return (
         <div>
-        ...
+          ...
           <button onClick={() => closeAll()}>
             Close
           </button>
-        </div>
+        <div>
       )
-    )}
-  </Modal>
-)
-```
+    }, 'customModalA'); // or render with a 'slug' prop
+    ```
 
-```jsx
-export default CustomModalTogglerA = () => {
-  const { toggle } = useModal();
 
-  return (
-    <button onClick={() => toggle('customModalA')}> // or use 'open()'
-      Open
-    <button>
-  )
-};
-```
+- [ModalToggler](./src/Modal/README.md) is a quick way to control a modal.
 
-```jsx
-export default CustomModalTogglerB = withModal(props) => {
-  const { modal: { toggle } } = props;
+  - You can also toggle a modal directly with the [useModal](./src/useModal/README.md) hook:
 
-  return (
-    <button onClick={() => toggle('customModalB')}> // or use 'open()'
-      Open
-    <button>
-  )
-};
-```
+    ```jsx
+    export default CustomModalTogglerA = () => {
+      const { toggle } = useModal();
+
+      return (
+        <button onClick={() => toggle('customModalA')}> // or use 'open()'
+          Open
+        <button>
+      )
+    };
+    ```
+
+  - Or the [withModal](./src/withModal/README.md) HOC:
+
+    ```jsx
+    export default CustomModalTogglerB = withModal(props) => {
+      const { modal: { toggle } } = props;
+
+      return (
+        <button onClick={() => toggle('customModalB')}> // or use 'open()'
+          Open
+        <button>
+      )
+    };
+    ```
 
 ## API
 
@@ -134,7 +143,7 @@ For working examples, see the [demo app](./demo/App.demo.js).
 ## Highlights
 
 - #### Composable
-  Accommodates any setup. Render [ModalProvider](./src/ModalProvider/README.md) at the top-level, and [ModalContainer](./src/ModalProvider/README.md) anywhere within that. Then create modals and interact with them however you see it.
+  Accommodates any setup. Render [ModalProvider](./src/ModalProvider/README.md) at the top-level, and [ModalContainer](./src/ModalProvider/README.md) anywhere within that. Then create modals and interact with them however your project demands.
 
 - #### Faceless UI
   Applies no visual style of it's own. CSS transition-ready using [react-transition-group](https://reactcommunity.org/react-transition-group/). Target any element and any UI state using transition hooks.
