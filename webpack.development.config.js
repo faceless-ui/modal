@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -17,13 +18,6 @@ module.exports = {
         loaders: [
           'react-hot-loader/webpack',
           'babel-loader',
-          {
-            loader: 'eslint-loader',
-            options: {
-              fix: true,
-              emitWarning: true,
-            },
-          },
         ],
       },
     ],
@@ -32,6 +26,10 @@ module.exports = {
     new HtmlWebPackPlugin({
       // html to duplicate
       template: 'demo/index.html',
+    }),
+    new ESLintPlugin({
+      fix: true,
+      emitWarning: true,
     }),
   ],
   devServer: {
