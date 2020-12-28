@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
-import HTMLElement from '@faceless-ui/html-element';
 import useModal from '../useModal';
 import containerBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
@@ -20,7 +19,7 @@ const ModalContainer = (props) => {
     id,
     className,
     style,
-    htmlElement,
+    htmlElement: HTMLElement,
     htmlAttributes,
     children,
   } = props;
@@ -52,8 +51,7 @@ const ModalContainer = (props) => {
           id,
           className: mergedClasses,
           style,
-          htmlElement,
-          htmlAttributes: mergedAttributes,
+          ...mergedAttributes,
         }}
         ref={setContainerRef}
       >

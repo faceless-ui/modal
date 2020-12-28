@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
-import HTMLElement from '@faceless-ui/html-element';
 import useModal from '../useModal';
 import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
@@ -13,7 +12,7 @@ const asModal = (ModalComponent, slugFromArg) => {
 
     const {
       currentModal,
-      classPrefix,
+      classPrefix: classPrefixFromContext,
       containerRef,
       transTime,
       setCloseOnBlur,
@@ -30,8 +29,10 @@ const asModal = (ModalComponent, slugFromArg) => {
       slug: slugFromProp,
       closeOnBlur,
       lockBodyScroll,
+      classPrefix: classPrefixFromProps,
     } = props;
 
+    const classPrefixToUse = classPrefixFromProps || classPrefixFromContext;
     const slug = slugFromArg || slugFromProp;
     const isFirstRender = useRef(true);
 
@@ -74,7 +75,7 @@ const asModal = (ModalComponent, slugFromArg) => {
     }, [isOpen, transTime]);
 
     if (containerRef.current) {
-      const baseClass = `${classPrefix}__${itemBaseClass}`;
+      const baseClass = `${classPrefixToUse}__${itemBaseClass}`;
 
       const mergedClasses = [
         baseClass,
@@ -90,6 +91,8 @@ const asModal = (ModalComponent, slugFromArg) => {
         ...htmlAttributes,
       };
 
+      const HTMLElement = htmlElement;
+
       return ReactDOM.createPortal(
         <CSSTransition
           timeout={transTime}
@@ -102,8 +105,7 @@ const asModal = (ModalComponent, slugFromArg) => {
               id: id || slug,
               className: mergedClasses,
               style,
-              htmlElement,
-              htmlAttributes: mergedAttributes,
+              ...mergedAttributes,
             }}
             ref={setModalRef}
           >

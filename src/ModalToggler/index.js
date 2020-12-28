@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import HTMLElement from '@faceless-ui/html-element';
 import withModal from '../withModal';
 
 const ModalToggler = (props) => {
@@ -14,7 +13,7 @@ const ModalToggler = (props) => {
     },
     slug,
     style,
-    htmlElement,
+    htmlElement: HTMLElement,
     htmlAttributes,
     children,
   } = props;
@@ -46,8 +45,7 @@ const ModalToggler = (props) => {
         id,
         className: mergedClasses,
         style,
-        htmlElement,
-        htmlAttributes: mergedAttributes,
+        ...mergedAttributes,
       }}
     >
       {children && children}
