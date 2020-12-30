@@ -13,11 +13,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         loaders: [
           'react-hot-loader/webpack',
-          'babel-loader',
+          'ts-loader',
         ],
       },
     ],

@@ -8,7 +8,7 @@ const filterObject = () => {
       seen.add(value);
 
       const keys = Object.keys(value);
-      const isReact = keys.some((k) => k.startsWith('__reactInternalInstance$') || k.startsWith('__reactContainere$'));
+      const isReact = keys.some((k) => k.startsWith('__reactInternalInstance$') || k.startsWith('__reactContainer$') || k.startsWith('__reactFiber$'));
       if (isReact) return '[React]';
 
       return value;
