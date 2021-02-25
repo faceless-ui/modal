@@ -29,9 +29,7 @@ module.exports = [
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     externals: {
-      '@faceless-ui/html-element': '@faceless-ui/html-element',
       'body-scroll-lock': 'body-scroll-lock',
-      'prop-types': 'prop-types',
       qs: 'qs',
       react: 'react',
       'react-dom': 'react-dom',
