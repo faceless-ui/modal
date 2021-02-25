@@ -1,9 +1,12 @@
 import React, { useReducer } from 'react';
-import LogProps from './LogProps';
-import { asModal } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import ModalControls from './ModalControls.demo';
+import LogProps from '../LogProps';
+import { asModal } from '../../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import ModalControls from '../ModalControls';
+import reducer from './reducer';
+import { Props as AsModalProps } from '../../src/asModal/types';
+import { Props as AppProps } from '../App/types';
 
-const AsModal = asModal((props) => {
+const AsModal = asModal<AsModalProps & AppProps>((props) => {
   const propsToPrint = { ...props };
   delete propsToPrint.dispatchSettings;
 
@@ -15,15 +18,11 @@ const AsModal = asModal((props) => {
   );
 });
 
-const reducer = (state, action) => ({
-  ...state,
-  ...action,
-});
-
 const initialSettings = {};
 
-const AsModalController = () => {
+const AsModalController: React.FC = () => {
   const [settings, dispatchSettings] = useReducer(reducer, initialSettings);
+
   return (
     <AsModal
       {...settings}

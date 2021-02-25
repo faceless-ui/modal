@@ -1,8 +1,12 @@
 import containerBaseClass from '../ModalContainer/baseClass';
 import itemBaseClass from '../asModal/baseClass';
 
-export default (classPrefix, zIndex) => {
+const CSS = (
+  classPrefix: string,
+  zIndex: number,
+): string => {
   const prefix = classPrefix ? `${classPrefix}__` : '';
+
   return (`
     .${prefix}${containerBaseClass} {
       top: 0;
@@ -39,3 +43,5 @@ export default (classPrefix, zIndex) => {
     }
   `);
 };
+
+export default CSS;

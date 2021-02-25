@@ -1,10 +1,16 @@
-import React, { Fragment, useState, useRef, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React, {
+  Fragment,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+} from 'react';
 import queryString from 'qs';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
-import ModalContext from './context';
 import defaultClassPrefix from '../defaultClassPrefix';
 import generateCSS from './css';
+import ModalContext from '../ModalContext';
+import { Props } from './types';
 
 const getSearchQuery = () => {
   const query = queryString.parse(
@@ -19,15 +25,15 @@ const getModalParam = () => {
   return searchQuery.modal || '';
 };
 
-const ModalProvider = (props) => {
+const ModalProvider: React.FC<Props> = (props) => {
   const {
     classPrefix: userClassPrefix,
-    minifyCSS,
-    generateCSS: shouldGenerateCSS,
-    zIndex,
+    minifyCSS = true,
+    generateCSS: shouldGenerateCSS = true,
+    zIndex = 9999,
     handleParamChange,
     children,
-    transTime,
+    transTime = 0,
   } = props;
 
   const containerRef = useRef(null);
@@ -41,7 +47,10 @@ const ModalProvider = (props) => {
   const closeAll = useCallback((updateHistory = true) => {
     if (updateHistory) {
       if (typeof handleParamChange === 'function') {
-        handleParamChange({ key: 'modal', value: '' });
+        handleParamChange({
+          key: 'modal',
+          value: '',
+        });
       }
 
       if (typeof handleParamChange === 'boolean' && handleParamChange) {
@@ -85,10 +94,13 @@ const ModalProvider = (props) => {
     }
   }, [shouldGenerateCSS, minifyCSS, zIndex, classPrefix]);
 
-  const open = useCallback((slug, skipParamChange) => {
+  const open = useCallback((slug: string, skipParamChange?: boolean) => {
     if (!skipParamChange) {
       if (typeof handleParamChange === 'function') {
-        handleParamChange({ key: 'modal', value: slug });
+        handleParamChange({
+          key: 'modal',
+          value: slug,
+        });
       }
 
       if (typeof handleParamChange === 'boolean' && handleParamChange) {
@@ -129,56 +141,31 @@ const ModalProvider = (props) => {
   return (
     <Fragment>
       {shouldGenerateCSS && <style dangerouslySetInnerHTML={{ __html: cssString }} />}
-      <ModalContext.Provider value={{
-        // props
-        ...inheritedProps,
-        transTime,
-        // state
-        containerRef,
-        currentModal,
-        oneIsOpen,
-        closeOnBlur,
-        bodyScrollIsLocked,
-        classPrefix,
-        // methods
-        closeAll,
-        setCloseOnBlur,
-        open,
-        toggle,
-        setContainerRef,
-        setBodyScrollLock,
-      }}
+      <ModalContext.Provider
+        value={{
+          // props
+          ...inheritedProps,
+          transTime,
+          // state
+          containerRef,
+          currentModal,
+          oneIsOpen,
+          closeOnBlur,
+          bodyScrollIsLocked,
+          classPrefix,
+          // methods
+          closeAll,
+          setCloseOnBlur,
+          open,
+          toggle,
+          setContainerRef,
+          setBodyScrollLock,
+        }}
       >
         {children && children}
       </ModalContext.Provider>
     </Fragment>
   );
-};
-
-ModalProvider.defaultProps = {
-  generateCSS: true,
-  minifyCSS: true,
-  classPrefix: undefined,
-  handleParamChange: undefined,
-  transTime: 0,
-  zIndex: 9999,
-  children: undefined,
-};
-
-ModalProvider.propTypes = {
-  generateCSS: PropTypes.bool,
-  minifyCSS: PropTypes.bool,
-  classPrefix: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-  ]),
-  handleParamChange: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.bool,
-  ]),
-  transTime: PropTypes.number,
-  zIndex: PropTypes.number,
-  children: PropTypes.node,
 };
 
 export default ModalProvider;

@@ -1,13 +1,16 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import useModal from '../useModal';
 import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
+import { Props } from './types';
 
-const asModal = (ModalComponent, slugFromArg) => {
-  const ModalWrap = (props) => {
+const asModal = <P extends Props>(
+  ModalComponent: React.ComponentType<P>,
+  slugFromArg?: string,
+): React.FC<P> => {
+  const ModalWrap: React.FC<P> = (props) => {
     const modal = useModal();
 
     const {
@@ -23,12 +26,15 @@ const asModal = (ModalComponent, slugFromArg) => {
     const {
       id,
       className,
-      style,
-      htmlElement,
-      htmlAttributes,
-      slug: slugFromProp,
-      closeOnBlur,
-      lockBodyScroll,
+      style = {},
+      htmlElement = 'dialog',
+      htmlAttributes = {},
+      slug: slugFromProp = '',
+      closeOnBlur = true,
+      lockBodyScroll = true,
+      // autoFocus: true,
+      // trapFocus: true,
+      // returnFocus: true,
       classPrefix: classPrefixFromProps,
     } = props;
 
@@ -91,7 +97,7 @@ const asModal = (ModalComponent, slugFromArg) => {
         ...htmlAttributes,
       };
 
-      const HTMLElement = htmlElement;
+      const Tag = htmlElement as React.ElementType;
 
       return ReactDOM.createPortal(
         <CSSTransition
@@ -100,7 +106,7 @@ const asModal = (ModalComponent, slugFromArg) => {
           classNames={generateTransitionClasses(baseClass)}
           appear
         >
-          <HTMLElement
+          <Tag
             {...{
               id: id || slug,
               className: mergedClasses,
@@ -116,45 +122,12 @@ const asModal = (ModalComponent, slugFromArg) => {
                 modal,
               }}
             />
-          </HTMLElement>
+          </Tag>
         </CSSTransition>,
         containerRef.current,
       );
     }
     return null;
-  };
-
-  ModalWrap.defaultProps = {
-    slug: '',
-    closeOnBlur: true,
-    lockBodyScroll: true,
-    // autoFocus: true,
-    // trapFocus: true,
-    // returnFocus: true,
-    id: undefined,
-    className: undefined,
-    style: {},
-    htmlElement: 'dialog',
-    htmlAttributes: {},
-  };
-
-  ModalWrap.propTypes = {
-    slug: PropTypes.string,
-    closeOnBlur: PropTypes.bool,
-    lockBodyScroll: PropTypes.bool,
-    // autoFocus: PropTypes.bool,
-    // trapFocus: PropTypes.bool,
-    // returnFocus: PropTypes.bool,
-    id: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.shape({}),
-    htmlElement: PropTypes.string,
-    htmlAttributes: PropTypes.shape({
-      id: PropTypes.string,
-      className: PropTypes.string,
-      style: PropTypes.shape({}),
-      onClick: PropTypes.func,
-    }),
   };
 
   return ModalWrap;

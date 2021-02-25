@@ -1,23 +1,19 @@
 import React, { useReducer } from 'react';
-import { ModalProvider, ModalContainer, ModalToggler } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import AsModal from './AsModal.demo';
-import UseModal from './UseModal.demo';
-import Modal from './Modal.demo';
+import { ModalProvider, ModalContainer, ModalToggler } from '../../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import AsModal from '../AsModalDemo';
+import UseModal from '../UseModalDemo';
+import Modal from '../ModalDemo';
 // import WithModal from './WithModal.demo';
-import CSS from './CSS.demo';
-import ProviderControls from './ProviderControls.demo';
-
-const reducer = (state, action) => ({
-  ...state,
-  ...action,
-});
+import CSS from '../CSS';
+import SettingsControls from '../SettingsControls';
+import reducer from './reducer';
 
 const defaultSettings = {
   handleParamChange: true,
   transTime: 0,
 };
 
-const App = () => {
+const App: React.FC = () => {
   const [settings, dispatchSettings] = useReducer(reducer, defaultSettings);
 
   return (
@@ -34,7 +30,7 @@ const App = () => {
       </ModalToggler>
       <br />
       <br />
-      <ProviderControls dispatchSettings={dispatchSettings} />
+      <SettingsControls dispatchSettings={dispatchSettings} />
       <br />
       <UseModal />
       {/* <WithModal /> */}

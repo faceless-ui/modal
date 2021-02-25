@@ -1,4 +1,4 @@
-const generateTransitionClasses = (baseClass) => {
+const generateTransitionClasses = (baseClass: string): Record<string, unknown> => {
   if (baseClass) {
     return ({
       appear: `${baseClass}--appear`,

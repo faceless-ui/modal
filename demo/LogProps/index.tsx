@@ -22,7 +22,7 @@ const filterObject = () => {
   };
 };
 
-const LogProps = (props) => (
+const LogProps: React.FC = (props) => (
   <code>
     <pre>
       {JSON.stringify(props, filterObject(), 2)}

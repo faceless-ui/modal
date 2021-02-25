@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import useModal from '../useModal';
 import containerBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
+import { Props } from './types';
 
-const ModalContainer = (props) => {
+const ModalContainer: React.FC<Props> = (props) => {
   const {
     oneIsOpen,
     classPrefix,
@@ -18,9 +18,9 @@ const ModalContainer = (props) => {
   const {
     id,
     className,
-    style,
-    htmlElement: HTMLElement,
-    htmlAttributes,
+    style = {},
+    htmlElement = 'div',
+    htmlAttributes = {},
     children,
   } = props;
 
@@ -39,6 +39,8 @@ const ModalContainer = (props) => {
     },
   };
 
+  const Tag = htmlElement as React.ElementType;
+
   return (
     <CSSTransition
       in={oneIsOpen}
@@ -46,39 +48,19 @@ const ModalContainer = (props) => {
       classNames={generateTransitionClasses(baseClass)}
       appear
     >
-      <HTMLElement
+      <Tag
         {...{
           id,
           className: mergedClasses,
           style,
+          ref: setContainerRef,
           ...mergedAttributes,
         }}
-        ref={setContainerRef}
       >
         {children && children}
-      </HTMLElement>
+      </Tag>
     </CSSTransition>
   );
-};
-
-ModalContainer.defaultProps = {
-  id: undefined,
-  className: undefined,
-  style: {},
-  htmlElement: 'div',
-  htmlAttributes: {},
-  children: undefined,
-};
-
-ModalContainer.propTypes = {
-  id: PropTypes.string,
-  className: PropTypes.string,
-  style: PropTypes.shape({}),
-  htmlElement: PropTypes.string,
-  htmlAttributes: PropTypes.shape({
-    onClick: PropTypes.func,
-  }),
-  children: PropTypes.node,
 };
 
 export default ModalContainer;

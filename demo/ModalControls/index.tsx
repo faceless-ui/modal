@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { useModal, ModalToggler } from '../src';
+import { useModal, ModalToggler } from '../../src';
+import { Props as AsModalProps } from '../../src/asModal/types';
+import { Props as AppProps } from '../App/types';
 
-const ModalControls = (props) => {
+const ModalControls: React.FC<AsModalProps & AppProps> = (props) => {
   const {
     dispatchSettings,
     slug,
@@ -22,21 +23,23 @@ const ModalControls = (props) => {
       </ModalToggler>
       <br />
       <button
-        onClick={() => toggle(slug)}
+        onClick={() => { toggle(slug); }}
         type="button"
       >
         {`toggle("${slug}")`}
       </button>
       <br />
       <button
-        onClick={() => closeAll()}
+        onClick={() => { closeAll(); }}
         type="button"
       >
         closeAll()
       </button>
       <br />
       <button
-        onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 27 }))}
+        onClick={() => {
+          document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 27 }));
+        }}
         type="button"
       >
         esc key
@@ -48,8 +51,14 @@ const ModalControls = (props) => {
         <input
           type="checkbox"
           id="closeOnBlur"
-          onChange={(e) => dispatchSettings({ closeOnBlur: Boolean(e.target.value === 'true') })}
-          value={!closeOnBlur || ''}
+          onChange={(e) => {
+            dispatchSettings({
+              payload: {
+                closeOnBlur: Boolean(e.target.value === 'true'),
+              },
+            });
+          }}
+          value={Boolean(!closeOnBlur).toString() || ''}
           checked={closeOnBlur}
         />
       </label>
@@ -59,23 +68,19 @@ const ModalControls = (props) => {
         <input
           type="checkbox"
           id="lockBodyScroll"
-          onChange={(e) => dispatchSettings({ lockBodyScroll: Boolean(e.target.value === 'true') })}
-          value={!lockBodyScroll || ''}
+          onChange={(e) => {
+            dispatchSettings({
+              payload: {
+                lockBodyScroll: Boolean(e.target.value === 'true'),
+              },
+            });
+          }}
+          value={Boolean(!lockBodyScroll).toString() || ''}
           checked={lockBodyScroll}
         />
       </label>
     </Fragment>
   );
-};
-
-ModalControls.defaultProps = {
-  slug: '',
-};
-
-ModalControls.propTypes = {
-  slug: PropTypes.string,
-  dispatchSettings: PropTypes.func.isRequired,
-  lockBodyScroll: PropTypes.bool.isRequired,
 };
 
 export default ModalControls;

@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import withModal from '../withModal';
+import { Props } from './types';
 
-const ModalToggler = (props) => {
+const ModalToggler: React.FC<Props> = (props) => {
   const {
     id,
     className,
@@ -12,9 +12,9 @@ const ModalToggler = (props) => {
       classPrefix,
     },
     slug,
-    style,
-    htmlElement: HTMLElement,
-    htmlAttributes,
+    style = {},
+    htmlElement: HTMLElement = 'button',
+    htmlAttributes = {},
     children,
   } = props;
 
@@ -51,35 +51,6 @@ const ModalToggler = (props) => {
       {children && children}
     </HTMLElement>
   );
-};
-
-ModalToggler.defaultProps = {
-  id: undefined,
-  className: undefined,
-  style: {},
-  htmlElement: 'button',
-  htmlAttributes: {},
-  children: undefined,
-};
-
-ModalToggler.propTypes = {
-  slug: PropTypes.string.isRequired,
-  modal: PropTypes.shape({
-    currentModal: PropTypes.string,
-    toggle: PropTypes.func,
-    classPrefix: PropTypes.string,
-  }).isRequired,
-  id: PropTypes.string,
-  className: PropTypes.string,
-  style: PropTypes.shape({}),
-  htmlElement: PropTypes.string,
-  htmlAttributes: PropTypes.shape({
-    id: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.shape({}),
-    onClick: PropTypes.func,
-  }),
-  children: PropTypes.node,
 };
 
 export default withModal(ModalToggler);

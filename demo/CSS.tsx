@@ -1,7 +1,7 @@
 import React from 'react';
 import { useModal } from '../src';
 
-const CSS = () => {
+const CSS: React.FC = () => {
   const { classPrefix, transTime } = useModal();
 
   return (
