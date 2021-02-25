@@ -1,4 +1,8 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+} from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 import useModal from '../useModal';
@@ -12,6 +16,7 @@ const asModal = <P extends Props>(
 ): React.FC<P> => {
   const ModalWrap: React.FC<P> = (props) => {
     const modal = useModal();
+    const modalRef = useRef(null);
 
     const {
       currentModal,
@@ -58,20 +63,15 @@ const asModal = <P extends Props>(
       if (isOpen) setCloseOnBlur(closeOnBlur);
     }, [isOpen, closeOnBlur, setCloseOnBlur]);
 
-    const modalRef = useRef(null);
-
-    const setModalRef = useCallback((node) => {
-      modalRef.current = node;
-    }, [modalRef]);
-
     useEffect(() => {
       if (modalRef.current) {
-        if (isOpen && lockBodyScroll) setBodyScrollLock(true, modalRef);
-        else setBodyScrollLock(false, modalRef);
+        if (isOpen && lockBodyScroll) {
+          setBodyScrollLock(true, modalRef);
+        } else {
+          setBodyScrollLock(false, modalRef);
+        }
       }
     }, [isOpen, lockBodyScroll, setBodyScrollLock]);
-
-    useEffect(() => () => setBodyScrollLock(false, modalRef), [setBodyScrollLock]);
 
     const [timedOpen, setTimedOpen] = useState(isOpen);
 
@@ -108,12 +108,12 @@ const asModal = <P extends Props>(
         >
           <Tag
             {...{
+              ref: modalRef,
               id: id || slug,
               className: mergedClasses,
               style,
               ...mergedAttributes,
             }}
-            ref={setModalRef}
           >
             <ModalComponent
               {...{
