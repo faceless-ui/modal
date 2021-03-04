@@ -13,7 +13,7 @@ const ModalToggler: React.FC<Props> = (props) => {
     },
     slug,
     style = {},
-    htmlElement: HTMLElement = 'button',
+    htmlElement = 'button',
     htmlAttributes = {},
     children,
   } = props;
@@ -39,8 +39,10 @@ const ModalToggler: React.FC<Props> = (props) => {
     },
   };
 
+  const Tag = htmlElement as React.ElementType;
+
   return (
-    <HTMLElement
+    <Tag
       {...{
         id,
         className: mergedClasses,
@@ -49,7 +51,7 @@ const ModalToggler: React.FC<Props> = (props) => {
       }}
     >
       {children && children}
-    </HTMLElement>
+    </Tag>
   );
 };
 

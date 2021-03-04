@@ -2,6 +2,7 @@
   "name": "@faceless-ui/modal",
   "version": "1.1.2",
   "main": "dist/build.bundle.js",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:faceless-ui/modal.git",
   "description": "America's next top modal.",
   "author": "<dev@trbl.design>",
@@ -74,7 +75,6 @@
     }
   },
   "files": [
-    "dist/build.bundle.js",
-    "dist/build.bundle.js.map"
+    "dist"
   ]
 }

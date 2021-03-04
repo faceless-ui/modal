@@ -1,11 +1,4 @@
-import React from 'react';
-
-type HTMLAttributes = {
-  id?: string,
-  className?: string,
-  style?: Record<string, unknown>,
-  onClick?: () => void,
-}
+import React, { CSSProperties, ElementType } from 'react';
 
 export type Props = {
   slug: string,
@@ -16,9 +9,11 @@ export type Props = {
   // returnFocus?: boolean,
   id?: string,
   className?: string,
-  style?: Record<string, unknown>,
-  htmlElement?: string,
-  htmlAttributes?: HTMLAttributes,
+  style?: CSSProperties,
+  htmlElement?: ElementType,
+  htmlAttributes?: {
+    [key: string]: unknown
+  },
   classPrefix?: string
 }
 

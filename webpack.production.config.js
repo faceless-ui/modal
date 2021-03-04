@@ -2,7 +2,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
-// this will bundle the source and then the demo
+// bundles both the source and the demo, separately
 
 module.exports = [
   {
@@ -19,9 +19,7 @@ module.exports = [
         {
           test: /\.(js|jsx|ts|tsx)$/,
           exclude: /node_modules/,
-          loaders: [
-            'ts-loader',
-          ],
+          loaders: ['ts-loader'],
         },
       ],
     },
@@ -42,16 +40,14 @@ module.exports = [
     entry: './demo/index.tsx',
     output: {
       filename: 'demo.bundle.js',
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'dist-demo'),
     },
     module: {
       rules: [
         {
           test: /\.(js|jsx|ts|tsx)$/,
           exclude: /node_modules/,
-          loaders: [
-            'ts-loader',
-          ],
+          loaders: ['ts-loader'],
         },
       ],
     },
