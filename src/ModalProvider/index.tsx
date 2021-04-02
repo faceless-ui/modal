@@ -33,7 +33,7 @@ const ModalProvider: React.FC<Props> = (props) => {
     zIndex = 9999,
     handleParamChange,
     children,
-    transTime = 0,
+    transTime = 250,
   } = props;
 
   const containerRef = useRef(null);

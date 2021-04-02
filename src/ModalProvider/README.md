@@ -120,7 +120,7 @@ Complies with the [WAI-ARIA](https://www.w3.org/WAI/intro/aria) guidelines on [k
 - #### `transTime`
   Type: `Number`\
   Optional\
-  Default: `0`\
+  Default: `250`\
   Notes: Determines the duration by which transition classes are applied, in milliseconds.
 
 - #### `handleParamChange`
