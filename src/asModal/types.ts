@@ -22,7 +22,8 @@ export type Props = {
   onEntering?: () => void,
   onExit?: () => void,
   onExiting?: () => void,
-  onExited?: () => void
+  onExited?: () => void,
+  openOnInit?: boolean
 }
 
 export interface IAsModal {

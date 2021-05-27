@@ -47,6 +47,7 @@ const asModal = <P extends Props>(
       onExit,
       onExiting,
       onExited,
+      openOnInit,
     } = props;
 
     const classPrefixToUse = classPrefixFromProps || classPrefixFromContext;
@@ -63,11 +64,20 @@ const asModal = <P extends Props>(
         if (isOpen) open(slug);
         isFirstRender.current = false;
       }
-    }, [isOpen, open, isFirstRender, slug]);
+    }, [
+      isOpen,
+      open,
+      isFirstRender,
+      slug,
+    ]);
 
     useEffect(() => {
       if (isOpen) setCloseOnBlur(closeOnBlur);
-    }, [isOpen, closeOnBlur, setCloseOnBlur]);
+    }, [
+      isOpen,
+      closeOnBlur,
+      setCloseOnBlur,
+    ]);
 
     useEffect(() => {
       if (modalRef.current) {
@@ -77,14 +87,31 @@ const asModal = <P extends Props>(
           setBodyScrollLock(false, modalRef);
         }
       }
-    }, [isOpen, lockBodyScroll, setBodyScrollLock]);
+    }, [
+      isOpen,
+      lockBodyScroll,
+      setBodyScrollLock,
+    ]);
 
     const [timedOpen, setTimedOpen] = useState(isOpen);
 
     useEffect(() => {
       if (!isOpen) setTimeout(() => setTimedOpen(false), transTime);
       else setTimedOpen(isOpen);
-    }, [isOpen, transTime]);
+    }, [
+      isOpen,
+      transTime,
+    ]);
+
+    useEffect(() => {
+      if (openOnInit) {
+        open(slug);
+      }
+    }, [
+      slug,
+      openOnInit,
+      open,
+    ]);
 
     if (containerRef.current) {
       const baseClass = `${classPrefixToUse}__${itemBaseClass}`;
