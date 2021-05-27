@@ -14,7 +14,15 @@ export type Props = {
   htmlAttributes?: {
     [key: string]: unknown
   },
-  classPrefix?: string
+  classPrefix?: string,
+  onOpen?: () => void,
+  onClose?: () => void,
+  onEnter?: () => void,
+  onEntered?: () => void,
+  onEntering?: () => void,
+  onExit?: () => void,
+  onExiting?: () => void,
+  onExited?: () => void
 }
 
 export interface IAsModal {

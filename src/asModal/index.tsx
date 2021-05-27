@@ -41,6 +41,12 @@ const asModal = <P extends Props>(
       // trapFocus: true,
       // returnFocus: true,
       classPrefix: classPrefixFromProps,
+      onEnter,
+      onEntering,
+      onEntered,
+      onExit,
+      onExiting,
+      onExited,
     } = props;
 
     const classPrefixToUse = classPrefixFromProps || classPrefixFromContext;
@@ -101,10 +107,18 @@ const asModal = <P extends Props>(
 
       return ReactDOM.createPortal(
         <CSSTransition
-          timeout={transTime}
-          in={currentModal === slug}
-          classNames={generateTransitionClasses(baseClass)}
-          appear
+          {...{
+            timeout: transTime,
+            in: currentModal === slug,
+            classNames: generateTransitionClasses(baseClass),
+            appear: true,
+            onEnter,
+            onEntering,
+            onEntered,
+            onExit,
+            onExiting,
+            onExited,
+          }}
         >
           <Tag
             {...{
