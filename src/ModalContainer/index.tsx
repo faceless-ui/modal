@@ -11,6 +11,7 @@ const ModalContainer: React.FC<Props> = (props) => {
     classPrefix,
     transTime,
     setContainerRef,
+    containerRef,
     closeAll,
     closeOnBlur,
   } = useModal();
@@ -43,6 +44,7 @@ const ModalContainer: React.FC<Props> = (props) => {
 
   return (
     <CSSTransition
+      nodeRef={containerRef}
       in={oneIsOpen}
       timeout={transTime}
       classNames={generateTransitionClasses(baseClass)}

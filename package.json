@@ -34,7 +34,7 @@
   "dependencies": {
     "body-scroll-lock": "^3.1.5",
     "qs": "^6.9.1",
-    "react-transition-group": "^4.3.0"
+    "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
     "@trbl/eslint-config": "^2.0.3",

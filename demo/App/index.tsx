@@ -17,26 +17,28 @@ const App: React.FC = () => {
   const [settings, dispatchSettings] = useReducer(reducer, defaultSettings);
 
   return (
-    <ModalProvider {...settings}>
-      <CSS />
-      <AsModal />
-      <Modal />
-      <ModalToggler slug="asModal">
-        {'<AsModal />'}
-      </ModalToggler>
-      <br />
-      <ModalToggler slug="Modal">
-        {'<Modal />'}
-      </ModalToggler>
-      <br />
-      <br />
-      <SettingsControls dispatchSettings={dispatchSettings} />
-      <br />
-      <UseModal />
-      {/* <WithModal /> */}
-      <div style={{ height: '150vh' }} />
-      <ModalContainer />
-    </ModalProvider>
+    <React.StrictMode>
+      <ModalProvider {...settings}>
+        <CSS />
+        <AsModal />
+        <Modal />
+        <ModalToggler slug="asModal">
+          {'<AsModal />'}
+        </ModalToggler>
+        <br />
+        <ModalToggler slug="Modal">
+          {'<Modal />'}
+        </ModalToggler>
+        <br />
+        <br />
+        <SettingsControls dispatchSettings={dispatchSettings} />
+        <br />
+        <UseModal />
+        {/* <WithModal /> */}
+        <div style={{ height: '150vh' }} />
+        <ModalContainer />
+      </ModalProvider>
+    </React.StrictMode>
   );
 };
 

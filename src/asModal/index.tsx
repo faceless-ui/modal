@@ -135,6 +135,7 @@ const asModal = <P extends Props>(
       return ReactDOM.createPortal(
         <CSSTransition
           {...{
+            nodeRef: modalRef,
             timeout: transTime,
             in: currentModal === slug,
             classNames: generateTransitionClasses(baseClass),
