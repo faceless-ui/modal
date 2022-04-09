@@ -5,5 +5,5 @@ export interface IReducerAction {
 }
 
 export type Props = {
-  dispatchSettings: (args: IReducerAction) => void,
+  dispatchSettings: (args: IReducerAction) => void, // eslint-disable-line no-unused-vars
 }

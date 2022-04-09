@@ -9,12 +9,12 @@ export interface IModalContext extends Props {
   bodyScrollIsLocked: boolean,
   classPrefix: string,
   closeAll: () => void,
-  setCloseOnBlur: (boolean) => void,
-  open: (slug: string) => void,
-  toggle: (slug: string) => void,
-  setContainerRef: (ref: React.MutableRefObject<Record<string, unknown>>) => void,
+  setCloseOnBlur: (boolean) => void, // eslint-disable-line no-unused-vars
+  open: (slug: string) => void, // eslint-disable-line no-unused-vars
+  toggle: (slug: string) => void, // eslint-disable-line no-unused-vars
+  setContainerRef: (ref: React.MutableRefObject<Record<string, unknown>>) => void, // eslint-disable-line no-unused-vars
   setBodyScrollLock: (
-    shouldLock: boolean,
-    excludingRef: React.MutableRefObject<Record<string, unknown>>
+    shouldLock: boolean, // eslint-disable-line no-unused-vars
+    excludingRef: React.MutableRefObject<Record<string, unknown>> // eslint-disable-line no-unused-vars
   ) => void,
 }
