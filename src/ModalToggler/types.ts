@@ -11,4 +11,5 @@ export type Props = {
   htmlAttributes?: {
     [key: string]: unknown,
   }
+  children?: React.ReactNode,
 }
