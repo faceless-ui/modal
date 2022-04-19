@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { useModal, ModalToggler } from '../../src';
-import { Props as AsModalProps } from '../../src/asModal/types';
+import { ModalPropsWithContext } from '../../src/Modal';
 import { Props as AppProps } from '../App/types';
 
-const ModalControls: React.FC<AsModalProps & AppProps> = (props) => {
+const ModalControls: React.FC<ModalPropsWithContext & AppProps> = (props) => {
   const {
     dispatchSettings,
     slug,

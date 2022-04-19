@@ -22,7 +22,9 @@ const filterObject = () => {
   };
 };
 
-const LogProps: React.FC = (props) => (
+const LogProps: React.FC<{
+  [key: string]: unknown
+}> = (props) => (
   <code>
     <pre>
       {JSON.stringify(props, filterObject(), 2)}

@@ -8,10 +8,10 @@ import { CSSTransition } from 'react-transition-group';
 import useModal from '../useModal';
 import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
-import { Props } from './types';
+import { ModalProps } from '../Modal';
 
-const asModal = <P extends Props>(
-  ModalComponent: React.ComponentType<P>,
+const asModal = <P extends ModalProps>(
+  ModalComponent: React.FC<P>,
   slugFromArg?: string,
 ): React.FC<P> => {
   const ModalWrap: React.FC<P> = (props) => {
