@@ -1,22 +1,23 @@
 import React from 'react';
-import withModal from '../withModal';
+import useModal from '../useModal';
 import { Props } from './types';
 
 const ModalToggler: React.FC<Props> = (props) => {
   const {
     id,
     className,
-    modal: {
-      currentModal,
-      toggle,
-      classPrefix,
-    },
     slug,
     style = {},
     htmlElement = 'button',
     htmlAttributes = {},
     children,
   } = props;
+
+  const {
+    currentModal,
+    toggle,
+    classPrefix,
+  } = useModal();
 
   const baseClass = `${classPrefix}__modal-toggler`;
   const isOpen = currentModal === slug;
@@ -55,4 +56,4 @@ const ModalToggler: React.FC<Props> = (props) => {
   );
 };
 
-export default withModal(ModalToggler);
+export default ModalToggler;

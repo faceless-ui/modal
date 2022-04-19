@@ -3,14 +3,14 @@ import { ModalProvider, ModalContainer, ModalToggler } from '../../src'; // swap
 import AsModal from '../AsModalDemo';
 import UseModal from '../UseModalDemo';
 import Modal from '../ModalDemo';
-// import WithModal from './WithModal.demo';
 import CSS from '../CSS';
 import SettingsControls from '../SettingsControls';
 import reducer from './reducer';
 
 const defaultSettings = {
   handleParamChange: true,
-  transTime: 0,
+  transTime: 250,
+  zIndex: 99,
 };
 
 const App: React.FC = () => {
@@ -34,7 +34,6 @@ const App: React.FC = () => {
         <SettingsControls dispatchSettings={dispatchSettings} />
         <br />
         <UseModal />
-        {/* <WithModal /> */}
         <div style={{ height: '150vh' }} />
         <ModalContainer />
       </ModalProvider>

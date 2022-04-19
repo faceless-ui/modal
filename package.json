@@ -38,9 +38,13 @@
     "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
+    "@types/body-scroll-lock": "^3.1.0",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
+    "@types/qs": "^6.9.7",
     "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.1",
+    "@types/react-transition-group": "^4.4.4",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "enzyme": "^3.11.0",

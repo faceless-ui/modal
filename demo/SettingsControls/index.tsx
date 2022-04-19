@@ -55,13 +55,14 @@ const SettingsControls: React.FC<Props> = (props) => {
           type="number"
           id="transTime"
           onChange={(e) => {
+            const value = e.target.valueAsNumber;
             dispatchSettings({
               payload: {
-                transTime: e.target.valueAsNumber,
+                transTime: !isNaN(value) ? value : 0,
               },
             });
           }}
-          value={transTime}
+          value={transTime || 0}
         />
       </label>
       <br />
@@ -105,13 +106,14 @@ const SettingsControls: React.FC<Props> = (props) => {
           type="number"
           id="zIndex"
           onChange={(e) => {
+            const value = e.target.valueAsNumber;
             dispatchSettings({
               payload: {
-                zIndex: e.target.valueAsNumber,
+                zIndex: !isNaN(value) ? value : 0,
               },
             });
           }}
-          value={zIndex}
+          value={zIndex || 0}
         />
       </label>
     </Fragment>

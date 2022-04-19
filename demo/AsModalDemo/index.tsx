@@ -7,7 +7,10 @@ import { ModalProps } from '../../src/Modal';
 import { Props as AppProps } from '../App/types';
 
 const AsModal = asModal<ModalProps & AppProps>((props) => {
-  const propsToPrint = { ...props };
+  const propsToPrint: Partial<ModalProps & {
+    dispatchSettings?: unknown // note: when using ts strict mode, have to make this optional in order to delete
+  }> = { ...props };
+
   delete propsToPrint.dispatchSettings;
 
   return (

@@ -5,4 +5,3 @@ export { default as ModalContext } from './ModalContext';
 export { default as ModalProvider } from './ModalProvider';
 export { default as ModalToggler } from './ModalToggler';
 export { default as useModal } from './useModal';
-export { default as withModal } from './withModal';

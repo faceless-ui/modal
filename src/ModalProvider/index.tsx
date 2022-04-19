@@ -20,9 +20,9 @@ const getSearchQuery = () => {
   return query;
 };
 
-const getModalParam = () => {
+const getModalParam = (): string => {
   const searchQuery = getSearchQuery();
-  return searchQuery.modal || '';
+  return searchQuery.modal as string || '';
 };
 
 const ModalProvider: React.FC<Props> = (props) => {
@@ -36,7 +36,7 @@ const ModalProvider: React.FC<Props> = (props) => {
     transTime = 250,
   } = props;
 
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLElement | null>(null);
   const [currentModal, setCurrentModal] = useState('');
   const [oneIsOpen, setOneIsOpen] = useState(false);
   const [closeOnBlur, setCloseOnBlur] = useState(false);
@@ -68,7 +68,7 @@ const ModalProvider: React.FC<Props> = (props) => {
     setOneIsOpen(false);
   }, [handleParamChange]);
 
-  const bindEsc = useCallback((e) => {
+  const bindEsc = useCallback((e: KeyboardEvent) => {
     if (e.keyCode === 27) closeAll();
   }, [closeAll]);
 
@@ -81,7 +81,7 @@ const ModalProvider: React.FC<Props> = (props) => {
   useEffect(() => {
     let newClassPrefix = defaultClassPrefix;
     if (typeof userClassPrefix === 'string' && userClassPrefix) newClassPrefix = userClassPrefix;
-    if (typeof userClassPrefix === 'boolean' && !userClassPrefix) newClassPrefix = undefined;
+    if (typeof userClassPrefix === 'boolean' && !userClassPrefix) newClassPrefix = '';
     setClassPrefix(newClassPrefix);
   }, [userClassPrefix]);
 
@@ -116,22 +116,24 @@ const ModalProvider: React.FC<Props> = (props) => {
     setOneIsOpen(true);
   }, [handleParamChange]);
 
-  const toggle = useCallback((slug) => {
+  const toggle = useCallback((slug: string) => {
     if (slug === currentModal) closeAll();
     else open(slug);
   }, [closeAll, open, currentModal]);
 
-  const setBodyScrollLock = useCallback((shouldLock, excludingRef) => {
-    if (shouldLock) {
-      disableBodyScroll(excludingRef.current);
-      setBodyScrollIsLocked(true);
-    } else {
-      enableBodyScroll(excludingRef.current);
-      setBodyScrollIsLocked(false);
+  const setBodyScrollLock = useCallback((shouldLock: boolean, excludingRef: React.RefObject<HTMLElement>) => {
+    if (excludingRef?.current) {
+      if (shouldLock) {
+        disableBodyScroll(excludingRef.current);
+        setBodyScrollIsLocked(true);
+      } else {
+        enableBodyScroll(excludingRef.current);
+        setBodyScrollIsLocked(false);
+      }
     }
   }, []);
 
-  const setContainerRef = useCallback((ref) => {
+  const setContainerRef = useCallback((ref: HTMLElement) => {
     containerRef.current = ref;
   }, []);
 
