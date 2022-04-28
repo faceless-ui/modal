@@ -2,6 +2,8 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshTypeScript = require('react-refresh-typescript');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -16,10 +18,16 @@ module.exports = {
       {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
-        loaders: [
-          'react-hot-loader/webpack',
-          'ts-loader',
-        ],
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              getCustomTransformers: () => ({
+                before: [ReactRefreshTypeScript()],
+              }),
+            }
+          }
+        ]
       },
     ],
   },
@@ -27,8 +35,8 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   plugins: [
+    new ReactRefreshWebpackPlugin(),
     new HtmlWebPackPlugin({
-      // html to duplicate
       template: 'demo/index.html',
     }),
     new ESLintPlugin({
