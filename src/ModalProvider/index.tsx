@@ -10,7 +10,22 @@ import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'bo
 import defaultClassPrefix from '../defaultClassPrefix';
 import generateCSS from './css';
 import ModalContext from '../ModalContext';
-import { Props } from './types';
+
+interface IHandleParamChangeCallback {
+  key: string,
+  value: string
+}
+
+export type Props = {
+  generateCSS?: boolean
+  minifyCSS?: boolean
+  classPrefix?: string | boolean
+  handleParamChange?: (callbackArgs: IHandleParamChangeCallback) => void | boolean // eslint-disable-line
+  transTime?: number
+  zIndex?: number
+  children?: React.ReactNode
+}
+
 
 const getSearchQuery = () => {
   const query = queryString.parse(

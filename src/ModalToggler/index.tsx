@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { ElementType, HTMLProps, MouseEvent } from 'react';
+import { IModalContext } from '../ModalContext';
 import useModal from '../useModal';
-import { Props } from './types';
+
+export type Props = HTMLProps<HTMLElement> & {
+  slug: string
+  modal?: IModalContext
+  htmlElement?: ElementType
+  children?: React.ReactNode
+}
 
 const ModalToggler: React.FC<Props> = (props) => {
   const {
-    id,
-    className,
     slug,
-    style = {},
     htmlElement = 'button',
-    htmlAttributes = {},
     children,
+    onClick,
+    className,
+    ...rest
   } = props;
 
   const {
@@ -33,10 +39,10 @@ const ModalToggler: React.FC<Props> = (props) => {
     role: 'button',
     'aria-expanded': isOpen ? 'true' : 'false',
     'aria-controls': slug,
-    ...htmlAttributes,
-    onClick: () => {
+    ...rest,
+    onClick: (e: MouseEvent<HTMLElement>) => {
       toggle(slug);
-      if (typeof htmlAttributes.onClick === 'function') htmlAttributes.onClick();
+      if (typeof onClick === 'function') onClick(e);
     },
   };
 
@@ -45,9 +51,7 @@ const ModalToggler: React.FC<Props> = (props) => {
   return (
     <Tag
       {...{
-        id,
         className: mergedClasses,
-        style,
         ...mergedAttributes,
       }}
     >

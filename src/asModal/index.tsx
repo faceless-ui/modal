@@ -29,11 +29,8 @@ const asModal = <P extends ModalProps>(
     } = modal;
 
     const {
-      id,
       className,
-      style = {},
       htmlElement = 'dialog',
-      htmlAttributes = {},
       slug: slugFromProp = '',
       closeOnBlur = true,
       lockBodyScroll = true,
@@ -48,6 +45,7 @@ const asModal = <P extends ModalProps>(
       onExiting,
       onExited,
       openOnInit,
+      ...rest
     } = props;
 
     const classPrefixToUse = classPrefixFromProps || classPrefixFromContext;
@@ -126,8 +124,8 @@ const asModal = <P extends ModalProps>(
         role: htmlElement !== 'dialog' ? 'dialog' : undefined,
         open: htmlElement === 'dialog' ? timedOpen || isOpen : undefined,
         'aria-modal': true,
-        'aria-label': !htmlAttributes['aria-labelledby'] ? slug : undefined,
-        ...htmlAttributes,
+        'aria-label': !rest['aria-labelledby'] ? slug : undefined,
+        ...rest,
       };
 
       const Tag = htmlElement as React.ElementType;
@@ -151,9 +149,8 @@ const asModal = <P extends ModalProps>(
           <Tag
             {...{
               ref: modalRef,
-              id: id || slug,
+              id: rest?.id || slug,
               className: mergedClasses,
-              style,
               ...mergedAttributes,
             }}
           >

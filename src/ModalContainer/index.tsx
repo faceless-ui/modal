@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { MouseEvent, ElementType, HTMLProps } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import useModal from '../useModal';
 import containerBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
-import { Props } from './types';
+
+export type Props = HTMLProps<HTMLElement> & {
+  htmlElement?: ElementType
+  children?: React.ReactNode
+}
 
 const ModalContainer: React.FC<Props> = (props) => {
   const {
@@ -17,12 +21,11 @@ const ModalContainer: React.FC<Props> = (props) => {
   } = useModal();
 
   const {
-    id,
     className,
-    style = {},
     htmlElement = 'div',
-    htmlAttributes = {},
     children,
+    onClick,
+    ...rest
   } = props;
 
   const baseClass = `${classPrefix}__${containerBaseClass}`;
@@ -33,10 +36,10 @@ const ModalContainer: React.FC<Props> = (props) => {
   ].filter(Boolean).join(' ');
 
   const mergedAttributes = {
-    ...htmlAttributes,
-    onClick: () => {
+    ...rest,
+    onClick: (e: MouseEvent<HTMLElement>) => {
       if (closeOnBlur) closeAll();
-      if (typeof htmlAttributes.onClick === 'function') htmlAttributes.onClick();
+      if (typeof onClick === 'function') onClick(e);
     },
   };
 
@@ -52,9 +55,7 @@ const ModalContainer: React.FC<Props> = (props) => {
     >
       <Tag
         {...{
-          id,
           className: mergedClasses,
-          style,
           ref: setContainerRef,
           ...mergedAttributes,
         }}

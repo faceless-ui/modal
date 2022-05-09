@@ -1,6 +1,6 @@
-import React, { Fragment, CSSProperties, ElementType } from 'react';
+import React, { Fragment, ElementType, HTMLProps } from 'react';
 import asModal from '../asModal';
-import { IModalContext } from '../ModalContext/types';
+import { IModalContext } from '../ModalContext';
 
 export type ModalPropsWithContext = ModalProps & {
   modal?: IModalContext
@@ -8,20 +8,14 @@ export type ModalPropsWithContext = ModalProps & {
 
 export type ChildFunction = (propsWithContext: ModalPropsWithContext) => React.ReactNode; // eslint-disable-line no-unused-vars
 
-export type ModalProps = {
+export interface ModalProps extends Omit<HTMLProps<HTMLElement>, 'children'> {
   slug: string
   closeOnBlur?: boolean
   lockBodyScroll?: boolean
   // autoFocus?: boolean,
   // trapFocus?: boolean,
   // returnFocus?: boolean,
-  id?: string
-  className?: string
-  style?: CSSProperties
   htmlElement?: ElementType
-  htmlAttributes?: {
-    [key: string]: unknown
-  },
   classPrefix?: string
   onOpen?: () => void
   onClose?: () => void
