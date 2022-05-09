@@ -2,13 +2,18 @@ import React from 'react';
 import { useModal } from '../src';
 
 const CSS: React.FC = () => {
-  const { classPrefix, transTime } = useModal();
+  const {
+    classPrefix,
+    transTime
+  } = useModal();
+
+  const prefixToUse = classPrefix ? `${classPrefix}__` : '';
 
   return (
     <style
       dangerouslySetInnerHTML={{
         __html: `
-          .${classPrefix}__modal-item {
+          .${prefixToUse}modal-item {
             transition: all ${transTime}ms linear;
 
             /* Safari has no user agent stylesheet for the "dialog" element */
@@ -23,16 +28,16 @@ const CSS: React.FC = () => {
             margin: auto;
           }
 
-          .${classPrefix}__modal-item,
-          .${classPrefix}__modal-item--exitActive,
-          .${classPrefix}__modal-item--exitDone {
+          .${prefixToUse}modal-item,
+          .${prefixToUse}modal-item--exitActive,
+          .${prefixToUse}modal-item--exitDone {
             opacity: 0;
           }
 
-          .${classPrefix}__modal-item--appearActive,
-          .${classPrefix}__modal-item--appearDone,
-          .${classPrefix}__modal-item--enterActive,
-          .${classPrefix}__modal-item--enterDone {
+          .${prefixToUse}modal-item--appearActive,
+          .${prefixToUse}modal-item--appearDone,
+          .${prefixToUse}modal-item--enterActive,
+          .${prefixToUse}modal-item--enterDone {
             opacity: 1;
           }
         `,

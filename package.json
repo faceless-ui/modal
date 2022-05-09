@@ -6,7 +6,10 @@
   "homepage:": "https://faceless-ui/docs/modal",
   "repository": "git@github.com:faceless-ui/modal.git",
   "description": "America's next top modal",
-  "author": "<dev@trbl.design>",
+  "author": "Jacob Fletcher <jacobsfletch@gmail.com> (https://jacobsfletch.com)",
+  "contributors": [
+    "TRBL <dev@trbl.design> (https://trbl.design)"
+  ],
   "license": "MIT",
   "keywords": [
     "react",

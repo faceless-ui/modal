@@ -8,7 +8,7 @@ export interface IModalContext extends Props {
   oneIsOpen: boolean,
   closeOnBlur: boolean,
   bodyScrollIsLocked: boolean,
-  classPrefix: string,
+  classPrefix?: string,
   closeAll: () => void,
   setCloseOnBlur: (set: boolean) => void, // eslint-disable-line no-unused-vars
   open: (slug: string) => void, // eslint-disable-line no-unused-vars

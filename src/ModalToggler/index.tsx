@@ -2,6 +2,8 @@ import React, { ElementType, HTMLProps, MouseEvent } from 'react';
 import { IModalContext } from '../ModalContext';
 import useModal from '../useModal';
 
+export const togglerBaseClass = 'modal-toggler';
+
 export type Props = HTMLProps<HTMLElement> & {
   slug: string
   modal?: IModalContext
@@ -25,7 +27,7 @@ const ModalToggler: React.FC<Props> = (props) => {
     classPrefix,
   } = useModal();
 
-  const baseClass = `${classPrefix}__modal-toggler`;
+  const baseClass = classPrefix ? `${classPrefix}__${togglerBaseClass}` : togglerBaseClass;
   const isOpen = currentModal === slug;
 
   const mergedClasses = [

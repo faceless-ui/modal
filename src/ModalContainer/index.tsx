@@ -1,8 +1,9 @@
 import React, { MouseEvent, ElementType, HTMLProps } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import useModal from '../useModal';
-import containerBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
+
+export const containerBaseClass = 'modal-container';
 
 export type Props = HTMLProps<HTMLElement> & {
   htmlElement?: ElementType
@@ -28,7 +29,7 @@ const ModalContainer: React.FC<Props> = (props) => {
     ...rest
   } = props;
 
-  const baseClass = `${classPrefix}__${containerBaseClass}`;
+  const baseClass = classPrefix ? `${classPrefix}__${containerBaseClass}` : containerBaseClass;
 
   const mergedClasses = [
     baseClass,

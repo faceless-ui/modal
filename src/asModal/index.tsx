@@ -6,9 +6,10 @@ import React, {
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 import useModal from '../useModal';
-import itemBaseClass from './baseClass';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
 import { ModalProps } from '../Modal';
+
+export const itemBaseClass = 'modal-item';
 
 const asModal = <P extends ModalProps>(
   ModalComponent: React.FC<P>,
@@ -112,7 +113,7 @@ const asModal = <P extends ModalProps>(
     ]);
 
     if (containerRef.current) {
-      const baseClass = `${classPrefixToUse}__${itemBaseClass}`;
+      const baseClass = classPrefixToUse ? `${classPrefixToUse}__${itemBaseClass}` : itemBaseClass;
 
       const mergedClasses = [
         baseClass,

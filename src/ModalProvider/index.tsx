@@ -7,8 +7,7 @@ import React, {
 } from 'react';
 import queryString from 'qs';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
-import defaultClassPrefix from '../defaultClassPrefix';
-import generateCSS from './css';
+import generateCSS from './generateCSS';
 import ModalContext from '../ModalContext';
 
 interface IHandleParamChangeCallback {
@@ -19,7 +18,7 @@ interface IHandleParamChangeCallback {
 export type Props = {
   generateCSS?: boolean
   minifyCSS?: boolean
-  classPrefix?: string | boolean
+  classPrefix?: string
   handleParamChange?: (callbackArgs: IHandleParamChangeCallback) => void | boolean // eslint-disable-line
   transTime?: number
   zIndex?: number
@@ -42,7 +41,7 @@ const getModalParam = (): string => {
 
 const ModalProvider: React.FC<Props> = (props) => {
   const {
-    classPrefix: userClassPrefix,
+    classPrefix,
     minifyCSS = true,
     generateCSS: shouldGenerateCSS = true,
     zIndex = 9999,
@@ -57,7 +56,6 @@ const ModalProvider: React.FC<Props> = (props) => {
   const [closeOnBlur, setCloseOnBlur] = useState(false);
   const [bodyScrollIsLocked, setBodyScrollIsLocked] = useState(false);
   const [cssString, setCSSString] = useState('');
-  const [classPrefix, setClassPrefix] = useState('');
 
   const closeAll = useCallback((updateHistory = true) => {
     if (updateHistory) {
@@ -94,20 +92,22 @@ const ModalProvider: React.FC<Props> = (props) => {
   }, [bindEsc]);
 
   useEffect(() => {
-    let newClassPrefix = defaultClassPrefix;
-    if (typeof userClassPrefix === 'string' && userClassPrefix) newClassPrefix = userClassPrefix;
-    if (typeof userClassPrefix === 'boolean' && !userClassPrefix) newClassPrefix = '';
-    setClassPrefix(newClassPrefix);
-  }, [userClassPrefix]);
-
-  useEffect(() => {
     if (shouldGenerateCSS) {
       let newString = '';
-      newString = generateCSS(classPrefix, zIndex);
+      newString = generateCSS({
+        classPrefix,
+        zIndex
+      });
+
       if (minifyCSS) newString = newString.replace(/\n/g, '').replace(/\s\s+/g, ' ');
       setCSSString(newString);
     }
-  }, [shouldGenerateCSS, minifyCSS, zIndex, classPrefix]);
+  }, [
+    shouldGenerateCSS,
+    minifyCSS,
+    zIndex,
+    classPrefix
+  ]);
 
   const open = useCallback((slug: string, skipParamChange?: boolean) => {
     if (!skipParamChange) {

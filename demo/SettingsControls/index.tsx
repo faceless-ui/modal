@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { useModal } from '../../src';
-import { Props } from '../App/types';
+import { useSettings } from '../SettingsProvider';
 
-const SettingsControls: React.FC<Props> = (props) => {
-  const { dispatchSettings } = props;
+const SettingsControls: React.FC = () => {
+  const { dispatchSettings } = useSettings();
 
   const {
     transTime,

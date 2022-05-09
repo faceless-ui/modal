@@ -1,41 +1,32 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import LogProps from '../LogProps';
 import { asModal } from '../../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 import ModalControls from '../ModalControls';
-import reducer from './reducer';
-import { ModalProps } from '../../src/Modal';
-import { Props as AppProps } from '../App/types';
+import { SettingsProvider } from '../SettingsProvider';
 
-const AsModal = asModal<ModalProps & AppProps>((props) => {
-  const propsToPrint: Partial<ModalProps & {
-    dispatchSettings?: unknown // note: when using ts strict mode, have to make this optional in order to delete
-  }> = { ...props };
-
-  delete propsToPrint.dispatchSettings;
-
+const AsModal = asModal((props) => {
   return (
     <div style={{ minHeight: '600px' }}>
       <ModalControls {...props} />
-      <LogProps {...propsToPrint} />
+      <LogProps {...props} />
     </div>
   );
 });
 
-const initialSettings = {};
-
 const AsModalController: React.FC = () => {
-  const [settings, dispatchSettings] = useReducer(reducer, initialSettings);
-
   return (
-    <AsModal
-      {...settings}
-      slug="asModal"
-      dispatchSettings={dispatchSettings}
-      style={{
-        height: '400px',
-        overflow: 'auto',
-      }}
-    />
+    <SettingsProvider>
+      {({ settings }) => (
+        <AsModal
+          {...settings}
+          slug="asModal"
+          style={{
+            height: '400px',
+            overflow: 'auto',
+          }}
+        />
+      )}
+    </SettingsProvider>
   );
 };
 
