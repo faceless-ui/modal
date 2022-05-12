@@ -25,7 +25,6 @@ export type Props = {
   children?: React.ReactNode
 }
 
-
 const getSearchQuery = () => {
   const query = queryString.parse(
     window.location.search,

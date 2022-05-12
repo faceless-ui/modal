@@ -8,6 +8,7 @@ import { CSSTransition } from 'react-transition-group';
 import useModal from '../useModal';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
 import { ModalProps } from '../Modal';
+import * as focusTrap from 'focus-trap'; // ESM
 
 export const itemBaseClass = 'modal-item';
 
@@ -18,6 +19,9 @@ const asModal = <P extends ModalProps>(
   const ModalWrap: React.FC<P> = (props) => {
     const modal = useModal();
     const modalRef = useRef(null);
+    const [layTrap, setLayTrap] = useState(false);
+    const trapHasBeenLayed = useRef(false);
+    const [trap, setTrap] = useState<focusTrap.FocusTrap | null>(null);
 
     const {
       currentModal,
@@ -31,7 +35,7 @@ const asModal = <P extends ModalProps>(
 
     const {
       className,
-      htmlElement = 'dialog',
+      htmlElement: Tag = 'dialog',
       slug: slugFromProp = '',
       closeOnBlur = true,
       lockBodyScroll = true,
@@ -46,6 +50,8 @@ const asModal = <P extends ModalProps>(
       onExiting,
       onExited,
       openOnInit,
+      trapFocus = true,
+      focusTrapOptions,
       ...rest
     } = props;
 
@@ -54,6 +60,35 @@ const asModal = <P extends ModalProps>(
     const isFirstRender = useRef(true);
 
     const isOpen = currentModal === slug;
+
+    useEffect(() => {
+      if (trapFocus) {
+        const currentModal = modalRef.current;
+        if (trapHasBeenLayed.current === false && currentModal) {
+          const newTrap = focusTrap.createFocusTrap(currentModal, focusTrapOptions);
+          setTrap(newTrap);
+          trapHasBeenLayed.current = true;
+        }
+      }
+    }, [
+      trapFocus,
+      layTrap,
+      focusTrapOptions
+    ])
+
+    useEffect(() => {
+      setLayTrap(true);
+    }, [])
+
+    useEffect(() => {
+      if (trap) {
+        if (isOpen) trap.activate();
+        else trap.deactivate();
+      }
+    }, [
+      isOpen,
+      trap
+    ])
 
     useEffect(() => {
       // useful to maintain a true oneIsOpen provider state that is only
@@ -122,14 +157,12 @@ const asModal = <P extends ModalProps>(
       ].filter(Boolean).join(' ');
 
       const mergedAttributes = {
-        role: htmlElement !== 'dialog' ? 'dialog' : undefined,
-        open: htmlElement === 'dialog' ? timedOpen || isOpen : undefined,
+        role: Tag !== 'dialog' ? 'dialog' : undefined,
+        open: Tag === 'dialog' ? timedOpen || isOpen : undefined,
         'aria-modal': true,
         'aria-label': !rest['aria-labelledby'] ? slug : undefined,
         ...rest,
       };
-
-      const Tag = htmlElement as React.ElementType;
 
       return ReactDOM.createPortal(
         <CSSTransition

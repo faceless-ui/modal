@@ -14,7 +14,7 @@ export type Props = HTMLProps<HTMLElement> & {
 const ModalToggler: React.FC<Props> = (props) => {
   const {
     slug,
-    htmlElement = 'button',
+    htmlElement: Tag = 'button',
     children,
     onClick,
     className,
@@ -47,8 +47,6 @@ const ModalToggler: React.FC<Props> = (props) => {
       if (typeof onClick === 'function') onClick(e);
     },
   };
-
-  const Tag = htmlElement as React.ElementType;
 
   return (
     <Tag

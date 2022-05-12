@@ -23,7 +23,7 @@ const ModalContainer: React.FC<Props> = (props) => {
 
   const {
     className,
-    htmlElement = 'div',
+    htmlElement: Tag = 'div',
     children,
     onClick,
     ...rest
@@ -43,8 +43,6 @@ const ModalContainer: React.FC<Props> = (props) => {
       if (typeof onClick === 'function') onClick(e);
     },
   };
-
-  const Tag = htmlElement as React.ElementType;
 
   return (
     <CSSTransition

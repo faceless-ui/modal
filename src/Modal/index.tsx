@@ -1,3 +1,4 @@
+import * as focusTrap from 'focus-trap';
 import React, { Fragment, ElementType, HTMLProps } from 'react';
 import asModal from '../asModal';
 import { IModalContext } from '../ModalContext';
@@ -27,6 +28,8 @@ export interface ModalProps extends Omit<HTMLProps<HTMLElement>, 'children'> {
   onExited?: () => void
   openOnInit?: boolean
   children?: React.ReactNode | ChildFunction
+  trapFocus?: boolean
+  focusTrapOptions?: focusTrap.Options
 }
 
 const Modal: React.FC<ModalPropsWithContext & {
