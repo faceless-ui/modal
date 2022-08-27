@@ -3,6 +3,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
   ],
   env: {
@@ -11,6 +12,8 @@ module.exports = {
     jest: true,
   },
   plugins: [
+    'react',
+    "react-hooks",
     'jest',
     'jest-dom',
   ],
@@ -46,7 +49,7 @@ module.exports = {
     'no-unused-vars': [
       1,
     ],
-    "@typescript-eslint/ban-ts-comment": "off"
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   settings: {
     react: {
