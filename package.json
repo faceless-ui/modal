@@ -3,13 +3,25 @@
   "version": "1.2.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "homepage:": "https://faceless-ui/docs/modal",
+  "homepage:": "https://facelessui.com/docs/modal",
   "repository": "git@github.com:faceless-ui/modal.git",
   "description": "America's next top modal",
-  "author": "Jacob Fletcher <jacobsfletch@gmail.com> (https://jacobsfletch.com)",
-  "contributors": [
-    "TRBL <dev@trbl.design> (https://trbl.design)"
+  "author": {
+    "email": "jacobsfletch@gmail.com",
+    "name": "Jacob Fletcher",
+    "url": "https://jacobsfletch.com"
+  },
+  "bugs": {
+    "url": "https://github.com/faceless-ui/modal/issues",
+    "email": "dev@facelessui.com"
+  },
+  "funding": [
+    {
+      "type": "individual",
+      "url": "https://github.com/sponsors/jacobsfletch"
+    }
   ],
+  "contributors": [],
   "license": "MIT",
   "keywords": [
     "react",
