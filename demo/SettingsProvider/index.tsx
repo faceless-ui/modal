@@ -3,6 +3,8 @@ import reducer from './reducer';
 
 export type Settings = Record<string, unknown>;
 
+export type ChildFunction = (settings: ISettings) => React.ReactNode; // eslint-disable-line no-unused-vars
+
 export interface IReducerAction {
   payload: Record<string, unknown>
 }
@@ -17,13 +19,14 @@ export const SettingsContext = createContext<ISettings>({} as ISettings);
 export const useSettings = (): ISettings => useContext(SettingsContext);
 
 export const SettingsProvider: React.FC<{
-  children?: (settings: Settings) => React.ReactNode // eslint-disable-line no-unused-vars
+  children?: React.ReactNode | ChildFunction
   initialSettings?: Settings
 }> = (props) => {
   const {
     children,
     initialSettings = {}
   } = props;
+
   const [settings, dispatchSettings] = useReducer(reducer, initialSettings);
 
   const context: ISettings = {
@@ -31,11 +34,21 @@ export const SettingsProvider: React.FC<{
     dispatchSettings,
   };
 
-  return (
-    <SettingsContext.Provider
-      value={context}
-    >
-      {typeof children === 'function' ? children(context) : null}
-    </SettingsContext.Provider>
-  )
+
+  if (children) {
+    if (typeof children === 'function') {
+      return (
+        <SettingsContext.Provider value={context}>
+          {children(context)}
+        </SettingsContext.Provider>
+      )
+    }
+
+    return (
+      <SettingsContext.Provider value={context}>
+        {children}
+      </SettingsContext.Provider>
+    )
+  }
+  return null;
 }
