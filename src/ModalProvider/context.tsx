@@ -1,7 +1,7 @@
 import { createContext } from 'react';
-import { Props } from '../ModalProvider';
+import { ModalProviderProps } from '../ModalProvider';
 
-export interface IModalContext extends Props {
+export interface IModalContext extends ModalProviderProps {
   transTime: number,
   containerRef: React.RefObject<HTMLElement>
   currentModal: string,

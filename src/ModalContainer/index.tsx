@@ -5,12 +5,12 @@ import generateTransitionClasses from '../ModalProvider/generateTransitionClasse
 
 export const containerBaseClass = 'modal-container';
 
-export type Props = HTMLProps<HTMLElement> & {
+export type ModalContainerProps = HTMLProps<HTMLElement> & {
   htmlElement?: ElementType
   children?: React.ReactNode
 }
 
-const ModalContainer: React.FC<Props> = (props) => {
+const ModalContainer: React.FC<ModalContainerProps> = (props) => {
   const {
     oneIsOpen,
     classPrefix,

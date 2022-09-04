@@ -1,17 +1,17 @@
 import React, { ElementType, HTMLProps, MouseEvent } from 'react';
-import { IModalContext } from '../ModalContext';
+import { IModalContext } from '../ModalProvider/context';
 import useModal from '../useModal';
 
 export const togglerBaseClass = 'modal-toggler';
 
-export type Props = HTMLProps<HTMLElement> & {
+export type ModalTogglerProps = HTMLProps<HTMLElement> & {
   slug: string
   modal?: IModalContext
   htmlElement?: ElementType
   children?: React.ReactNode
 }
 
-const ModalToggler: React.FC<Props> = (props) => {
+const ModalToggler: React.FC<ModalTogglerProps> = (props) => {
   const {
     slug,
     htmlElement: Tag = 'button',

@@ -8,14 +8,14 @@ import React, {
 import queryString from 'qs';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 import generateCSS from './generateCSS';
-import ModalContext from '../ModalContext';
+import ModalContext from './context';
 
 interface IHandleParamChangeCallback {
   key: string,
   value: string
 }
 
-export type Props = {
+export type ModalProviderProps = {
   generateCSS?: boolean
   minifyCSS?: boolean
   classPrefix?: string
@@ -38,7 +38,7 @@ const getModalParam = (): string => {
   return searchQuery.modal as string || '';
 };
 
-const ModalProvider: React.FC<Props> = (props) => {
+const ModalProvider: React.FC<ModalProviderProps> = (props) => {
   const {
     classPrefix,
     minifyCSS = true,
