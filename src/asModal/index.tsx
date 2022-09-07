@@ -65,7 +65,10 @@ const asModal = <P extends ModalProps>(
       if (trapFocus) {
         const currentModal = modalRef.current;
         if (trapHasBeenLayed.current === false && currentModal) {
-          const newTrap = focusTrap.createFocusTrap(currentModal, focusTrapOptions);
+          const newTrap = focusTrap.createFocusTrap(currentModal, {
+            ...focusTrapOptions,
+            fallbackFocus: focusTrapOptions?.fallbackFocus || currentModal,
+          });
           setTrap(newTrap);
           trapHasBeenLayed.current = true;
         }
