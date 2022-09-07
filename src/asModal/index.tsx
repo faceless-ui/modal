@@ -88,6 +88,9 @@ const asModal = <P extends ModalProps>(
         if (isOpen) trap.activate();
         else trap.deactivate();
       }
+      return () => {
+        if (trap) trap.deactivate();
+      }
     }, [
       isOpen,
       trap
