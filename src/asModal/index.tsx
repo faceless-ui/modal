@@ -51,7 +51,7 @@ const asModal = <P extends ModalProps>(
       onExited,
       openOnInit,
       trapFocus = true,
-      focusTrapOptions,
+      focusTrapOptions = {},
       ...rest
     } = props;
 
@@ -68,6 +68,7 @@ const asModal = <P extends ModalProps>(
           const newTrap = focusTrap.createFocusTrap(currentModal, {
             ...focusTrapOptions,
             fallbackFocus: focusTrapOptions?.fallbackFocus || currentModal,
+            allowOutsideClick: typeof focusTrapOptions.allowOutsideClick !== 'undefined' ? focusTrapOptions.allowOutsideClick : true,
           });
           setTrap(newTrap);
           trapHasBeenLayed.current = true;

@@ -24,6 +24,7 @@ const AsModalController: React.FC = () => {
             height: '400px',
             overflow: 'auto',
           }}
+          closeOnBlur={false}
         />
       )}
     </SettingsProvider>
