@@ -35,7 +35,16 @@ const App: React.FC = () => {
             <br />
             <UseModal />
             <div style={{ height: '150vh' }} />
-            <ModalContainer />
+            <ModalContainer>
+              <button
+                onClick={() => {
+                  console.log('clicked');
+                }}
+                type="button"
+              >
+                Log to console
+              </button>
+            </ModalContainer>
           </ModalProvider>
         )}
       </SettingsProvider>
