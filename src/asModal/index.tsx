@@ -29,7 +29,6 @@ const asModal = <P extends ModalProps>(
       containerRef,
       transTime,
       setCloseOnBlur,
-      open,
       setBodyScrollLock,
     } = modal;
 
@@ -107,7 +106,6 @@ const asModal = <P extends ModalProps>(
       }
     }, [
       isOpen,
-      open,
       isFirstRender,
       slug,
     ]);
@@ -151,7 +149,6 @@ const asModal = <P extends ModalProps>(
     }, [
       slug,
       openOnInit,
-      open,
     ]);
 
     if (containerRef.current) {

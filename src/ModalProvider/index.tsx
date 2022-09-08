@@ -147,7 +147,7 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     containerRef.current = ref;
   }, []);
 
-  const open = useCallback((slug: string) => {
+  const openModal = useCallback((slug: string) => {
     dispatchModalState({
       type: 'OPEN_MODAL',
       payload: {
@@ -156,7 +156,7 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     })
   }, [])
 
-  const close = useCallback((slug: string) => {
+  const closeModal = useCallback((slug: string) => {
     dispatchModalState({
       type: 'CLOSE_MODAL',
       payload: {
@@ -165,13 +165,13 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     })
   }, [])
 
-  const closeAll = useCallback(() => {
+  const closeAllModals = useCallback(() => {
     dispatchModalState({
       type: 'CLOSE_ALL_MODALS'
     })
   }, [])
 
-  const toggle = useCallback((slug: string) => {
+  const toggleModal = useCallback((slug: string) => {
     dispatchModalState({
       type: 'TOGGLE_MODAL',
       payload: {
@@ -194,16 +194,16 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
           // state
           containerRef,
           modalState,
-          oneIsOpen,
+          modalIsOpen: oneIsOpen,
           closeOnBlur,
           bodyScrollIsLocked,
           classPrefix,
           // methods
-          closeAll,
+          closeAllModals,
           setCloseOnBlur,
-          open,
-          close,
-          toggle,
+          openModal,
+          closeModal,
+          toggleModal,
           setBodyScrollLock,
           setContainerRef,
         }}

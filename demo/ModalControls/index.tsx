@@ -13,8 +13,8 @@ const ModalControls: React.FC<ModalPropsWithContext> = (props) => {
 
   const {
     closeOnBlur,
-    closeAll,
-    toggle,
+    closeAllModals,
+    toggleModal,
   } = useModal();
 
   return (
@@ -24,14 +24,14 @@ const ModalControls: React.FC<ModalPropsWithContext> = (props) => {
       </ModalToggler>
       <br />
       <button
-        onClick={() => { toggle(slug); }}
+        onClick={() => { toggleModal(slug); }}
         type="button"
       >
         {`toggle("${slug}")`}
       </button>
       <br />
       <button
-        onClick={() => { closeAll(); }}
+        onClick={() => { closeAllModals(); }}
         type="button"
       >
         closeAll()

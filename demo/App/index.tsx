@@ -19,6 +19,12 @@ const App: React.FC = () => {
       >
         {({ settings }) => (
           <ModalProvider {...settings}>
+            <div
+              style={{
+                backgroundColor: 'lightgray',
+                height: '200px'
+              }}
+            />
             <CSS />
             <AsModal />
             <Modal />
@@ -34,7 +40,6 @@ const App: React.FC = () => {
             <SettingsControls />
             <br />
             <UseModal />
-            <div style={{ height: '150vh' }} />
             <ModalContainer>
               <button
                 onClick={() => {
@@ -45,6 +50,12 @@ const App: React.FC = () => {
                 Log to console
               </button>
             </ModalContainer>
+            <div
+              style={{
+                backgroundColor: 'lightgray',
+                height: '10000px'
+              }}
+            />
           </ModalProvider>
         )}
       </SettingsProvider>

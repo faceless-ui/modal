@@ -23,7 +23,7 @@ const ModalToggler: React.FC<ModalTogglerProps> = (props) => {
 
   const {
     modalState,
-    toggle,
+    toggleModal,
     classPrefix,
   } = useModal();
 
@@ -43,7 +43,7 @@ const ModalToggler: React.FC<ModalTogglerProps> = (props) => {
     'aria-controls': slug,
     ...rest,
     onClick: (e: MouseEvent<HTMLElement>) => {
-      toggle(slug);
+      toggleModal(slug);
       if (typeof onClick === 'function') onClick(e);
     },
   };
