@@ -14,6 +14,7 @@ const ModalDemo: React.FC = () => {
         <Modal
           slug="Modal"
           {...settings}
+          closeOnBlur={false}
         >
           {(modal) => {
             const propsToPrint = { ...modal };
