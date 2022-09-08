@@ -24,7 +24,7 @@ const asModal = <P extends ModalProps>(
     const [trap, setTrap] = useState<focusTrap.FocusTrap | null>(null);
 
     const {
-      currentModal,
+      modalState,
       classPrefix: classPrefixFromContext,
       containerRef,
       transTime,
@@ -59,7 +59,7 @@ const asModal = <P extends ModalProps>(
     const slug = slugFromArg || slugFromProp;
     const isFirstRender = useRef(true);
 
-    const isOpen = currentModal === slug;
+    const isOpen = modalState[slug] && modalState[slug].isOpen;
 
     useEffect(() => {
       if (trapFocus) {
@@ -175,7 +175,7 @@ const asModal = <P extends ModalProps>(
           {...{
             nodeRef: modalRef,
             timeout: transTime,
-            in: currentModal === slug,
+            in: isOpen,
             classNames: generateTransitionClasses(baseClass),
             appear: true,
             onEnter,

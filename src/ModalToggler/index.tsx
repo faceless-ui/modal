@@ -22,13 +22,13 @@ const ModalToggler: React.FC<ModalTogglerProps> = (props) => {
   } = props;
 
   const {
-    currentModal,
+    modalState,
     toggle,
     classPrefix,
   } = useModal();
 
   const baseClass = classPrefix ? `${classPrefix}__${togglerBaseClass}` : togglerBaseClass;
-  const isOpen = currentModal === slug;
+  const isOpen = modalState[slug] && modalState[slug].isOpen;
 
   const mergedClasses = [
     baseClass,

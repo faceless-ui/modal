@@ -4,22 +4,19 @@ import React, {
   useRef,
   useEffect,
   useCallback,
+  useReducer,
 } from 'react';
 import queryString from 'qs';
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import generateCSS from './generateCSS';
-import ModalContext from './context';
-
-interface IHandleParamChangeCallback {
-  key: string,
-  value: string
-}
+import ModalContext, { ModalState } from './context';
+import reducer from './reducer';
 
 export type ModalProviderProps = {
   generateCSS?: boolean
   minifyCSS?: boolean
   classPrefix?: string
-  handleParamChange?: (callbackArgs: IHandleParamChangeCallback) => void | boolean // eslint-disable-line
+  handleParamChange?: (modalState: ModalState) => void | boolean // eslint-disable-line
   transTime?: number
   zIndex?: number
   children?: React.ReactNode
@@ -33,9 +30,15 @@ const getSearchQuery = () => {
   return query;
 };
 
-const getModalParam = (): string => {
+const getModalParamArray = (): string[] => {
   const searchQuery = getSearchQuery();
-  return searchQuery.modal as string || '';
+  let params: string[] = [];
+  if (typeof searchQuery.modal === 'string') {
+    params = [searchQuery.modal];
+  } else if (Array.isArray(searchQuery.modal)) {
+    params = searchQuery.modal as string[];
+  }
+  return params;
 };
 
 const ModalProvider: React.FC<ModalProviderProps> = (props) => {
@@ -50,46 +53,38 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
   } = props;
 
   const containerRef = useRef<HTMLElement | null>(null);
-  const [currentModal, setCurrentModal] = useState('');
+  const [modalState, dispatchModalState] = useReducer(reducer, {}, () => {
+    const initialParams = getModalParamArray();
+    const initialState = initialParams.reduce((acc, param) => {
+      acc[param] = {
+        slug: param,
+        isOpen: true,
+      };
+      return acc;
+    }, {} as ModalState);
+    return initialState;
+  });
+
   const [oneIsOpen, setOneIsOpen] = useState(false);
   const [closeOnBlur, setCloseOnBlur] = useState(false);
   const [bodyScrollIsLocked, setBodyScrollIsLocked] = useState(false);
   const [cssString, setCSSString] = useState('');
 
-  const closeAll = useCallback((updateHistory = true) => {
-    if (updateHistory) {
-      if (typeof handleParamChange === 'function') {
-        handleParamChange({
-          key: 'modal',
-          value: '',
-        });
-      }
-
-      if (typeof handleParamChange === 'boolean' && handleParamChange) {
-        const searchQuery = getSearchQuery();
-        delete searchQuery.modal;
-        const queryWithoutModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
-        const newURL = `${window.location.pathname}${queryWithoutModal}`;
-        window.history.pushState({}, '', newURL);
-      }
-    }
-
-    clearAllBodyScrollLocks();
-
-    setCurrentModal('');
-    setOneIsOpen(false);
-  }, [handleParamChange]);
-
   const bindEsc = useCallback((e: KeyboardEvent) => {
-    if (e.keyCode === 27) closeAll();
-  }, [closeAll]);
+    if (e.keyCode === 27) {
+      dispatchModalState({
+        type: 'CLOSE_ALL_MODALS',
+      })
+    }
+  }, []);
 
+  // Bind esc key to close all modals
   useEffect(() => {
     document.addEventListener('keydown', (e) => bindEsc(e), false);
-    setCurrentModal(getModalParam());
     return () => document.removeEventListener('keydown', (e) => bindEsc(e), false);
   }, [bindEsc]);
 
+  // Generate CSS to inject into stylesheet
   useEffect(() => {
     if (shouldGenerateCSS) {
       let newString = '';
@@ -108,32 +103,33 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     classPrefix
   ]);
 
-  const open = useCallback((slug: string, skipParamChange?: boolean) => {
-    if (!skipParamChange) {
-      if (typeof handleParamChange === 'function') {
-        handleParamChange({
-          key: 'modal',
-          value: slug,
-        });
-      }
-
-      if (typeof handleParamChange === 'boolean' && handleParamChange) {
-        const searchQuery = getSearchQuery();
-        searchQuery.modal = slug;
-        const queryWithModal = queryString.stringify(searchQuery, { addQueryPrefix: true });
-        const newURL = `${window.location.pathname}${queryWithModal}`;
-        window.history.pushState({}, '', newURL);
-      }
+  // Handle param changes
+  useEffect(() => {
+    if (typeof handleParamChange === 'function') {
+      handleParamChange(modalState);
     }
 
-    setCurrentModal(slug);
-    setOneIsOpen(true);
-  }, [handleParamChange]);
+    if (typeof handleParamChange === 'boolean' && handleParamChange) {
+      const openModals = Object.keys(modalState).filter((slug) => modalState[slug].isOpen);
+      const queryWithModal = queryString.stringify({
+        modal: openModals
+      }, {
+        addQueryPrefix: true,
+        encode: false,
+      });
+      const newURL = `${window.location.pathname}${queryWithModal}`;
+      window.history.pushState({}, '', newURL);
+    }
+  }, [
+    modalState,
+    handleParamChange,
+  ])
 
-  const toggle = useCallback((slug: string) => {
-    if (slug === currentModal) closeAll();
-    else open(slug);
-  }, [closeAll, open, currentModal]);
+  // Determine if any modals are open
+  useEffect(() => {
+    const isOneOpen = Object.keys(modalState).some((key) => modalState[key].isOpen);
+    setOneIsOpen(isOneOpen);
+  }, [modalState])
 
   const setBodyScrollLock = useCallback((shouldLock: boolean, excludingRef: React.RefObject<HTMLElement>) => {
     if (excludingRef?.current) {
@@ -151,6 +147,39 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     containerRef.current = ref;
   }, []);
 
+  const open = useCallback((slug: string) => {
+    dispatchModalState({
+      type: 'OPEN_MODAL',
+      payload: {
+        slug,
+      }
+    })
+  }, [])
+
+  const close = useCallback((slug: string) => {
+    dispatchModalState({
+      type: 'CLOSE_MODAL',
+      payload: {
+        slug,
+      }
+    })
+  }, [])
+
+  const closeAll = useCallback(() => {
+    dispatchModalState({
+      type: 'CLOSE_ALL_MODALS'
+    })
+  }, [])
+
+  const toggle = useCallback((slug: string) => {
+    dispatchModalState({
+      type: 'TOGGLE_MODAL',
+      payload: {
+        slug,
+      }
+    })
+  }, [])
+
   const inheritedProps = { ...props };
   delete inheritedProps.children;
 
@@ -164,7 +193,7 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
           transTime,
           // state
           containerRef,
-          currentModal,
+          modalState,
           oneIsOpen,
           closeOnBlur,
           bodyScrollIsLocked,
@@ -173,12 +202,13 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
           closeAll,
           setCloseOnBlur,
           open,
+          close,
           toggle,
-          setContainerRef,
           setBodyScrollLock,
+          setContainerRef,
         }}
       >
-        {children && children}
+        {children}
       </ModalContext.Provider>
     </Fragment>
   );
