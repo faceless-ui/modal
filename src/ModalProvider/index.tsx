@@ -131,13 +131,13 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     setOneIsOpen(isOneOpen);
   }, [modalState])
 
-  const setBodyScrollLock = useCallback((shouldLock: boolean, excludingRef: React.RefObject<HTMLElement>) => {
-    if (excludingRef?.current) {
+  const setBodyScrollLock = useCallback((shouldLock: boolean, excludingRef: HTMLElement) => {
+    if (excludingRef) {
       if (shouldLock) {
-        disableBodyScroll(excludingRef.current);
+        disableBodyScroll(excludingRef);
         setBodyScrollIsLocked(true);
       } else {
-        enableBodyScroll(excludingRef.current);
+        enableBodyScroll(excludingRef);
         setBodyScrollIsLocked(false);
       }
     }

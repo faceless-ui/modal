@@ -6,10 +6,27 @@ import Modal from '../ModalDemo';
 import CSS from '../CSS';
 import SettingsControls from '../SettingsControls';
 import { SettingsProvider } from '../SettingsProvider';
+// import Test from '../Test';
 
 const App: React.FC = () => {
   return (
     <React.StrictMode>
+      {/* <ModalProvider>
+        <div
+          style={{
+            backgroundColor: 'lightgray',
+            height: '200px'
+          }}
+        />
+        <Test />
+        <div
+          style={{
+            backgroundColor: 'lightgray',
+            height: '20000px'
+          }}
+        />
+        <ModalContainer />
+      </ModalProvider> */}
       <SettingsProvider
         initialSettings={{
           handleParamChange: true,

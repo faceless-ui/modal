@@ -27,7 +27,7 @@ export interface IModalContext extends ModalProviderProps {
   setContainerRef: (ref: HTMLElement) => void // eslint-disable-line no-unused-vars
   setBodyScrollLock: (
     shouldLock: boolean, // eslint-disable-line no-unused-vars
-    excludingRef: React.RefObject<HTMLElement> // eslint-disable-line no-unused-vars
+    excludingRef: HTMLElement // eslint-disable-line no-unused-vars
   ) => void
 }
 

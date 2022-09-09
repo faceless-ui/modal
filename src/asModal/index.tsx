@@ -30,6 +30,7 @@ const asModal = <P extends ModalProps>(
       transTime,
       setCloseOnBlur,
       setBodyScrollLock,
+      openModal
     } = modal;
 
     const {
@@ -62,6 +63,7 @@ const asModal = <P extends ModalProps>(
     useEffect(() => {
       if (trapFocus) {
         const currentModal = modalRef.current;
+
         if (trapHasBeenLayed.current === false && currentModal) {
           const newTrap = focusTrap.createFocusTrap(currentModal, {
             ...focusTrapOptions,
@@ -104,11 +106,19 @@ const asModal = <P extends ModalProps>(
     ]);
 
     useEffect(() => {
-      if (modalRef.current) {
+      const currentModal = modalRef.current;
+
+      if (currentModal) {
         if (isOpen && lockBodyScroll) {
-          setBodyScrollLock(true, modalRef);
+          setBodyScrollLock(true, currentModal);
         } else {
-          setBodyScrollLock(false, modalRef);
+          setBodyScrollLock(false, currentModal);
+        }
+      }
+
+      return () => {
+        if (currentModal) {
+          setBodyScrollLock(false, currentModal);
         }
       }
     }, [
@@ -129,11 +139,12 @@ const asModal = <P extends ModalProps>(
 
     useEffect(() => {
       if (openOnInit) {
-        open(slug);
+        openModal(slug);
       }
     }, [
       slug,
       openOnInit,
+      openModal
     ]);
 
     if (containerRef.current) {
