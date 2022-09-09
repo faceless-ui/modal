@@ -56,7 +56,6 @@ const asModal = <P extends ModalProps>(
 
     const classPrefixToUse = classPrefixFromProps || classPrefixFromContext;
     const slug = slugFromArg || slugFromProp;
-    const isFirstRender = useRef(true);
 
     const isOpen = modalState[slug] && modalState[slug].isOpen;
 
@@ -95,20 +94,6 @@ const asModal = <P extends ModalProps>(
       isOpen,
       trap
     ])
-
-    useEffect(() => {
-      // useful to maintain a true oneIsOpen provider state that is only
-      // ever true if the slug URL parameter matches a mounted modal slug.
-      // i.e. ModalContainer will be protected from erroneously opening.
-      if (isFirstRender) {
-        if (isOpen) open(slug);
-        isFirstRender.current = false;
-      }
-    }, [
-      isOpen,
-      isFirstRender,
-      slug,
-    ]);
 
     useEffect(() => {
       if (isOpen) setCloseOnBlur(closeOnBlur);
