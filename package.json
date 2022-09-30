@@ -7,9 +7,9 @@
   "repository": "git@github.com:faceless-ui/modal.git",
   "description": "America's next top modal",
   "author": {
-    "email": "jacobsfletch@gmail.com",
-    "name": "Jacob Fletcher",
-    "url": "https://jacobsfletch.com"
+    "email": "dev@facelessui.com",
+    "name": "Faceless UI",
+    "url": "https://facelessui.com"
   },
   "bugs": {
     "url": "https://github.com/faceless-ui/modal/issues",
@@ -21,7 +21,13 @@
       "url": "https://github.com/sponsors/jacobsfletch"
     }
   ],
-  "contributors": [],
+  "contributors": [
+    {
+      "email": "jacobsfletch@gmail.com",
+      "name": "Jacob Fletcher",
+      "url": "https://jacobsfletch.com"
+    }
+  ],
   "license": "MIT",
   "keywords": [
     "react",

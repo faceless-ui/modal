@@ -13,9 +13,6 @@ export interface ModalProps extends Omit<HTMLProps<HTMLElement>, 'children'> {
   slug: string
   closeOnBlur?: boolean
   lockBodyScroll?: boolean
-  // autoFocus?: boolean,
-  // trapFocus?: boolean,
-  // returnFocus?: boolean,
   htmlElement?: ElementType
   classPrefix?: string
   onOpen?: () => void
