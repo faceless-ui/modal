@@ -12,12 +12,12 @@ export type ModalContainerProps = HTMLProps<HTMLElement> & {
 
 const ModalContainer: React.FC<ModalContainerProps> = (props) => {
   const {
-    oneIsOpen,
+    oneModalIsOpen,
     classPrefix,
     transTime,
     setContainerRef,
     containerRef,
-    closeAll,
+    closeAllModals,
     closeOnBlur,
   } = useModal();
 
@@ -39,7 +39,7 @@ const ModalContainer: React.FC<ModalContainerProps> = (props) => {
   const mergedAttributes = {
     ...rest,
     onClick: (e: MouseEvent<HTMLElement>) => {
-      if (closeOnBlur) closeAll();
+      if (closeOnBlur) closeAllModals();
       if (typeof onClick === 'function') onClick(e);
     },
   };
@@ -47,7 +47,7 @@ const ModalContainer: React.FC<ModalContainerProps> = (props) => {
   return (
     <CSSTransition
       nodeRef={containerRef}
-      in={oneIsOpen}
+      in={oneModalIsOpen}
       timeout={transTime}
       classNames={generateTransitionClasses(baseClass)}
       appear
