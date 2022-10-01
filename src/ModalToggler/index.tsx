@@ -22,37 +22,32 @@ const ModalToggler: React.FC<ModalTogglerProps> = (props) => {
   } = props;
 
   const {
-    currentModal,
-    toggle,
+    modalState,
+    toggleModal,
     classPrefix,
   } = useModal();
 
   const baseClass = classPrefix ? `${classPrefix}__${togglerBaseClass}` : togglerBaseClass;
-  const isOpen = currentModal === slug;
-
-  const mergedClasses = [
-    baseClass,
-    `${baseClass}--slug-${slug}`,
-    isOpen && `${baseClass}--slug-${slug}--is-open`,
-    className,
-  ].filter(Boolean).join(' ');
-
-  const mergedAttributes = {
-    role: 'button',
-    'aria-expanded': isOpen ? 'true' : 'false',
-    'aria-controls': slug,
-    ...rest,
-    onClick: (e: MouseEvent<HTMLElement>) => {
-      toggle(slug);
-      if (typeof onClick === 'function') onClick(e);
-    },
-  };
+  const isOpen = modalState[slug] && modalState[slug].isOpen;
 
   return (
     <Tag
       {...{
-        className: mergedClasses,
-        ...mergedAttributes,
+        className: [
+          baseClass,
+          `${baseClass}--slug-${slug}`,
+          isOpen && `${baseClass}--slug-${slug}--is-open`,
+          className,
+        ].filter(Boolean).join(' '),
+        role: 'button',
+        'aria-expanded': isOpen ? 'true' : 'false',
+        'aria-controls': slug,
+        'aria-label': `${!isOpen ? 'Open' : 'Close'} modal ${slug}`,
+        ...rest,
+        onClick: (e: MouseEvent<HTMLElement>) => {
+          toggleModal(slug);
+          if (typeof onClick === 'function') onClick(e);
+        },
       }}
     >
       {children && children}

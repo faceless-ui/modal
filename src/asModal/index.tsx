@@ -24,13 +24,13 @@ const asModal = <P extends ModalProps>(
     const [trap, setTrap] = useState<focusTrap.FocusTrap | null>(null);
 
     const {
-      currentModal,
+      modalState,
       classPrefix: classPrefixFromContext,
       containerRef,
       transTime,
       setCloseOnBlur,
-      open,
       setBodyScrollLock,
+      openModal
     } = modal;
 
     const {
@@ -57,13 +57,13 @@ const asModal = <P extends ModalProps>(
 
     const classPrefixToUse = classPrefixFromProps || classPrefixFromContext;
     const slug = slugFromArg || slugFromProp;
-    const isFirstRender = useRef(true);
 
-    const isOpen = currentModal === slug;
+    const isOpen = modalState[slug] && modalState[slug].isOpen;
 
     useEffect(() => {
       if (trapFocus) {
         const currentModal = modalRef.current;
+
         if (trapHasBeenLayed.current === false && currentModal) {
           const newTrap = focusTrap.createFocusTrap(currentModal, {
             ...focusTrapOptions,
@@ -98,21 +98,6 @@ const asModal = <P extends ModalProps>(
     ])
 
     useEffect(() => {
-      // useful to maintain a true oneIsOpen provider state that is only
-      // ever true if the slug URL parameter matches a mounted modal slug.
-      // i.e. ModalContainer will be protected from erroneously opening.
-      if (isFirstRender) {
-        if (isOpen) open(slug);
-        isFirstRender.current = false;
-      }
-    }, [
-      isOpen,
-      open,
-      isFirstRender,
-      slug,
-    ]);
-
-    useEffect(() => {
       if (isOpen) setCloseOnBlur(closeOnBlur);
     }, [
       isOpen,
@@ -121,11 +106,19 @@ const asModal = <P extends ModalProps>(
     ]);
 
     useEffect(() => {
-      if (modalRef.current) {
+      const currentModal = modalRef.current;
+
+      if (currentModal) {
         if (isOpen && lockBodyScroll) {
-          setBodyScrollLock(true, modalRef);
+          setBodyScrollLock(true, currentModal);
         } else {
-          setBodyScrollLock(false, modalRef);
+          setBodyScrollLock(false, currentModal);
+        }
+      }
+
+      return () => {
+        if (currentModal) {
+          setBodyScrollLock(false, currentModal);
         }
       }
     }, [
@@ -146,12 +139,12 @@ const asModal = <P extends ModalProps>(
 
     useEffect(() => {
       if (openOnInit) {
-        open(slug);
+        openModal(slug);
       }
     }, [
       slug,
       openOnInit,
-      open,
+      openModal
     ]);
 
     if (containerRef.current) {
@@ -176,7 +169,7 @@ const asModal = <P extends ModalProps>(
           {...{
             nodeRef: modalRef,
             timeout: transTime,
-            in: currentModal === slug,
+            in: isOpen,
             classNames: generateTransitionClasses(baseClass),
             appear: true,
             onEnter,
