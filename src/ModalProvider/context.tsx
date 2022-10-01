@@ -16,7 +16,7 @@ export interface IModalContext extends ModalProviderProps {
   // currentModal: string
   modalState: ModalState
   oneModalIsOpen: boolean
-  modalIsOpen: (slug: string) => boolean // eslint-disable-line no-unused-vars
+  isModalOpen: (slug: string) => boolean // eslint-disable-line no-unused-vars
   closeOnBlur: boolean
   bodyScrollIsLocked: boolean
   classPrefix?: string

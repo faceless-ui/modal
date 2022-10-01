@@ -180,7 +180,7 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     })
   }, [])
 
-  const modalIsOpen = useCallback((slug: string) => {
+  const isModalOpen = useCallback((slug: string) => {
     return modalState[slug] && modalState[slug].isOpen;
   }, [modalState])
 
@@ -199,7 +199,7 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
           containerRef,
           modalState,
           oneModalIsOpen: oneIsOpen,
-          modalIsOpen,
+          isModalOpen,
           closeOnBlur,
           bodyScrollIsLocked,
           classPrefix,
