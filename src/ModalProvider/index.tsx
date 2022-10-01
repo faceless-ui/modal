@@ -23,20 +23,23 @@ export type ModalProviderProps = {
 }
 
 const getSearchQuery = () => {
-  const query = queryString.parse(
-    window.location.search,
-    { ignoreQueryPrefix: true },
-  );
-  return query;
+  if (typeof window !== 'undefined') {
+    return queryString.parse(
+      window.location.search,
+      { ignoreQueryPrefix: true },
+    );
+  }
 };
 
 const getModalParamArray = (): string[] => {
   const searchQuery = getSearchQuery();
   let params: string[] = [];
-  if (typeof searchQuery.modal === 'string') {
-    params = [searchQuery.modal];
-  } else if (Array.isArray(searchQuery.modal)) {
-    params = searchQuery.modal as string[];
+  if (searchQuery && searchQuery.modal) {
+    if (typeof searchQuery.modal === 'string') {
+      params = [searchQuery.modal];
+    } else if (Array.isArray(searchQuery.modal)) {
+      params = searchQuery.modal as string[];
+    }
   }
   return params;
 };
