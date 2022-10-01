@@ -180,6 +180,10 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     })
   }, [])
 
+  const modalIsOpen = useCallback((slug: string) => {
+    return modalState[slug] && modalState[slug].isOpen;
+  }, [modalState])
+
   const inheritedProps = { ...props };
   delete inheritedProps.children;
 
@@ -194,7 +198,8 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
           // state
           containerRef,
           modalState,
-          modalIsOpen: oneIsOpen,
+          oneModalIsOpen: oneIsOpen,
+          modalIsOpen,
           closeOnBlur,
           bodyScrollIsLocked,
           classPrefix,

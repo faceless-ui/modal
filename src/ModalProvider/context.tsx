@@ -15,7 +15,8 @@ export interface IModalContext extends ModalProviderProps {
   containerRef: React.RefObject<HTMLElement>
   // currentModal: string
   modalState: ModalState
-  modalIsOpen: boolean
+  oneModalIsOpen: boolean
+  modalIsOpen: (slug: string) => boolean // eslint-disable-line no-unused-vars
   closeOnBlur: boolean
   bodyScrollIsLocked: boolean
   classPrefix?: string

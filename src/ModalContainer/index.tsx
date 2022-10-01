@@ -12,7 +12,7 @@ export type ModalContainerProps = HTMLProps<HTMLElement> & {
 
 const ModalContainer: React.FC<ModalContainerProps> = (props) => {
   const {
-    modalIsOpen,
+    oneModalIsOpen,
     classPrefix,
     transTime,
     setContainerRef,
@@ -47,7 +47,7 @@ const ModalContainer: React.FC<ModalContainerProps> = (props) => {
   return (
     <CSSTransition
       nodeRef={containerRef}
-      in={modalIsOpen}
+      in={oneModalIsOpen}
       timeout={transTime}
       classNames={generateTransitionClasses(baseClass)}
       appear
