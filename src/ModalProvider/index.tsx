@@ -62,6 +62,7 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
       acc[param] = {
         slug: param,
         isOpen: true,
+        openedOn: Date.now(),
       };
       return acc;
     }, {} as ModalState);
@@ -72,19 +73,27 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
   const [closeOnBlur, setCloseOnBlur] = useState(false);
   const [bodyScrollIsLocked, setBodyScrollIsLocked] = useState(false);
   const [cssString, setCSSString] = useState('');
+  const escIsBound = useRef(false);
 
   const bindEsc = useCallback((e: KeyboardEvent) => {
     if (e.keyCode === 27) {
       dispatchModalState({
-        type: 'CLOSE_ALL_MODALS',
+        type: 'CLOSE_LATEST_MODAL',
       })
     }
   }, []);
 
   // Bind esc key to close all modals
   useEffect(() => {
-    document.addEventListener('keydown', (e) => bindEsc(e), false);
-    return () => document.removeEventListener('keydown', (e) => bindEsc(e), false);
+    if (!escIsBound.current) {
+      document.addEventListener('keydown', (e) => bindEsc(e), false);
+      escIsBound.current = true;
+    }
+    return () => {
+      if (escIsBound.current) {
+        document.removeEventListener('keydown', (e) => bindEsc(e), false);
+      }
+    }
   }, [bindEsc]);
 
   // Generate CSS to inject into stylesheet
