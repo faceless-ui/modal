@@ -5,8 +5,8 @@ const CSS = ({
   classPrefix,
   zIndex,
 }: {
-  classPrefix?: string,
-  zIndex: number,
+  classPrefix?: string
+  zIndex: number | string
 }): string => {
   const prefixToUse = classPrefix ? `${classPrefix}__` : '';
 

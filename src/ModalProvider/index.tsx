@@ -18,7 +18,7 @@ export type ModalProviderProps = {
   classPrefix?: string
   handleParamChange?: (modalState: ModalState) => void | boolean // eslint-disable-line
   transTime?: number
-  zIndex?: number
+  zIndex?: number | string
   children?: React.ReactNode
 }
 
