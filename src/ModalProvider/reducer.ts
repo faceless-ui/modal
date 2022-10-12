@@ -33,6 +33,11 @@ export type REMOVE_MODAL = {
   }
 }
 
+export type CLOSE_LATEST_MODAL = {
+  type: 'CLOSE_LATEST_MODAL'
+  payload?: undefined
+}
+
 export type CLOSE_ALL_MODALS = {
   type: 'CLOSE_ALL_MODALS'
   payload?: undefined
@@ -43,6 +48,7 @@ export type Action = UPDATE_MODAL
   | REMOVE_MODAL
   | CLOSE_MODAL
   | TOGGLE_MODAL
+  | CLOSE_LATEST_MODAL
   | CLOSE_ALL_MODALS;
 
 const reducer = (
@@ -83,6 +89,8 @@ const reducer = (
         if (!isCurrentlyOpen) {
           newState[slug] = {
             ...newState[slug],
+            slug,
+            openedOn: Date.now(),
             isOpen: true
           };
         }
@@ -101,6 +109,8 @@ const reducer = (
 
         newState[slug] = {
           ...newState[slug],
+          slug,
+          openedOn: !isCurrentlyOpen ? Date.now() : undefined,
           isOpen: !isCurrentlyOpen
         };
       }
@@ -116,6 +126,8 @@ const reducer = (
       if (slug) {
         newState[slug] = {
           ...newState[slug],
+          slug,
+          openedOn: undefined,
           isOpen: false
         };
       }
@@ -135,11 +147,35 @@ const reducer = (
       break;
     }
 
+    case 'CLOSE_LATEST_MODAL': {
+      const latestModal = Object.keys(newState)
+        .reduce((acc: ModalStatus | undefined, slug: string) => {
+          const modal: ModalStatus = newState[slug];
+
+          if (modal.isOpen && typeof modal.openedOn === 'number' && (!acc || (typeof acc.openedOn === 'number' && modal.openedOn > acc.openedOn))) {
+            return modal;
+          }
+
+          return acc;
+        }, undefined);
+
+      if (latestModal) {
+        newState[latestModal.slug] = {
+          ...newState[latestModal.slug],
+          isOpen: false,
+          openedOn: undefined,
+        }
+      }
+
+      break;
+    }
+
     case 'CLOSE_ALL_MODALS': {
       newState = Object.entries((newState)).reduce((acc, [key, value]) => {
         acc[key] = {
           ...value,
           isOpen: false,
+          openedOn: undefined,
         };
 
         return acc;

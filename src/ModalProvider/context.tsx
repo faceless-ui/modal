@@ -4,6 +4,7 @@ import { ModalProviderProps } from '../ModalProvider';
 export type ModalStatus = {
   slug: string
   isOpen: boolean
+  openedOn?: number
 }
 
 export type ModalState = {
