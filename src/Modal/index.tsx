@@ -4,6 +4,7 @@ import asModal from '../asModal';
 import { IModalContext } from '../ModalProvider/context';
 
 export type ModalPropsWithContext = ModalProps & {
+  isOpen: boolean;
   modal?: IModalContext
 };
 
