@@ -1,3 +1,4 @@
+'use client'
 import React, { MouseEvent, ElementType, HTMLProps } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import useModal from '../useModal';

@@ -1,3 +1,4 @@
+'use client'
 import React, { ElementType, HTMLProps, MouseEvent } from 'react';
 import { IModalContext } from '../ModalProvider/context';
 import useModal from '../useModal';
