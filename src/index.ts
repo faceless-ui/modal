@@ -1,3 +1,4 @@
+'use client'
 export { default as asModal } from './asModal';
 export { default as Modal } from './Modal';
 export { default as ModalContainer } from './ModalContainer';

@@ -1,3 +1,4 @@
+'use client'
 import * as focusTrap from 'focus-trap';
 import React, { Fragment, ElementType, HTMLProps } from 'react';
 import asModal from '../asModal';
