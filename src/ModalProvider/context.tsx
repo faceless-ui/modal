@@ -1,6 +1,6 @@
 'use client'
 import { createContext } from 'react';
-import { ModalProviderProps } from '../ModalProvider';
+import { ModalProviderProps } from '../ModalProvider/index.js';
 
 export type ModalStatus = {
   slug: string

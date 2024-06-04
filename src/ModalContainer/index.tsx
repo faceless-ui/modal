@@ -1,8 +1,8 @@
 'use client'
 import React, { MouseEvent, ElementType, HTMLProps } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import useModal from '../useModal';
-import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
+import useModal from '../useModal/index.js';
+import generateTransitionClasses from '../ModalProvider/generateTransitionClasses.js';
 
 export const containerBaseClass = 'modal-container';
 

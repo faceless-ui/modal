@@ -1,7 +1,7 @@
 'use client'
 import React, { ElementType, HTMLProps, MouseEvent } from 'react';
-import { IModalContext } from '../ModalProvider/context';
-import useModal from '../useModal';
+import { IModalContext } from '../ModalProvider/context.js';
+import useModal from '../useModal/index.js';
 
 export const togglerBaseClass = 'modal-toggler';
 

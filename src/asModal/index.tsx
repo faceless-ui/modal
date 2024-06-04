@@ -6,9 +6,9 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
-import useModal from '../useModal';
-import generateTransitionClasses from '../ModalProvider/generateTransitionClasses';
-import { ModalProps } from '../Modal';
+import useModal from '../useModal/index.js';
+import generateTransitionClasses from '../ModalProvider/generateTransitionClasses.js';
+import { ModalProps } from '../Modal/index.js';
 import * as focusTrap from 'focus-trap'; // ESM
 
 export const itemBaseClass = 'modal-item';
