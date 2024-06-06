@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { useModal } from '../../src';
-import { useSettings } from '../SettingsProvider';
+import { useModal } from '../../src/index.js';
+import { useSettings } from '../SettingsProvider/index.js';
 
 const SettingsControls: React.FC = () => {
   const { dispatchSettings } = useSettings();

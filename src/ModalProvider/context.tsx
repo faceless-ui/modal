@@ -35,5 +35,3 @@ export interface IModalContext extends ModalProviderProps {
 }
 
 export const ModalContext = createContext<IModalContext>({} as IModalContext);
-
-export default ModalContext;

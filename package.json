@@ -45,8 +45,8 @@
   ],
   "scripts": {
     "build": "yarn lint && tsc",
-    "build-demo": "yarn lint && webpack --config webpack.demo.config.js",
-    "dev": "webpack-dev-server --hot --config webpack.development.config.js",
+    "build-demo": "yarn lint && webpack --config webpack.demo.config.cjs",
+    "dev": "webpack-dev-server --hot --config webpack.development.config.cjs",
     "lint": "eslint .",
     "test": "jest"
   },

@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
-import { useModal, ModalToggler } from '../../src';
-import { ModalPropsWithContext } from '../../src/Modal';
-import { useSettings } from '../SettingsProvider';
+import { useModal } from '../../src/useModal/index.js';
+import { ModalToggler } from '../../src/ModalToggler/index.js';
+import { ModalPropsWithContext } from '../../src/Modal/index.js';
+import { useSettings } from '../SettingsProvider/index.js';
 
 const ModalControls: React.FC<ModalPropsWithContext> = (props) => {
   const { dispatchSettings } = useSettings();

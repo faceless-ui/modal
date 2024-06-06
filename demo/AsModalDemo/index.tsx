@@ -1,8 +1,8 @@
 import React from 'react';
-import LogProps from '../LogProps';
-import { asModal, ModalToggler } from '../../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import ModalControls from '../ModalControls';
-import { SettingsProvider } from '../SettingsProvider';
+import LogProps from '../LogProps/index.js';
+import { asModal, ModalToggler } from '../../src/index.js'; // swap '../src' for '../dist/build.bundle' to demo production build
+import ModalControls from '../ModalControls/index.js';
+import { SettingsProvider } from '../SettingsProvider/index.js';
 
 const AsModal = asModal((props) => {
   return (

@@ -6,14 +6,14 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
-import useModal from '../useModal/index.js';
+import { useModal } from '../useModal/index.js';
 import generateTransitionClasses from '../ModalProvider/generateTransitionClasses.js';
 import { ModalProps } from '../Modal/index.js';
 import * as focusTrap from 'focus-trap'; // ESM
 
 export const itemBaseClass = 'modal-item';
 
-const asModal = <P extends ModalProps>(
+export const asModal = <P extends ModalProps>(
   ModalComponent: React.FC<P>,
   slugFromArg?: string,
 ): React.FC<P> => {
@@ -206,5 +206,3 @@ const asModal = <P extends ModalProps>(
 
   return ModalWrap;
 };
-
-export default asModal;

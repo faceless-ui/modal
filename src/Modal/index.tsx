@@ -1,7 +1,7 @@
 'use client'
 import * as focusTrap from 'focus-trap';
 import React, { Fragment, ElementType, HTMLProps } from 'react';
-import asModal from '../asModal/index.js';
+import { asModal } from '../asModal/index.js';
 import { IModalContext } from '../ModalProvider/context.js';
 
 export type ModalPropsWithContext = ModalProps & {

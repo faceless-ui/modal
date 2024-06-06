@@ -1,5 +1,5 @@
 import React from 'react';
-import { useModal } from '../src';
+import { useModal } from '../src/index.js';
 
 const CSS: React.FC = () => {
   const {

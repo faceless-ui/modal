@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, useModal } from '../../src';
+import { Modal, useModal } from '../../src/index.js'; // swap '../src' for '../dist/build.bundle' to demo production build
 
 const Test: React.FC = () => {
   const [renderModal, setRenderModal] = useState(false);
