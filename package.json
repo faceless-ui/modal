@@ -45,8 +45,8 @@
   ],
   "scripts": {
     "build": "yarn lint && tsc",
-    "build-demo": "yarn lint && webpack --config webpack.demo.config.cjs",
-    "dev": "webpack-dev-server --hot --config webpack.development.config.cjs",
+    "build:demo": "yarn lint && webpack --config webpack.demo.config.js",
+    "dev": "webpack-dev-server --hot --config webpack.development.config.js",
     "lint": "eslint .",
     "test": "jest"
   },
@@ -85,11 +85,11 @@
     "react-dom": "^19.0.0-rc.0",
     "react-refresh": "^0.13.0",
     "react-refresh-typescript": "^2.0.4",
-    "ts-loader": "^9.2.9",
+    "ts-loader": "^9.5.1",
     "typescript": "^5.4.5",
-    "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1"
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   },
   "files": [
     "dist"

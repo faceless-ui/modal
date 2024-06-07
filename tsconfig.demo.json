@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "target": "es5",
-    "module": "NodeNext",
+    "target": "es6",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "strict": true,
     "sourceMap": true,
     "jsx": "react",
     "esModuleInterop": true,
+    "rootDir": ".",
+    "paths": {
+      "@faceless-ui/modal": ["./src/index.ts"],
+    },
   },
   "include": [
     "demo/**/*"

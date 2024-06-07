@@ -1,15 +1,18 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import HtmlWebPackPlugin from 'html-webpack-plugin';
+import { fileURLToPath } from 'node:url'
 
-module.exports = [
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
+
+export default [
   {
     devtool: 'source-map',
     mode: 'production',
     entry: './demo/index.tsx',
     output: {
       filename: 'demo.bundle.js',
-      path: path.resolve(__dirname, 'dist-demo'),
+      path: path.resolve(dirname, 'dist-demo'),
     },
     module: {
       rules: [
@@ -26,7 +29,14 @@ module.exports = [
       ],
     },
     resolve: {
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      alias: {
+        '@faceless-ui/modal': path.resolve(dirname, 'src/index.ts'),
+      },
+      extensionAlias: {
+        '.js': ['.ts', '.js', '.tsx', '.jsx'],
+        '.mjs': ['.mts', '.mjs'],
+      },
     },
     plugins: [
       new HtmlWebPackPlugin({

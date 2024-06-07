@@ -1,5 +1,5 @@
 import React from 'react';
-import { useModal } from '../src/index.js';
+import { useModal } from '@faceless-ui/modal';
 
 const CSS: React.FC = () => {
   const {

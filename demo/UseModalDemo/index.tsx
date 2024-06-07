@@ -1,6 +1,6 @@
 import React from 'react';
-import { useModal } from '../../src/index.js'; // swap '../src' for '../dist/build.bundle' to demo production build
-import LogProps from '../LogProps/index.js';
+import { useModal } from '@faceless-ui/modal';
+import LogProps from '../LogProps';
 
 const UseModal: React.FC = (props) => {
   const modal = useModal();

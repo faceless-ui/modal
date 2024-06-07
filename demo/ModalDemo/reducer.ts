@@ -1,4 +1,4 @@
-import { Settings, IReducerAction } from './types.js';
+import { Settings, IReducerAction } from './types';
 
 const reducer = (state: Settings, action: IReducerAction): Settings => {
   const { payload } = action;

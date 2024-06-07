@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { useModal } from '../../src/index.js';
-import { useSettings } from '../SettingsProvider/index.js';
+import { useModal } from '@faceless-ui/modal';
+import { useSettings } from '../SettingsProvider';
 
 const SettingsControls: React.FC = () => {
   const { dispatchSettings } = useSettings();

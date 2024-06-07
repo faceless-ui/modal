@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import reducer from './reducer.js'
+import reducer from './reducer'
 
 export type Settings = Record<string, unknown>;
 
