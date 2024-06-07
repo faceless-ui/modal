@@ -9,7 +9,7 @@ export default [
   {
     devtool: 'source-map',
     mode: 'production',
-    entry: './demo/index.tsx',
+    entry: path.resolve(dirname, 'demo/index.tsx'),
     output: {
       filename: 'demo.bundle.js',
       path: path.resolve(dirname, 'dist-demo'),
@@ -22,7 +22,12 @@ export default [
           use: [{
             loader: 'ts-loader',
             options: {
-              configFile: 'tsconfig.demo.json',
+              configFile: 'tsconfig.json',
+              compilerOptions: {
+                outDir: "./dist-demo",
+                declarationDir: undefined,
+                declaration: false
+              },
             },
           }],
         },

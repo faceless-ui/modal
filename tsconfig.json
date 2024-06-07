@@ -13,14 +13,12 @@
     "esModuleInterop": true,
     "declaration": true,
     "declarationDir": "./dist",
-    "rootDir": ".",
     "paths": {
       "@faceless-ui/modal": ["./src/index.ts"],
     },
   },
   "include": [
     "src/**/*",
-    "demo/**/*",
   ],
   "exclude": [
     "**/*.test.js",
