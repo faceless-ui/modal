@@ -19,9 +19,11 @@
   },
   "include": [
     "src/**/*",
+    "demo/**/*",
   ],
   "exclude": [
     "**/*.test.js",
     "node_modules",
+    "demo/**/*"
   ]
 }
