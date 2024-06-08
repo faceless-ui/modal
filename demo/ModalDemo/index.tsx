@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Modal, ModalToggler } from '@faceless-ui/modal';
-import LogProps from '../LogProps';
-import ModalControls from '../ModalControls';
-import { SettingsProvider } from '../SettingsProvider';
+import LogProps from '../LogProps/index.js';
+import ModalControls from '../ModalControls/index.js';
+import { SettingsProvider } from '../SettingsProvider/index.js';
 
 const ModalDemo: React.FC = () => {
 

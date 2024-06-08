@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useModal, ModalToggler } from '@faceless-ui/modal';
-import type {ModalPropsWithContext} from '../../src/Modal';
+import type { ModalPropsWithContext } from '../../src/Modal/index.js';
 import { useSettings } from '../SettingsProvider/index.js';
 
 const ModalControls: React.FC<ModalPropsWithContext> = (props) => {
