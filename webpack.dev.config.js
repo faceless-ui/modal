@@ -22,6 +22,10 @@ export default {
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
+          compilerOptions: {
+            module: "ESNext",
+            moduleResolution: "node",
+          }
         },
       }
     ],
