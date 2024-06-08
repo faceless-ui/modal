@@ -2,8 +2,10 @@
   "compilerOptions": {
     "outDir": "./dist",
     "allowJs": true,
-    "target": "es5",
-    "module": "commonjs",
+    "target": "es6",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "strict": true,
     "sourceMap": true,
     "jsx": "react",
@@ -11,11 +13,16 @@
     "esModuleInterop": true,
     "declaration": true,
     "declarationDir": "./dist",
+    "paths": {
+      "@faceless-ui/modal": ["./src/index.ts"],
+    },
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "demo/**/*",
   ],
   "exclude": [
-    "**/*.test.js"
+    "**/*.test.js",
+    "node_modules",
   ]
 }

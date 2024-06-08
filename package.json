@@ -11,6 +11,7 @@
     "name": "Faceless UI",
     "url": "https://facelessui.com"
   },
+  "type": "module",
   "bugs": {
     "url": "https://github.com/faceless-ui/modal/issues",
     "email": "dev@facelessui.com"
@@ -43,9 +44,9 @@
     "ux"
   ],
   "scripts": {
-    "build": "yarn lint && tsc",
-    "build-demo": "yarn lint && webpack --config webpack.demo.config.js",
-    "dev": "webpack-dev-server --hot --config webpack.development.config.js",
+    "build": "yarn lint && tsc --project tsconfig.build.json",
+    "build:demo": "yarn lint && webpack --config webpack.build-demo.config.js",
+    "dev": "webpack-dev-server --hot --config webpack.dev.config.js",
     "lint": "eslint .",
     "test": "jest"
   },
@@ -67,9 +68,9 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-transition-group": "^4.4.4",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
-    "eslint": "^8.14.0",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "eslint": "^8.56.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.5",
     "eslint-plugin-jest-dom": "^4.0.1",
@@ -84,11 +85,11 @@
     "react-dom": "^19.0.0-rc.0",
     "react-refresh": "^0.13.0",
     "react-refresh-typescript": "^2.0.4",
-    "ts-loader": "^9.2.9",
-    "typescript": "^4.6.3",
-    "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   },
   "files": [
     "dist"

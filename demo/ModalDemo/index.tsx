@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Modal, ModalToggler } from '../../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { Modal, ModalToggler } from '@faceless-ui/modal';
 import LogProps from '../LogProps';
 import ModalControls from '../ModalControls';
 import { SettingsProvider } from '../SettingsProvider';

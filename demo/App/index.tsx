@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModalProvider, ModalContainer, ModalToggler } from '../../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { ModalProvider, ModalContainer, ModalToggler } from '@faceless-ui/modal';
 import AsModal from '../AsModalDemo';
 import UseModal from '../UseModalDemo';
 import Modal from '../ModalDemo';

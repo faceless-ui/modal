@@ -9,9 +9,9 @@ import React, {
 } from 'react';
 import queryString from 'qs';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import generateCSS from './generateCSS';
-import ModalContext, { ModalState } from './context';
-import reducer from './reducer';
+import generateCSS from './generateCSS.js';
+import { ModalContext, ModalState } from './context.js';
+import reducer from './reducer.js';
 
 export type ModalProviderProps = {
   generateCSS?: boolean
@@ -45,7 +45,7 @@ const getModalParamArray = (): string[] => {
   return params;
 };
 
-const ModalProvider: React.FC<ModalProviderProps> = (props) => {
+export const ModalProvider: React.FC<ModalProviderProps> = (props) => {
   const {
     classPrefix,
     minifyCSS = true,
@@ -231,5 +231,3 @@ const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     </Fragment>
   );
 };
-
-export default ModalProvider;

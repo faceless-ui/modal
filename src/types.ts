@@ -1,5 +1,5 @@
-export { ModalProviderProps } from './ModalProvider';
-export { IModalContext } from './ModalProvider/context';
-export { ModalContainerProps } from './ModalContainer';
-export { ModalTogglerProps } from './ModalToggler';
-export { ModalProps } from './Modal';
+export type { ModalProviderProps } from './ModalProvider/index.js';
+export type { IModalContext } from './ModalProvider/context.js';
+export type { ModalContainerProps } from './ModalContainer/index.js';
+export type { ModalTogglerProps } from './ModalToggler/index.js';
+export type { ModalProps } from './Modal/index.js';

@@ -1,4 +1,4 @@
-import { ModalStatus, ModalState } from './context';
+import { ModalStatus, ModalState } from './context.js';
 
 export type UPDATE_MODAL = {
   type: 'UPDATE_MODAL'

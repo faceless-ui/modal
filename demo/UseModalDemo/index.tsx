@@ -1,5 +1,5 @@
 import React from 'react';
-import { useModal } from '../../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { useModal } from '@faceless-ui/modal';
 import LogProps from '../LogProps';
 
 const UseModal: React.FC = (props) => {

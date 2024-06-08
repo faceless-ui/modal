@@ -1,7 +1,7 @@
 'use client'
 import React, { ElementType, HTMLProps, MouseEvent } from 'react';
-import { IModalContext } from '../ModalProvider/context';
-import useModal from '../useModal';
+import { IModalContext } from '../ModalProvider/context.js';
+import { useModal } from '../useModal/index.js';
 
 export const togglerBaseClass = 'modal-toggler';
 
@@ -12,7 +12,7 @@ export type ModalTogglerProps = HTMLProps<HTMLElement> & {
   children?: React.ReactNode
 }
 
-const ModalToggler: React.FC<ModalTogglerProps> = (props) => {
+export const ModalToggler: React.FC<ModalTogglerProps> = (props) => {
   const {
     slug,
     htmlElement: Tag = 'button',
@@ -55,5 +55,3 @@ const ModalToggler: React.FC<ModalTogglerProps> = (props) => {
     </Tag>
   );
 };
-
-export default ModalToggler;

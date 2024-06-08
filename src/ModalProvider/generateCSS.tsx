@@ -1,5 +1,5 @@
-import { containerBaseClass } from '../ModalContainer';
-import { itemBaseClass } from '../asModal';
+import { containerBaseClass } from '../ModalContainer/index.js';
+import { itemBaseClass } from '../asModal/index.js';
 
 const CSS = ({
   classPrefix,
