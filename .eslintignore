@@ -1,2 +1,5 @@
 dist
 dist-demo
+node_modules
+.git
+.github
