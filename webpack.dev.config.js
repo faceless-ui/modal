@@ -7,7 +7,7 @@ import ESLintPlugin from 'eslint-webpack-plugin';
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-export default {
+const config = {
   devtool: 'inline-source-map',
   mode: 'development',
   entry: path.resolve(dirname, 'demo/index.tsx'),
@@ -22,6 +22,11 @@ export default {
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
+          compilerOptions: {
+            module: "commonjs",
+            target: "es5",
+            moduleResolution: "node",
+          }
         },
       }
     ],
@@ -49,5 +54,8 @@ export default {
   devServer: {
     port: 3000,
     host: '0.0.0.0',
+    hot: true,
   },
 };
+
+export default config;

@@ -1,6 +1,7 @@
 {
   "name": "@faceless-ui/modal",
   "version": "3.0.0-beta.0",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "homepage:": "https://facelessui.com/docs/modal",
@@ -11,7 +12,6 @@
     "name": "Faceless UI",
     "url": "https://facelessui.com"
   },
-  "type": "module",
   "bugs": {
     "url": "https://github.com/faceless-ui/modal/issues",
     "email": "dev@facelessui.com"
@@ -44,10 +44,11 @@
     "ux"
   ],
   "scripts": {
-    "build": "yarn lint && tsc --project tsconfig.build.json",
-    "build:demo": "yarn lint && webpack --config webpack.build-demo.config.js",
-    "dev": "webpack-dev-server --hot --config webpack.dev.config.js",
-    "lint": "eslint .",
+    "build": "yarn lint:src && tsc --project tsconfig.build.json",
+    "build:demo": "webpack --config webpack.build-demo.config.js",
+    "dev": "webpack serve --config webpack.dev.config.js",
+    "lint:src": "eslint ./src",
+    "lint:demo": "eslint ./demo",
     "test": "jest"
   },
   "peerDependencies": {
@@ -70,6 +71,7 @@
     "@types/react-transition-group": "^4.4.4",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
+    "@types/webpack": "^5.28.5",
     "eslint": "^8.56.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.5",

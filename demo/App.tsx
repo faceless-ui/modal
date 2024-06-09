@@ -1,11 +1,11 @@
 import React from 'react';
 import { ModalProvider, ModalContainer, ModalToggler } from '@faceless-ui/modal';
-import AsModal from '../AsModalDemo';
-import UseModal from '../UseModalDemo';
-import Modal from '../ModalDemo';
-import CSS from '../CSS';
-import SettingsControls from '../SettingsControls';
-import { SettingsProvider } from '../SettingsProvider';
+import AsModal from './AsModalDemo/index.js';
+import UseModal from './UseModalDemo/index.js';
+import Modal from './ModalDemo/index.js';
+import CSS from './CSS.js';
+import SettingsControls from './SettingsControls/index.js';
+import { SettingsProvider } from './SettingsProvider/index.js';
 // import Test from '../Test';
 
 const App: React.FC = () => {
