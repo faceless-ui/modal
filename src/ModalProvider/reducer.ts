@@ -51,7 +51,7 @@ export type Action = UPDATE_MODAL
   | CLOSE_LATEST_MODAL
   | CLOSE_ALL_MODALS;
 
-const reducer = (
+export const reducer = (
   state: ModalState,
   action: Action,
 ): ModalState => {
@@ -191,5 +191,3 @@ const reducer = (
 
   return newState;
 };
-
-export default reducer;

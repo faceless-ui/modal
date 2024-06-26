@@ -2,7 +2,7 @@
 import React, { MouseEvent, ElementType, HTMLProps } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { useModal } from '../useModal/index.js';
-import generateTransitionClasses from '../ModalProvider/generateTransitionClasses.js';
+import { generateTransitionClasses } from '../ModalProvider/generateTransitionClasses.js';
 
 export const containerBaseClass = 'modal-container';
 

@@ -1,5 +1,5 @@
 'use client'
-import * as focusTrap from 'focus-trap';
+import type { Options } from 'focus-trap';
 import React, { Fragment, ElementType, HTMLProps } from 'react';
 import { asModal } from '../asModal/index.js';
 import { IModalContext } from '../ModalProvider/context.js';
@@ -27,10 +27,10 @@ export interface ModalProps extends Omit<HTMLProps<HTMLElement>, 'children'> {
   openOnInit?: boolean
   children?: React.ReactNode | ChildFunction
   trapFocus?: boolean
-  focusTrapOptions?: focusTrap.Options
+  focusTrapOptions?: Options
 }
 
-const Modal: React.FC<ModalPropsWithContext & {
+const _Modal: React.FC<ModalPropsWithContext & {
   children?: React.ReactNode | ChildFunction
 }> = (props) => {
   const { children } = props;
@@ -53,4 +53,4 @@ const Modal: React.FC<ModalPropsWithContext & {
   return null;
 };
 
-export default asModal(Modal);
+export const Modal = asModal(_Modal)

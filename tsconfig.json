@@ -8,21 +8,21 @@
     "resolveJsonModule": true,
     "strict": true,
     "sourceMap": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "declaration": true,
     "declarationDir": "./dist",
     "paths": {
-      "@faceless-ui/modal": ["./src/index.ts"],
-    },
+      "@faceless-ui/modal": ["./src/index.ts"]
+    }
   },
   "include": [
     "src/**/*",
-    "demo/**/*",
+    "demo/**/*"
   ],
   "exclude": [
     "**/*.test.js",
-    "node_modules",
+    "node_modules"
   ]
 }

@@ -2,8 +2,27 @@
   "name": "@faceless-ui/modal",
   "version": "3.0.0-beta.0",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "publishConfig": {
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "sideEffects": false,
   "homepage:": "https://facelessui.com/docs/modal",
   "repository": "git@github.com:faceless-ui/modal.git",
   "description": "America's next top modal",
@@ -44,7 +63,7 @@
     "ux"
   ],
   "scripts": {
-    "build": "yarn lint:src && tsc --project tsconfig.build.json",
+    "build": "pnpm lint:src && tsc --project tsconfig.build.json",
     "build:demo": "webpack --config webpack.build-demo.config.js",
     "dev": "webpack serve --config webpack.dev.config.js",
     "lint:src": "eslint ./src",
@@ -56,22 +75,22 @@
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc.0"
   },
   "dependencies": {
-    "body-scroll-lock": "^3.1.5",
-    "focus-trap": "^6.9.2",
-    "qs": "^6.9.1",
-    "react-transition-group": "^4.4.2"
+    "body-scroll-lock": "4.0.0-beta.0",
+    "focus-trap": "7.5.4",
+    "react-transition-group": "4.4.5"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
+    "@swc/core": "^1.6.5",
     "@types/body-scroll-lock": "^3.1.0",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-transition-group": "^4.4.4",
+    "@types/webpack": "^5.28.5",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
-    "@types/webpack": "^5.28.5",
     "eslint": "^8.56.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.5",
@@ -87,9 +106,9 @@
     "react-dom": "^19.0.0-rc.0",
     "react-refresh": "^0.13.0",
     "react-refresh-typescript": "^2.0.4",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.4.5",
-    "webpack": "^5.91.0",
+    "swc-loader": "0.2.6",
+    "typescript": "5.5.2",
+    "webpack": "^5.92.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"
   },

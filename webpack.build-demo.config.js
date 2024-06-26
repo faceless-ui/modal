@@ -16,19 +16,21 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
-        use: [{
-          loader: 'ts-loader',
-          options: {
-            configFile: 'tsconfig.json',
-            compilerOptions: {
-              outDir: "./dist-demo",
-              declarationDir: undefined,
-              declaration: false
+        exclude: /\/node_modules\/(?!.+\.tsx?$).*$/,
+        test: /\.(t|j)sx?$/,
+        use: [
+          {
+            loader: 'swc-loader',
+            options: {
+              jsc: {
+                parser: {
+                  syntax: 'typescript',
+                  tsx: true,
+                },
+              },
             },
           },
-        }],
+        ],
       },
     ],
   },
