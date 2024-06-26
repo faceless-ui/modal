@@ -48,12 +48,16 @@
     "ux"
   ],
   "scripts": {
-    "build": "yarn lint:src && tsc --project tsconfig.build.json",
+    "build": "pnpm lint:src && tsc --project tsconfig.build.json",
     "build:demo": "webpack --config webpack.build-demo.config.js",
     "dev": "webpack serve --config webpack.dev.config.js",
     "lint:src": "eslint ./src",
     "lint:demo": "eslint ./demo",
     "test": "jest"
+  },
+  "engines": {
+    "node": "^18.20.2 || >=20.9.0",
+    "pnpm": "^8.15.7"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc.0",
