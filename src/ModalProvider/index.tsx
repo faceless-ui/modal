@@ -7,7 +7,6 @@ import React, {
   useCallback,
   useReducer,
 } from 'react';
-import queryString from 'qs';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import generateCSS from './generateCSS.js';
 import { ModalContext, ModalState } from './context.js';
@@ -25,21 +24,22 @@ export type ModalProviderProps = {
 
 const getSearchQuery = () => {
   if (typeof window !== 'undefined') {
-    return queryString.parse(
-      window.location.search,
-      { ignoreQueryPrefix: true },
-    );
+    return new URLSearchParams(window.location.search);
   }
 };
 
 const getModalParamArray = (): string[] => {
   const searchQuery = getSearchQuery();
   let params: string[] = [];
-  if (searchQuery && searchQuery.modal) {
-    if (typeof searchQuery.modal === 'string') {
-      params = [searchQuery.modal];
-    } else if (Array.isArray(searchQuery.modal)) {
-      params = searchQuery.modal as string[];
+  if (searchQuery) {
+    const modalParam = searchQuery.get('modal');
+    if (modalParam) {
+      // Check if the parameter contains a comma, indicating multiple values
+      if (modalParam.includes(',')) {
+        params = modalParam.split(',');
+      } else {
+        params = [modalParam];
+      }
     }
   }
   return params;
@@ -124,12 +124,13 @@ export const ModalProvider: React.FC<ModalProviderProps> = (props) => {
 
     if (typeof handleParamChange === 'boolean' && handleParamChange) {
       const openModals = Object.keys(modalState).filter((slug) => modalState[slug].isOpen);
-      const queryWithModal = queryString.stringify({
-        modal: openModals
-      }, {
-        addQueryPrefix: true,
-        encode: false,
-      });
+      const params = new URLSearchParams();
+
+      for (const modal of openModals) {
+        params.append('modal', modal);
+      }
+
+      const queryWithModal = params.toString() ? `?${params}` : '';
       const newURL = `${window.location.pathname}${queryWithModal}`;
       window.history.pushState({}, '', newURL);
     }
