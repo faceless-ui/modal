@@ -8,9 +8,9 @@ import React, {
   useReducer,
 } from 'react';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import generateCSS from './generateCSS.js';
+import { generateCSS } from './generateCSS.js';
 import { ModalContext, ModalState } from './context.js';
-import reducer from './reducer.js';
+import { reducer } from './reducer.js';
 
 export type ModalProviderProps = {
   generateCSS?: boolean

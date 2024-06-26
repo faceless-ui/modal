@@ -1,4 +1,4 @@
-const generateTransitionClasses = (baseClass: string): Record<string, unknown> => {
+export const generateTransitionClasses = (baseClass: string): Record<string, unknown> => {
   if (baseClass) {
     return ({
       appear: `${baseClass}--appear`,
@@ -14,5 +14,3 @@ const generateTransitionClasses = (baseClass: string): Record<string, unknown> =
   }
   return {};
 };
-
-export default generateTransitionClasses;
