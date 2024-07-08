@@ -2,8 +2,27 @@
   "name": "@faceless-ui/modal",
   "version": "3.0.0-beta.0",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "publishConfig": {
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "sideEffects": false,
   "homepage:": "https://facelessui.com/docs/modal",
   "repository": "git@github.com:faceless-ui/modal.git",
   "description": "America's next top modal",
@@ -56,10 +75,9 @@
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc.0"
   },
   "dependencies": {
-    "body-scroll-lock": "^3.1.5",
-    "focus-trap": "^6.9.2",
-    "qs": "^6.9.1",
-    "react-transition-group": "^4.4.2"
+    "body-scroll-lock": "4.0.0-beta.0",
+    "focus-trap": "7.5.4",
+    "react-transition-group": "4.4.5"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
@@ -88,7 +106,7 @@
     "react-refresh": "^0.13.0",
     "react-refresh-typescript": "^2.0.4",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.4.5",
+    "typescript": "5.5.2",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"

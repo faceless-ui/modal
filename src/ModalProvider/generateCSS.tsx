@@ -1,7 +1,7 @@
 import { containerBaseClass } from '../ModalContainer/index.js';
 import { itemBaseClass } from '../asModal/index.js';
 
-const CSS = ({
+export const generateCSS = ({
   classPrefix,
   zIndex,
 }: {
@@ -47,4 +47,3 @@ const CSS = ({
   `);
 };
 
-export default CSS;

@@ -7,9 +7,9 @@ import React, {
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useModal } from '../useModal/index.js';
-import generateTransitionClasses from '../ModalProvider/generateTransitionClasses.js';
+import { generateTransitionClasses } from '../ModalProvider/generateTransitionClasses.js';
 import { ModalProps } from '../Modal/index.js';
-import * as focusTrap from 'focus-trap'; // ESM
+import { createFocusTrap, type FocusTrap }from 'focus-trap';
 
 export const itemBaseClass = 'modal-item';
 
@@ -22,7 +22,7 @@ export const asModal = <P extends ModalProps>(
     const modalRef = useRef(null);
     const [layTrap, setLayTrap] = useState(false);
     const trapHasBeenLayed = useRef(false);
-    const [trap, setTrap] = useState<focusTrap.FocusTrap | null>(null);
+    const [trap, setTrap] = useState<FocusTrap | null>(null);
 
     const {
       modalState,
@@ -66,7 +66,7 @@ export const asModal = <P extends ModalProps>(
         const currentModal = modalRef.current;
 
         if (trapHasBeenLayed.current === false && currentModal) {
-          const newTrap = focusTrap.createFocusTrap(currentModal, {
+          const newTrap = createFocusTrap(currentModal, {
             ...focusTrapOptions,
             fallbackFocus: focusTrapOptions?.fallbackFocus || currentModal,
             allowOutsideClick: typeof focusTrapOptions.allowOutsideClick !== 'undefined' ? focusTrapOptions.allowOutsideClick : true,
