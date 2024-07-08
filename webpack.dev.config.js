@@ -23,8 +23,7 @@ const config = {
         options: {
           transpileOnly: true,
           compilerOptions: {
-            module: "commonjs",
-            target: "es5",
+            module: "ESNext",
             moduleResolution: "node",
           }
         },
