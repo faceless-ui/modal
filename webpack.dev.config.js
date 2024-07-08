@@ -18,22 +18,17 @@ const config = {
   module: {
     rules: [
       {
-        exclude: /\/node_modules\/(?!.+\.tsx?$).*$/,
-        test: /\.(t|j)sx?$/,
-        use: [
-          {
-            loader: 'swc-loader',
-            options: {
-              jsc: {
-                parser: {
-                  syntax: 'typescript',
-                  tsx: true,
-                },
-              },
-            },
-          },
-        ],
-      },
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+          compilerOptions: {
+            module: "commonjs",
+            target: "es5",
+            moduleResolution: "node",
+          }
+        },
+      }
     ],
   },
   resolve: {
