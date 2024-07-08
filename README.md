@@ -10,7 +10,7 @@ Read the full documentation [here](https://facelessui.com/docs/modal).
 ```bash
 $ npm i @faceless-ui/modal
 $ # or
-$ pnpm add @faceless-ui/modal
+$ yarn add @faceless-ui/modal
 ```
 
 ## Development
@@ -19,8 +19,8 @@ To develop this module locally, spin up the [demo app](./demo/App.demo.js):
 
 ```bash
 $ git clone git@github.com:faceless-ui/modal.git
-$ pnpm
-$ pnpm dev
+$ yarn
+$ yarn dev
 $ open http://localhost:3000
 ```
 

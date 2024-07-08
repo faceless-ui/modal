@@ -63,7 +63,7 @@
     "ux"
   ],
   "scripts": {
-    "build": "pnpm lint:src && tsc --project tsconfig.build.json",
+    "build": "yarn lint:src && tsc --project tsconfig.build.json",
     "build:demo": "webpack --config webpack.build-demo.config.js",
     "dev": "webpack serve --config webpack.dev.config.js",
     "lint:src": "eslint ./src",
