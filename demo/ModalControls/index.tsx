@@ -39,7 +39,7 @@ const ModalControls: React.FC<ModalPropsWithContext> = (props) => {
       <br />
       <button
         onClick={() => {
-          document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 27 }));
+          document.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
         }}
         type="button"
       >
