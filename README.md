@@ -11,6 +11,8 @@ Read the full documentation [here](https://facelessui.com/docs/modal).
 $ npm i @faceless-ui/modal
 $ # or
 $ yarn add @faceless-ui/modal
+$ # or
+$ pnpm add @faceless-ui/modal
 ```
 
 ## Development
