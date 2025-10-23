@@ -15,7 +15,15 @@ export type OPEN_MODAL = {
 export type CLOSE_MODAL = {
   type: 'CLOSE_MODAL'
   payload: {
+    slug: string;
+  };
+};
+
+export type UPDATE_LOCK_MODAL = {
+  type: "UPDATE_LOCK_MODAL";
+  payload: {
     slug: string
+    lock: boolean
   }
 }
 
@@ -47,6 +55,7 @@ export type Action = UPDATE_MODAL
   | OPEN_MODAL
   | REMOVE_MODAL
   | CLOSE_MODAL
+  | UPDATE_LOCK_MODAL
   | TOGGLE_MODAL
   | CLOSE_LATEST_MODAL
   | CLOSE_ALL_MODALS;
@@ -107,11 +116,15 @@ export const reducer = (
       if (slug) {
         const isCurrentlyOpen = slug in newState && newState[slug].isOpen;
 
+        if (isCurrentlyOpen && newState[slug].locked) {
+          break;
+        }
+
         newState[slug] = {
           ...newState[slug],
           slug,
           openedOn: !isCurrentlyOpen ? Date.now() : undefined,
-          isOpen: !isCurrentlyOpen
+          isOpen: !isCurrentlyOpen,
         };
       }
 
@@ -123,12 +136,29 @@ export const reducer = (
         slug,
       } = payload;
 
-      if (slug) {
+      if (slug && !newState[slug].locked) {
         newState[slug] = {
           ...newState[slug],
           slug,
           openedOn: undefined,
           isOpen: false
+        };
+      }
+
+      break;
+    }
+
+    case 'UPDATE_LOCK_MODAL': {
+      const {
+        slug,
+        lock,
+      } = payload;
+
+      if (slug && newState[slug].isOpen) {
+        newState[slug] = {
+          ...newState[slug],
+          slug,
+          locked: lock,
         };
       }
 
@@ -159,7 +189,7 @@ export const reducer = (
           return acc;
         }, undefined);
 
-      if (latestModal) {
+      if (latestModal && !latestModal.locked) {
         newState[latestModal.slug] = {
           ...newState[latestModal.slug],
           isOpen: false,
@@ -174,8 +204,8 @@ export const reducer = (
       newState = Object.entries((newState)).reduce((acc, [key, value]) => {
         acc[key] = {
           ...value,
-          isOpen: false,
-          openedOn: undefined,
+          isOpen: newState[key].locked ? newState[key].isOpen : false,
+          openedOn: newState[key].locked ? newState[key].openedOn : undefined,
         };
 
         return acc;
