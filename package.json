@@ -13,7 +13,7 @@
   },
   "sideEffects": false,
   "homepage:": "https://facelessui.com/docs/modal",
-  "repository": "git@github.com:faceless-ui/modal.git",
+  "repository": "git+https://github.com/faceless-ui/modal.git",
   "description": "America's next top modal",
   "author": {
     "email": "dev@facelessui.com",
