@@ -5,6 +5,7 @@ import React, {
   useRef,
   useEffect,
   useCallback,
+  useMemo,
   useReducer,
 } from 'react';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
@@ -73,8 +74,20 @@ export const ModalProvider: React.FC<ModalProviderProps> = (props) => {
   const [oneIsOpen, setOneIsOpen] = useState(false);
   const [closeOnBlur, setCloseOnBlur] = useState(false);
   const [bodyScrollIsLocked, setBodyScrollIsLocked] = useState(false);
-  const [cssString, setCSSString] = useState('');
   const escIsBound = useRef(false);
+
+  // Generate CSS synchronously during render so the <style> tag is present in
+  // the server-rendered HTML and the first hydration frame. Computing it in an
+  // effect (client-only) left closed modals unstyled until after hydration,
+  // causing them to flash into view under SSR frameworks like TanStack Start.
+  const cssString = useMemo(() => {
+    if (!shouldGenerateCSS) return '';
+    const newString = generateCSS({
+      classPrefix,
+      zIndex,
+    });
+    return minifyCSS ? newString.replace(/\n/g, '').replace(/\s\s+/g, ' ') : newString;
+  }, [shouldGenerateCSS, minifyCSS, zIndex, classPrefix]);
 
   const bindEsc = useCallback((e: KeyboardEvent) => {
     if (e.keyCode === 27) {
@@ -96,25 +109,6 @@ export const ModalProvider: React.FC<ModalProviderProps> = (props) => {
       }
     }
   }, [bindEsc]);
-
-  // Generate CSS to inject into stylesheet
-  useEffect(() => {
-    if (shouldGenerateCSS) {
-      let newString = '';
-      newString = generateCSS({
-        classPrefix,
-        zIndex
-      });
-
-      if (minifyCSS) newString = newString.replace(/\n/g, '').replace(/\s\s+/g, ' ');
-      setCSSString(newString);
-    }
-  }, [
-    shouldGenerateCSS,
-    minifyCSS,
-    zIndex,
-    classPrefix
-  ]);
 
   // Handle param changes
   useEffect(() => {
