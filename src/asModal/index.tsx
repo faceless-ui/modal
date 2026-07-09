@@ -44,6 +44,8 @@ export const asModal = <P extends ModalProps>(
       // trapFocus: true,
       // returnFocus: true,
       classPrefix: classPrefixFromProps,
+      onOpen,
+      onClose,
       onEnter,
       onEntering,
       onEntered,
@@ -59,6 +61,7 @@ export const asModal = <P extends ModalProps>(
     const classPrefixToUse = classPrefixFromProps || classPrefixFromContext;
     const slug = slugFromArg || slugFromProp;
 
+    const isInitialized = useRef(openOnInit);
     const isOpen = modalState[slug] && modalState[slug].isOpen;
 
     useEffect(() => {
@@ -136,6 +139,22 @@ export const asModal = <P extends ModalProps>(
     }, [
       isOpen,
       transTime,
+    ]);
+
+    useEffect(() => {
+      if (isOpen) {
+        onOpen?.();
+      } else if (isInitialized.current) {
+        onClose?.();
+      }
+
+      if (!isInitialized.current) {
+        isInitialized.current = true;
+      }
+    }, [
+      isOpen,
+      onOpen,
+      onClose
     ]);
 
     useEffect(() => {
