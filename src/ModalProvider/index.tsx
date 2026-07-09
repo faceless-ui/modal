@@ -90,7 +90,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = (props) => {
   }, [shouldGenerateCSS, minifyCSS, zIndex, classPrefix]);
 
   const bindEsc = useCallback((e: KeyboardEvent) => {
-    if (e.keyCode === 27) {
+    if (e.code === 'Escape') {
       dispatchModalState({
         type: 'CLOSE_LATEST_MODAL',
       })
