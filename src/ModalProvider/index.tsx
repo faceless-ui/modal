@@ -90,7 +90,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = (props) => {
   }, [shouldGenerateCSS, minifyCSS, zIndex, classPrefix]);
 
   const bindEsc = useCallback((e: KeyboardEvent) => {
-    if (e.keyCode === 27) {
+    if (e.key === 'Escape' || e.keyCode === 27) {
       dispatchModalState({
         type: 'CLOSE_LATEST_MODAL',
       })
@@ -188,8 +188,22 @@ export const ModalProvider: React.FC<ModalProviderProps> = (props) => {
     })
   }, [])
 
+  const updateModalLock = useCallback(({slug, lock}: {slug: string, lock: boolean}) => {
+    dispatchModalState({
+      type: 'UPDATE_LOCK_MODAL',
+      payload: {
+        slug,
+        lock,
+      }
+    })
+  }, [])
+
   const isModalOpen = useCallback((slug: string) => {
     return modalState[slug] && modalState[slug].isOpen;
+  }, [modalState])
+
+  const isModalLocked = useCallback((slug: string) => {
+    return Boolean(modalState[slug] && modalState[slug].locked);
   }, [modalState])
 
   const inheritedProps = { ...props };
@@ -219,6 +233,8 @@ export const ModalProvider: React.FC<ModalProviderProps> = (props) => {
           toggleModal,
           setBodyScrollLock,
           setContainerRef,
+          updateModalLock,
+          isModalLocked,
         }}
       >
         {children}

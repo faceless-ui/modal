@@ -6,6 +6,7 @@ export type ModalStatus = {
   slug: string
   isOpen: boolean
   openedOn?: number
+  locked?: boolean
 }
 
 export type ModalState = {
@@ -19,6 +20,10 @@ export interface IModalContext extends ModalProviderProps {
   modalState: ModalState
   oneModalIsOpen: boolean
   isModalOpen: (slug: string) => boolean // eslint-disable-line no-unused-vars
+  /**
+   * Check if a modal is locked (cannot be closed programmatically)
+   */
+  isModalLocked: (slug: string) => boolean // eslint-disable-line no-unused-vars
   closeOnBlur: boolean
   bodyScrollIsLocked: boolean
   classPrefix?: string
@@ -32,6 +37,11 @@ export interface IModalContext extends ModalProviderProps {
     shouldLock: boolean, // eslint-disable-line no-unused-vars
     excludingRef: HTMLElement // eslint-disable-line no-unused-vars
   ) => void
+  /**
+   * Set a modal to "locked" to prevent closing it when
+   * calling functions that would close it
+   */
+  updateModalLock: ({slug, lock}: {slug: string, lock: boolean}) => void // eslint-disable-line no-unused-vars
 }
 
 export const ModalContext = createContext<IModalContext>({} as IModalContext);
