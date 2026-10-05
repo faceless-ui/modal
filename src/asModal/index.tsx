@@ -128,6 +128,7 @@ export const asModal = <P extends ModalProps>(
       isOpen,
       lockBodyScroll,
       setBodyScrollLock,
+      hasMounted,
     ]);
 
     const [timedOpen, setTimedOpen] = useState(isOpen);
