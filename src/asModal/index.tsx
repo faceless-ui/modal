@@ -23,6 +23,7 @@ export const asModal = <P extends ModalProps>(
     const [layTrap, setLayTrap] = useState(false);
     const trapHasBeenLayed = useRef(false);
     const [trap, setTrap] = useState<FocusTrap | null>(null);
+    const [hasMounted, setHasMounted] = useState(false);
 
     const {
       modalState,
@@ -83,6 +84,7 @@ export const asModal = <P extends ModalProps>(
 
     useEffect(() => {
       setLayTrap(true);
+      setHasMounted(true);
     }, [])
 
     useEffect(() => {
@@ -126,6 +128,7 @@ export const asModal = <P extends ModalProps>(
       isOpen,
       lockBodyScroll,
       setBodyScrollLock,
+      hasMounted,
     ]);
 
     const [timedOpen, setTimedOpen] = useState(isOpen);
@@ -148,7 +151,7 @@ export const asModal = <P extends ModalProps>(
       openModal
     ]);
 
-    if (containerRef.current) {
+    if (hasMounted && containerRef.current) {
       const baseClass = classPrefixToUse ? `${classPrefixToUse}__${itemBaseClass}` : itemBaseClass;
 
       const mergedClasses = [
