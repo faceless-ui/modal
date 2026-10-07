@@ -11,11 +11,7 @@ const ModalControls: React.FC<ModalPropsWithContext> = (props) => {
     lockBodyScroll,
   } = props;
 
-  const {
-    closeOnBlur,
-    closeAllModals,
-    toggleModal,
-  } = useModal();
+  const { closeOnBlur, closeAllModals, toggleModal, updateModalLock, isModalLocked } = useModal();
 
   return (
     <Fragment>
@@ -46,6 +42,22 @@ const ModalControls: React.FC<ModalPropsWithContext> = (props) => {
         esc key
       </button>
       <br />
+      <br />
+      <label htmlFor="lockOpen">
+        <code>Lock Open:&nbsp;</code>
+        <input
+          type="checkbox"
+          id="lockOpen"
+          onChange={(e) => {
+            updateModalLock({
+              slug,
+              lock: Boolean(e.target.value === "true"),
+            })
+          }}
+          value={Boolean(!isModalLocked(slug)).toString() || ""}
+          checked={isModalLocked(slug)}
+        />
+      </label>
       <br />
       <label htmlFor="closeOnBlur">
         <code>closeOnBlur:&nbsp;</code>
